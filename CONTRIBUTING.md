@@ -27,7 +27,7 @@ Before you submit your PR, consider the following guidelines:
     git push origin feature/my_feature_branch
     ```
 
-* In GitHub web UI, create PR to `http4s-realworld:master`.
+* In GitHub web UI, create PR to `scala-http4s-realworld-example-app:master`.
 
 * Ask a core team member to review your changes, if changes are suggested then:
   * Make the required updates.
