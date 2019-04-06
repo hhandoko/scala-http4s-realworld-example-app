@@ -24,11 +24,15 @@ Now you can visit the app on [`localhost:8080`](http://localhost:8080) from your
 
 # Progress
 
+Backend API implementation:
+
   - [ ] Auth (0 of 5)
   - [ ] Articles (0 of 4)
   - [ ] Article, Favorite, Comments (0 of 17)
   - [ ] Profiles (0 of 4)
-  - [x] Tags (1 of 1)
+  - [x] Tags
+
+Please read [PROGRESS] for more details.
 
 # Contributing
 
@@ -62,11 +66,12 @@ Please read [CONTRIBUTING] for more details.
     limitations under the License.
 ```
 
-`http4s-realworld` is released under the Apache Version 2.0 License. See the [LICENSE] file for further details.
+`scala-http4s-realworld-example-app` is released under the Apache Version 2.0 License. See the [LICENSE] file for further details.
 
 
 [CONTRIBUTING]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/CONTRIBUTING.md
 [feature-branch]: http://nvie.com/posts/a-successful-git-branching-model/
 [Java SDK]: https://adoptopenjdk.net/
 [LICENSE]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/LICENSE
+[PROGRESS]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/PROGRESS.md
 [sbt]: https://www.scala-sbt.org/
