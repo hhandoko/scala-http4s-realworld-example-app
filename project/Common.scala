@@ -26,7 +26,6 @@ object Common {
       "ch.qos.logback"        %  "logback-classic"     % logbackVersion,
       "com.github.pureconfig" %% "pureconfig"          % pureConfigVersion,
       "io.circe"              %% "circe-generic"       % circeVersion,
-      "org.http4s"            %% "http4s-blaze-client" % http4sVersion,
       "org.http4s"            %% "http4s-blaze-server" % http4sVersion,
       "org.http4s"            %% "http4s-circe"        % http4sVersion,
       "org.http4s"            %% "http4s-dsl"          % http4sVersion,
