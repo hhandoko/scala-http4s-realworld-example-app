@@ -13,3 +13,7 @@ addSbtPlugin("io.spray" % "sbt-revolver" % "0.9.1")
 // Pass partial unification Scala compiler flag
 // See: https://github.com/fiadliel/sbt-partial-unification
 addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
+
+// Check Maven and Ivy repositories for dependency updates
+// See: https://github.com/rtimush/sbt-updates
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.4.0")
