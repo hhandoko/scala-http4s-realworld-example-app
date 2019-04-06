@@ -30,7 +30,7 @@ object Server {
   }
 
   private[this] def loggedRoutes[F[_]: ConcurrentEffect](conf: Config, routes: HttpRoutes[F]): HttpRoutes[F] =
-    Logger.httpRoutes(conf.server.log.requestHeader, conf.server.log.requestBody) { routes }
+    Logger.httpRoutes(conf.log.httpHeader, conf.log.httpBody) { routes }
 
   private[this] def server[F[_]: ConcurrentEffect: ContextShift: Timer](
     config: Config,
