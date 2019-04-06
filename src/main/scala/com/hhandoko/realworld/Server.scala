@@ -13,14 +13,13 @@ import com.hhandoko.realworld.tag.{TagRoutes, TagService}
 object Server {
 
   def run[F[_]: ConcurrentEffect: ContextShift: Timer]: Resource[F, BlazeServer[F]] = {
-    val tagService   = TagService.impl[F]
-    val routes       = TagRoutes[F](tagService)
-    // TODO: Use configuration to enable header and body logging for development only
-    val loggedRoutes = Logger.httpRoutes(logHeaders = true, logBody = true) { routes }
+    val tagService = TagService.impl[F]
+    val routes     = TagRoutes[F](tagService)
 
     for {
       conf <- config[F]
-      svr  <- server[F](conf, loggedRoutes)
+      rts   = loggedRoutes(conf, routes)
+      svr  <- server[F](conf, rts)
     } yield svr
   }
 
@@ -29,6 +28,9 @@ object Server {
 
     Resource.liftF(loadConfigF[F, Config])
   }
+
+  private[this] def loggedRoutes[F[_]: ConcurrentEffect](conf: Config, routes: HttpRoutes[F]): HttpRoutes[F] =
+    Logger.httpRoutes(conf.server.log.requestHeader, conf.server.log.requestBody) { routes }
 
   private[this] def server[F[_]: ConcurrentEffect: ContextShift: Timer](
     config: Config,
