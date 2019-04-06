@@ -47,7 +47,7 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
 
 #### Technical Tasks
 
-  - [ ] Continuous test pipeline
+  - [x] Continuous test pipeline
   - [ ] PostgreSQL storage support
   - [ ] H2 storage support
   - [ ] Database migrations
