@@ -14,13 +14,14 @@ object Server {
     val host = Option(System.getenv("APP_HOST")).getOrElse("0.0.0.0")
     val port = Option(System.getenv("APP_PORT")).map(_.toInt).getOrElse(8080)
 
-    val tagService = TagService.impl[F]
-    val routes     = TagRoutes[F](tagService).orNotFound
-    val httpApp    = Logger.httpApp(logHeaders = true, logBody = true)(routes)
+    val tagService   = TagService.impl[F]
+    val routes       = TagRoutes[F](tagService)
+    // TODO: Use configuration to enable header and body logging for development only
+    val loggedRoutes = Logger.httpRoutes(logHeaders = true, logBody = true) { routes }
 
     BlazeServerBuilder[F]
       .bindHttp(port, host)
-      .withHttpApp(httpApp)
+      .withHttpApp(loggedRoutes.orNotFound)
       .serve
   }
 
