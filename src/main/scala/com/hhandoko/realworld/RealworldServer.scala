@@ -17,7 +17,6 @@ object RealworldServer {
   def stream[F[_]: ConcurrentEffect: ContextShift](implicit T: Timer[F]): Stream[F, Nothing] = {
     for {
       client        <- BlazeClientBuilder[F](global).stream
-      helloWorldAlg  = HelloWorld.impl[F]
       jokeAlg        = Jokes.impl[F](client)
       tagService     = TagService.impl[F]
 
@@ -26,7 +25,6 @@ object RealworldServer {
       // want to extract a segments not checked
       // in the underlying routes.
       httpApp = (
-        RealworldRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
         RealworldRoutes.jokeRoutes[F](jokeAlg) <+>
         TagRoutes[F](tagService)
       ).orNotFound
