@@ -35,7 +35,7 @@ clean_dist_folder() {
 # Create an uber-jar and copy the artifact to the distribution folder
 create_assembly() {
     echo "${C_YELLOW}Packaging into uber-jar${C_RESET}"
-    sbt -mem 2048 assembly
+    sbt -mem 4096 assembly
     cp target/scala-2.12/${APP_JAR} ${DIST_FOLDER}
 }
 
