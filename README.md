@@ -1,3 +1,5 @@
+[![Master Build Status](https://api.travis-ci.org/hhandoko/scala-http4s-realworld-example-app.svg?branch=master)](https://travis-ci.org/hhandoko/scala-http4s-realworld-example-app)
+
 # ![RealWorld Example App using Scala and http4s](media/http4s-realworld-logo.png)
 
 > ### Scala + http4s codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
