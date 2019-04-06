@@ -22,6 +22,14 @@ Ensure the following dependencies are installed and configured:
 
 Now you can visit the app on [`localhost:8080`](http://localhost:8080) from your browser.
 
+# Progress
+
+  - [ ] Auth (0 of 5)
+  - [ ] Articles (0 of 4)
+  - [ ] Article, Favorite, Comments (0 of 17)
+  - [ ] Profiles (0 of 4)
+  - [x] Tags (1 of 1)
+
 # Contributing
 
 We follow the "[feature-branch]" Git workflow.
