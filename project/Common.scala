@@ -8,13 +8,13 @@ object Common {
 
   // Dependency versions
   private val circeVersion      = "0.11.1"
-  private val http4sVersion     = "0.20.0-M6"
+  private val http4sVersion     = "0.20.0-RC1"
   private val logbackVersion    = "1.2.3"
   private val pureConfigVersion = "0.10.2"
   private val specs2Version     = "4.5.1"
 
   // Compiler plugin dependency versions
-  private val kindProjectorVersion    = "0.9.8"
+  private val kindProjectorVersion    = "0.9.9"
   private val betterMonadicForVersion = "0.2.4"
 
   val settings = Seq(
