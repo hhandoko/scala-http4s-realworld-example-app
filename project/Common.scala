@@ -42,14 +42,15 @@ object Common {
     addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % betterMonadicForVersion)
   )
 
-  /** Basic auto-closing implementation for closeable resource.
-    * 
-    * @param res Closeable resource.
-    * @param fn Lambda function performing resource operations.
-    * @tparam T Resource type parameters.
-    * @tparam U Lambda function result type parameters.
-    * @return Lambda function result.
-    */
+  /**
+   * Basic auto-closing implementation for closeable resource.
+   * 
+   * @param res Closeable resource.
+   * @param fn Lambda function performing resource operations.
+   * @tparam T Resource type parameters.
+   * @tparam U Lambda function result type parameters.
+   * @return Lambda function result.
+   */
   private[this] def using[T <: Closeable, U](res: T)(fn: T => U): U =
     try { fn(res) } finally { res.close() }
 
