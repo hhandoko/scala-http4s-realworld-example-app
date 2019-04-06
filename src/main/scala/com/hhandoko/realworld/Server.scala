@@ -1,28 +1,47 @@
 package com.hhandoko.realworld
 
-import cats.effect.{ConcurrentEffect, ContextShift, ExitCode, Timer}
-import fs2.Stream
-import org.http4s.implicits._
+import cats.effect.{ConcurrentEffect, ContextShift, Resource, Sync, Timer}
+import org.http4s.HttpRoutes
+import org.http4s.server.{Server => BlazeServer}
 import org.http4s.server.blaze.BlazeServerBuilder
 import org.http4s.server.middleware.Logger
+import pureconfig.module.catseffect.loadConfigF
 
+import com.hhandoko.realworld.config.Config
 import com.hhandoko.realworld.tag.{TagRoutes, TagService}
 
 object Server {
 
-  def stream[F[_]: ConcurrentEffect: ContextShift: Timer]: Stream[F, ExitCode] = {
-    val host = Option(System.getenv("APP_HOST")).getOrElse("0.0.0.0")
-    val port = Option(System.getenv("APP_PORT")).map(_.toInt).getOrElse(8080)
+  def run[F[_]: ConcurrentEffect: ContextShift: Timer]: Resource[F, BlazeServer[F]] = {
+    val tagService = TagService.impl[F]
+    val routes     = TagRoutes[F](tagService)
 
-    val tagService   = TagService.impl[F]
-    val routes       = TagRoutes[F](tagService)
-    // TODO: Use configuration to enable header and body logging for development only
-    val loggedRoutes = Logger.httpRoutes(logHeaders = true, logBody = true) { routes }
+    for {
+      conf <- config[F]
+      rts   = loggedRoutes(conf, routes)
+      svr  <- server[F](conf, rts)
+    } yield svr
+  }
+
+  private[this] def config[F[_]: Sync]: Resource[F, Config] = {
+    import pureconfig.generic.auto._
+
+    Resource.liftF(loadConfigF[F, Config])
+  }
+
+  private[this] def loggedRoutes[F[_]: ConcurrentEffect](conf: Config, routes: HttpRoutes[F]): HttpRoutes[F] =
+    Logger.httpRoutes(conf.log.httpHeader, conf.log.httpBody) { routes }
+
+  private[this] def server[F[_]: ConcurrentEffect: ContextShift: Timer](
+    config: Config,
+    routes: HttpRoutes[F]
+  ): Resource[F, BlazeServer[F]] = {
+    import org.http4s.implicits._
 
     BlazeServerBuilder[F]
-      .bindHttp(port, host)
-      .withHttpApp(loggedRoutes.orNotFound)
-      .serve
+      .bindHttp(config.server.port, config.server.host)
+      .withHttpApp(routes.orNotFound)
+      .resource
   }
 
 }
