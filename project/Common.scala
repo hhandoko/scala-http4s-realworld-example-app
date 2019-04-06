@@ -20,12 +20,12 @@ object Common {
   val settings = Seq(
     organization := "com.hhandoko",
     name := "realworld",
-    version := using(Source.fromFile("VERSION.txt")) { file => file.mkString },
+    version := using(Source.fromFile("VERSION.txt")) { _.mkString },
     scalaVersion := "2.12.8",
     libraryDependencies ++= Seq(
-      "io.circe"              %% "circe-generic"       % circeVersion,
       "ch.qos.logback"        %  "logback-classic"     % logbackVersion,
       "com.github.pureconfig" %% "pureconfig"          % pureConfigVersion,
+      "io.circe"              %% "circe-generic"       % circeVersion,
       "org.http4s"            %% "http4s-blaze-client" % http4sVersion,
       "org.http4s"            %% "http4s-blaze-server" % http4sVersion,
       "org.http4s"            %% "http4s-circe"        % http4sVersion,
@@ -42,6 +42,14 @@ object Common {
     addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % betterMonadicForVersion)
   )
 
+  /** Basic auto-closing implementation for closeable resource.
+    * 
+    * @param res Closeable resource.
+    * @param fn Lambda function performing resource operations.
+    * @tparam T Resource type parameters.
+    * @tparam U Lambda function result type parameters.
+    * @return Lambda function result.
+    */
   private[this] def using[T <: Closeable, U](res: T)(fn: T => U): U =
     try { fn(res) } finally { res.close() }
 
