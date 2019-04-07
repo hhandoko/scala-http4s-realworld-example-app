@@ -3,14 +3,18 @@ LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM assembler"
 
 WORKDIR     assembler
-COPY        project/*.properties project/*.scala project/*.sbt project/
+# Copy only the required files to setup sbt
+COPY        project/*.properties project/*.sbt project/
 COPY        project/project/*.sbt project/project/
-COPY        src/ src/
-COPY        build.sbt VERSION.txt ./
 RUN         (SBT_VERSION=$(cat project/build.properties | cut -d '=' -f 2 | tr -d '[:space:]') \
               && curl -L -O https://piccolo.link/sbt-${SBT_VERSION}.tgz \
               && tar -xzf sbt-${SBT_VERSION}.tgz \
               && ./sbt/bin/sbt -mem 4096 sbtVersion)
+
+# Copy the rest of the application source files
+COPY        project/*.scala project/
+COPY        src/ src/
+COPY        build.sbt VERSION.txt ./
 RUN         ./sbt/bin/sbt -mem 4096 clean assembly
 
 # ~~~~~~
