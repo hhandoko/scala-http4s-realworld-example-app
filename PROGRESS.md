@@ -2,7 +2,7 @@
 
 Latest API spec and resources can be found on: [https://github.com/gothinkster/realworld/tree/master/api](https://github.com/gothinkster/realworld/tree/master/api)
 
-#### RealWorld Backend API Implementation
+### RealWorld Backend API Implementation
 
 **Auth:**
   - [ ] Register
@@ -45,11 +45,11 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
 **Tags:**
   - [x] All Tags
 
-#### Technical Tasks
+### Technical Tasks
 
   - [x] Continuous test pipeline
   - [ ] PostgreSQL storage support
   - [ ] H2 storage support
   - [ ] Database migrations
   - [ ] Rho support
-  - [ ] GraalVM native-image support
+  - [x] GraalVM native-image support
