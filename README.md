@@ -14,7 +14,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 Ensure the following dependencies are installed and configured:
 
-  - [Java SDK] 8
+  - [Java SDK] 8 or [GraalVM] 1.0.x
   - [sbt] 1.2.x
 
 ### Setup Steps
@@ -22,7 +22,37 @@ Ensure the following dependencies are installed and configured:
   - Run `sbt test` to run the test suite
   - Run `sbt run` to run the web application
 
-Now you can visit the app on [`localhost:8080`](http://localhost:8080) from your browser.
+The app is now accessible from [`localhost:8080`](http://localhost:8080).
+
+### Production Packaging (uber-jar)
+
+To package and run it as an uber-jar:
+
+  1. Run `sbt assembly` to package the application into an uber-jar (`realworld-assembly-1.0.0-SNAPSHOT.jar`)
+  1. Run `java -jar target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar` to run the web application
+
+### Production Packaging (Graal Native Image)
+
+Ensure Graal is downloaded and its binaries folder added to `PATH`. To package and run it as a Graal native image:
+
+```shell
+native-image \
+  --no-server \
+  --class-path target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar \
+  -H:Class=com.hhandoko.realworld.Main \
+  -H:EnableURLProtocols=http \
+  -H:IncludeResources='logback.xml|application.conf' \
+  -H:Name=realworld \
+  -H:+AllowVMInspection \
+  -H:+ReportUnsupportedElementsAtRuntime)
+```
+
+  - Run `./realworld` to run the web application
+
+Alternatively:
+
+  1. Run `./scripts/graal/bin/setup.sh` to download and setup Graal.
+  1. Run `./scripts/graal/bin/dist.sh` to create a native image distribution under the `/dist` directory.
 
 # Progress
 
@@ -73,6 +103,7 @@ Please read [CONTRIBUTING] for more details.
 
 [CONTRIBUTING]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/CONTRIBUTING.md
 [feature-branch]: http://nvie.com/posts/a-successful-git-branching-model/
+[GraalVM]: https://www.graalvm.org/
 [Java SDK]: https://adoptopenjdk.net/
 [LICENSE]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/LICENSE
 [PROGRESS]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/PROGRESS.md
