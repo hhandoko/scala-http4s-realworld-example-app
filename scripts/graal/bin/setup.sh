@@ -20,6 +20,25 @@ GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_VERSION}
 GRAAL_FILE=graalvm-ce-${GRAAL_VERSION}-linux-amd64.tar.gz
 GRAAL_SITE=https://github.com/oracle/graal/releases/download/vm-${GRAAL_VERSION}/${GRAAL_FILE}
 
+# Choose Graal SDK distribution for supported OSes
+OS_NAME="`uname`"
+set_graal_dist() {
+    case "${OS_NAME}" in
+        'Linux')
+            echo "${C_YELLOW}Using Graal linux distribution${C_RESET}"
+            GRAAL_FILE=graalvm-ce-${GRAAL_VERSION}-linux-amd64.tar.gz
+            ;;
+        'Darwin')
+            echo "${C_YELLOW}Using Graal OS X distribution${C_RESET}"
+            GRAAL_FILE=graalvm-ce-${GRAAL_VERSION}-macos-amd64.tar.gz
+            ;;
+        *)
+            echo "${C_RED}No Graal distribution for your operating system yet (${OS_NAME})${C_RESET}"
+            exit 1
+            ;;
+    esac
+}
+
 # Download Graal SDK
 setup_graal() {
     if [ ! -d "${GRAAL_HOME}" ] ; then
@@ -41,4 +60,5 @@ setup_graal() {
 
 # Run
 # ~~~~~~
+set_graal_dist
 setup_graal
