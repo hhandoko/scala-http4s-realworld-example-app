@@ -38,7 +38,7 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
 
 **Profiles:**
   - [ ] Register Celeb
-  - [ ] Profile
+  - [x] Profile
   - [ ] Follow Profile
   - [ ] Unfollow Profile
 
@@ -51,5 +51,6 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
   - [ ] PostgreSQL storage support
   - [ ] H2 storage support
   - [ ] Database migrations
+  - [ ] Auto-JSON serialization
   - [ ] Rho support
   - [x] GraalVM native-image support

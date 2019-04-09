@@ -1,20 +1,25 @@
 package com.hhandoko.realworld
 
 import cats.effect.{ConcurrentEffect, ContextShift, Resource, Sync, Timer}
+import cats.implicits._
 import org.http4s.HttpRoutes
-import org.http4s.server.{Server => BlazeServer}
 import org.http4s.server.blaze.BlazeServerBuilder
 import org.http4s.server.middleware.Logger
+import org.http4s.server.{Server => BlazeServer}
 import pureconfig.module.catseffect.loadConfigF
 
 import com.hhandoko.realworld.config.Config
+import com.hhandoko.realworld.profile.{ProfileRoutes, ProfileService}
 import com.hhandoko.realworld.tag.{TagRoutes, TagService}
 
 object Server {
 
   def run[F[_]: ConcurrentEffect: ContextShift: Timer]: Resource[F, BlazeServer[F]] = {
+    val profileService = ProfileService.impl[F]
     val tagService = TagService.impl[F]
-    val routes     = TagRoutes[F](tagService)
+    val routes =
+      ProfileRoutes[F](profileService) <+>
+      TagRoutes[F](tagService)
 
     for {
       conf <- config[F]
