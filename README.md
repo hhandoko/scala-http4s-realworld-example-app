@@ -44,7 +44,7 @@ native-image \
   -H:IncludeResources='logback.xml|application.conf' \
   -H:Name=realworld \
   -H:+AllowVMInspection \
-  -H:+ReportUnsupportedElementsAtRuntime)
+  -H:+ReportUnsupportedElementsAtRuntime
 ```
 
   - Run `./realworld` to run the web application
@@ -61,7 +61,7 @@ Backend API implementation:
   - [ ] Auth (0 of 5)
   - [ ] Articles (0 of 4)
   - [ ] Article, Favorite, Comments (0 of 17)
-  - [ ] Profiles (0 of 4)
+  - [ ] Profiles (1 of 4)
   - [x] Tags
 
 Please read [PROGRESS] for more details.
