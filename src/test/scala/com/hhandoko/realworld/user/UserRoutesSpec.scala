@@ -8,7 +8,7 @@ import org.http4s.implicits._
 import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
-import com.hhandoko.realworld.core.{User, Username}
+import com.hhandoko.realworld.core.{JwtToken, User, Username}
 
 class UserRoutesSpec extends Specification { def is = s2"""
 
@@ -17,7 +17,7 @@ class UserRoutesSpec extends Specification { def is = s2"""
     should return user info       $uriReturnsUserInfo
   """
 
-  private[this] val retAllTags: Response[IO] = {
+  private[this] val retCurrentUser: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
     val getCurrentUser = Request[IO](Method.GET, Uri.uri("/api/user"))
@@ -28,14 +28,14 @@ class UserRoutesSpec extends Specification { def is = s2"""
   }
 
   private[this] def uriReturns200: MatchResult[Status] =
-    retAllTags.status must beEqualTo(Status.Ok)
+    retCurrentUser.status must beEqualTo(Status.Ok)
 
   private[this] def uriReturnsUserInfo: MatchResult[String] =
-    retAllTags.as[String].unsafeRunSync() must beEqualTo("""{"user":{"email":"me@test.com","token":"this.jwt.token","username":"me","bio":null,"image":null}}""")
+    retCurrentUser.as[String].unsafeRunSync() must beEqualTo("""{"user":{"email":"me@test.com","token":"this.jwt.token","username":"me","bio":null,"image":null}}""")
 
   object FakeUserService extends UserService[IO] {
     def get(username: Username): IO[Option[User]] = IO.pure {
-      Some(User(s"${username.value}@test.com", "this.jwt.token", username, None, None))
+      Some(User(s"${username.value}@test.com", JwtToken("this.jwt.token"), username, None, None))
     }
   }
 

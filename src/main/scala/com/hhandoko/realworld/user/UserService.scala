@@ -3,13 +3,14 @@ package com.hhandoko.realworld.user
 import cats.Applicative
 import cats.implicits._
 
+import com.hhandoko.realworld.auth.JwtSupport
 import com.hhandoko.realworld.core.{User, Username}
 
 trait UserService[F[_]] {
   def get(username: Username): F[Option[User]]
 }
 
-object UserService {
+object UserService extends JwtSupport {
 
   implicit def apply[F[_]](implicit ev: UserService[F]): UserService[F] = ev
 
@@ -19,7 +20,7 @@ object UserService {
         Option(
           User(
             email = s"${username.value}@test.com",
-            token = "this.jwt.token",
+            token = generateToken(),
             username = username,
             bio = None,
             image = None

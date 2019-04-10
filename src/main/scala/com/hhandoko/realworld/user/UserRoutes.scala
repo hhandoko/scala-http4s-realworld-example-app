@@ -21,7 +21,7 @@ object UserRoutes {
         for {
           usrOpt <- userService.get(Username("me"))
           res    <- usrOpt.fold(NotFound()) { usr =>
-            Ok(UserResponse(usr.email, usr.token, usr.username.value, usr.bio, usr.image))
+            Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
           }
         } yield res
     }

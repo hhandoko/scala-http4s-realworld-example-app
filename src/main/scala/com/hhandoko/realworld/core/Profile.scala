@@ -8,7 +8,7 @@ final case class Profile(
 
 final case class User(
   email: String,
-  token: String, // TODO: To update with JWT token
+  token: JwtToken,
   username: Username,
   bio: Option[String],
   image: Option[String]
