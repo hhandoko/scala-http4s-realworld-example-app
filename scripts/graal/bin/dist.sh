@@ -50,8 +50,9 @@ create_native() {
     echo "${C_YELLOW}Packaging into native image${C_RESET}"
     (cd ${DIST_FOLDER} \
         && ../${GRAAL_HOME}/bin/native-image \
-              --no-server \
               --class-path ${APP_JAR} \
+              --enable-all-security-services \
+              --no-server \
               -H:Class=com.hhandoko.realworld.Main \
               -H:EnableURLProtocols=http \
               -H:IncludeResources='logback.xml|application.conf' \
