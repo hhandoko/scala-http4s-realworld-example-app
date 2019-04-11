@@ -27,6 +27,10 @@ GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
 GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_VERSION}
 GRAAL_BIN=''
 
+# SunEC path
+SUNEC_PLATFORM=amd64
+SUNEC_PATH=${GRAAL_HOME}/jre/lib/${SUNEC_PLATFORM}
+
 # Choose Graal SDK distribution for supported OSes
 OS_NAME="`uname`"
 set_graal_dist() {
@@ -81,9 +85,16 @@ create_native() {
               -H:+ReportUnsupportedElementsAtRuntime)
 }
 
+# Copy SunEC native library
+copy_sunec() {
+    echo "${C_YELLOW}Copying SunEC library${C_RESET}"
+    cp -f ${SUNEC_PATH}/libsunec.so ${DIST_FOLDER}
+}
+
 # Run
 # ~~~~~~
 set_graal_dist
 clean_dist_folder
 create_assembly
 create_native
+copy_sunec
