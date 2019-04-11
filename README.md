@@ -68,7 +68,7 @@ Please read [PROGRESS] for more details.
 
 # Issues
 
-  - Native image generation, `javax.crypto.JceSecurity.getCodeBase(Class)` ([graal/#1152](https://github.com/oracle/graal/issues/1152))
+  - ~~Native image generation, `javax.crypto.JceSecurity.getCodeBase(Class)` ([graal/#1152](https://github.com/oracle/graal/issues/1152))~~
 
 # Contributing
 
