@@ -17,8 +17,8 @@ GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
 GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_VERSION}
 
 # Graal download and tarball name
-GRAAL_FILE=graalvm-ce-${GRAAL_VERSION}-linux-amd64.tar.gz
-GRAAL_SITE=https://github.com/oracle/graal/releases/download/vm-${GRAAL_VERSION}/${GRAAL_FILE}
+GRAAL_FILE=''
+GRAAL_SITE=https://github.com/oracle/graal/releases/download
 
 # Choose Graal SDK distribution for supported OSes
 OS_NAME="`uname`"
@@ -46,7 +46,7 @@ setup_graal() {
             echo "${C_YELLOW}Downloading Graal tarball${C_RESET}"
             (mkdir -p ${TEMP_DIR} \
                 && cd ${TEMP_DIR} \
-                && curl -L -O ${GRAAL_SITE})
+                && curl -L -O ${GRAAL_SITE}/vm-${GRAAL_VERSION}/${GRAAL_FILE})
         fi
 
         echo "${C_YELLOW}Unpacking Graal${C_RESET}"

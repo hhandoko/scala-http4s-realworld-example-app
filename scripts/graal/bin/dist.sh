@@ -25,6 +25,26 @@ APP_JAR=${APP_NAME}.jar
 GRAAL_DIR=scripts/graal
 GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
 GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_VERSION}
+GRAAL_BIN=''
+
+# Choose Graal SDK distribution for supported OSes
+OS_NAME="`uname`"
+set_graal_dist() {
+    case "${OS_NAME}" in
+        'Linux')
+            echo "${C_YELLOW}Using Graal linux distribution${C_RESET}"
+            GRAAL_BIN='bin'
+            ;;
+        'Darwin')
+            echo "${C_YELLOW}Using Graal OS X distribution${C_RESET}"
+            GRAAL_BIN='Contents/Home/bin'
+            ;;
+        *)
+            echo "${C_RED}No Graal distribution for your operating system yet (${OS_NAME})${C_RESET}"
+            exit 1
+            ;;
+    esac
+}
 
 # Create distribution folder if it doesn't exist, and clear the contents
 clean_dist_folder() {
@@ -49,7 +69,7 @@ create_native() {
 
     echo "${C_YELLOW}Packaging into native image${C_RESET}"
     (cd ${DIST_FOLDER} \
-        && ../${GRAAL_HOME}/bin/native-image \
+        && ../${GRAAL_HOME}/${GRAAL_BIN}/native-image \
               --class-path ${APP_JAR} \
               --enable-all-security-services \
               --no-server \
@@ -63,6 +83,7 @@ create_native() {
 
 # Run
 # ~~~~~~
+set_graal_dist
 clean_dist_folder
 create_assembly
 create_native
