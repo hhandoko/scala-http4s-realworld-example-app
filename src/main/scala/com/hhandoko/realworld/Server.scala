@@ -11,15 +11,18 @@ import pureconfig.module.catseffect.loadConfigF
 import com.hhandoko.realworld.config.Config
 import com.hhandoko.realworld.profile.{ProfileRoutes, ProfileService}
 import com.hhandoko.realworld.tag.{TagRoutes, TagService}
+import com.hhandoko.realworld.user.{UserRoutes, UserService}
 
 object Server {
 
   def run[F[_]: ConcurrentEffect: ContextShift: Timer]: Resource[F, BlazeServer[F]] = {
     val profileService = ProfileService.impl[F]
     val tagService = TagService.impl[F]
+    val userService = UserService.impl[F]
     val routes =
       ProfileRoutes[F](profileService) <+>
-      TagRoutes[F](tagService)
+      TagRoutes[F](tagService) <+>
+      UserRoutes[F](userService)
 
     for {
       conf <- config[F]

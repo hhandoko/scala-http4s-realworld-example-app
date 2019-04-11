@@ -9,6 +9,7 @@ object Common {
   // Dependency versions
   private val circeVersion      = "0.11.1"
   private val http4sVersion     = "0.20.0-RC1"
+  private val jwtCirceVersion   = "2.1.0"
   private val logbackVersion    = "1.2.3"
   private val pureConfigVersion = "0.10.2"
   private val specs2Version     = "4.5.1"
@@ -26,6 +27,7 @@ object Common {
       "ch.qos.logback"        %  "logback-classic"        % logbackVersion,
       "com.github.pureconfig" %% "pureconfig"             % pureConfigVersion,
       "com.github.pureconfig" %% "pureconfig-cats-effect" % pureConfigVersion,
+      "com.pauldijou"         %% "jwt-circe"              % jwtCirceVersion,
       "io.circe"              %% "circe-generic"          % circeVersion,
       "org.http4s"            %% "http4s-blaze-server"    % http4sVersion,
       "org.http4s"            %% "http4s-circe"           % http4sVersion,

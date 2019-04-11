@@ -13,8 +13,8 @@ import com.hhandoko.realworld.core.Tag
 class TagRoutesSpec extends Specification { def is = s2"""
 
   Tag routes
-    should return 200 OK status          $uriReturns200
-    should return an array of 'tags'     $uriReturnsTagArray
+    should return 200 OK status        $uriReturns200
+    should return an array of 'tags'   $uriReturnsTagArray
   """
 
   private[this] val retAllTags: Response[IO] = {
