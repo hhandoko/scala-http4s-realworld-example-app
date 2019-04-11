@@ -1,30 +1,25 @@
 package com.hhandoko.realworld.auth
 
-//import java.time.Instant
-//
-//import pdi.jwt.{JwtAlgorithm, JwtCirce, JwtClaim}
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 
-import pdi.jwt.JwtAlgorithm
-
-import com.hhandoko.realworld.core.JwtToken
+import com.hhandoko.realworld.core.{JwtToken, Username}
 
 trait JwtSupport {
 
+  final val CLAIM_USERNAME = "username"
+
   // TODO: Move to configuration
   final val SECRET = "S3cret!"
-  final val ALGO = JwtAlgorithm.HS256
+  final val ALGO = Algorithm.HMAC256(SECRET)
 
-  def generateToken(): JwtToken = {
-    // TODO: Make expiration configurable, and use Scala time classes
-    // FIXME: Graal native-image throws runtime error
-    // See: https://github.com/oracle/graal/issues/1152
-//    val claim = JwtClaim(
-//      expiration = Some(Instant.now.plusSeconds(157784760).getEpochSecond),
-//      issuedAt = Some(Instant.now.getEpochSecond)
-//    )
-//
-//    JwtToken(JwtCirce.encode(claim, SECRET, ALGO))
-    JwtToken("some.fake.token")
-  }
+  def generateToken(username: Username): JwtToken =
+    JwtToken {
+      // TODO: Make expiration configurable, and use Scala time classes
+      JWT.create()
+        // Private claims
+        .withClaim(CLAIM_USERNAME, username.value)
+        .sign(ALGO)
+    }
 
 }
