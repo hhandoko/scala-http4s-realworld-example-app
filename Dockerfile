@@ -49,6 +49,7 @@ LABEL       description="http4s GraalVM native-image runtime container"
 
 WORKDIR     app
 COPY        --from=packager /packager/realworld ./
+COPY        --from=packager /opt/graalvm-ce-1.0.0-rc14/jre/lib/amd64/libsunec.so ./
 
 EXPOSE      8080
 ENTRYPOINT  ["./realworld"]
