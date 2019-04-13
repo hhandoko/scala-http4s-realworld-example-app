@@ -18,12 +18,8 @@ class JwtSupportSpec extends Specification { def is = s2"""
   private val username = (1 to 10).map(_ => Random.alphanumeric).mkString
 
   private[this] val tokenToTest: JwtToken =
-    Username(username) |> JwtTokenTester.encodeToken
+    JwtTokenTester.encodeToken(Username(username))
 
   private[this] def tokenHasValidUsername: MatchResult[String] =
-    (tokenToTest |> JwtTokenTester.decodeToken).value must beEqualTo(username)
-
-  implicit class PipeSyntax[T](t: T) {
-    def |>[U](fn: T => U): U = fn(t)
-  }
+    JwtTokenTester.decodeToken(tokenToTest).value must beEqualTo(username)
 }
