@@ -27,6 +27,7 @@ object UserRoutes {
     }
   }
 
+  // TODO: Duplicated in UserRoutes, consolidate
   final case class UserResponse(email: String, token: String, username: String, bio: Option[String], image: Option[String])
 
   object UserResponse {

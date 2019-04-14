@@ -24,15 +24,18 @@ trait JwtSupport {
     JwtToken(generateToken(username))
 
   def decodeToken(token: JwtToken): Username = {
+    // TODO: Use Either.catchNonFatal
     // Throws JWTVerificationException
     val decoded = verifier.verify(token.value)
     Username(decoded.getClaim(CLAIM_USERNAME).asString())
   }
 
   private[this] def generateToken(username: Username): String =
+    // TODO: Use Either.catchNonFatal
     // Throws IllegalArgumentException and JWTCreationException
     JWT.create()
       .withIssuer(ISSUER)
+      // TODO: Remove expiry as it conflicts with the `realworld` requirements
       .withExpiresAt(Date.from(Instant.now().plusSeconds(VALIDITY_DURATION)))
       // Private claims
       .withClaim(CLAIM_USERNAME, username.value)
