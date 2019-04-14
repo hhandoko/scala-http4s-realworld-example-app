@@ -1,5 +1,8 @@
 package com.hhandoko.realworld.auth
 
+import java.time.Instant
+import java.util.Date
+
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 
@@ -10,16 +13,32 @@ trait JwtSupport {
   final val CLAIM_USERNAME = "username"
 
   // TODO: Move to configuration
+  final val ISSUER = "realworld"
   final val SECRET = "S3cret!"
-  final val ALGO = Algorithm.HMAC256(SECRET)
+  final val VALIDITY_DURATION = 3600
 
-  def generateToken(username: Username): JwtToken =
-    JwtToken {
-      // TODO: Make expiration configurable, and use Scala time classes
-      JWT.create()
-        // Private claims
-        .withClaim(CLAIM_USERNAME, username.value)
-        .sign(ALGO)
-    }
+  final val ALGO = Algorithm.HMAC256(SECRET)
+  final lazy val verifier = JWT.require(ALGO).withIssuer(ISSUER).build()
+
+  def encodeToken(username: Username): JwtToken =
+    JwtToken(generateToken(username))
+
+  def decodeToken(token: JwtToken): Username = {
+    // TODO: Use Either.catchNonFatal
+    // Throws JWTVerificationException
+    val decoded = verifier.verify(token.value)
+    Username(decoded.getClaim(CLAIM_USERNAME).asString())
+  }
+
+  private[this] def generateToken(username: Username): String =
+    // TODO: Use Either.catchNonFatal
+    // Throws IllegalArgumentException and JWTCreationException
+    JWT.create()
+      .withIssuer(ISSUER)
+      // TODO: Remove expiry as it conflicts with the `realworld` requirements
+      .withExpiresAt(Date.from(Instant.now().plusSeconds(VALIDITY_DURATION)))
+      // Private claims
+      .withClaim(CLAIM_USERNAME, username.value)
+      .sign(ALGO)
 
 }

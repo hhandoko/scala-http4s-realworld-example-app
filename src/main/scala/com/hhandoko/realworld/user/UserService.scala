@@ -20,7 +20,7 @@ object UserService extends JwtSupport {
         Option(
           User(
             email = s"${username.value}@test.com",
-            token = generateToken(username),
+            token = encodeToken(username),
             username = username,
             bio = None,
             image = None
