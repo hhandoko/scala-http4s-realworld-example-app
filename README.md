@@ -47,7 +47,8 @@ native-image \
   -H:+ReportUnsupportedElementsAtRuntime
 ```
 
-  - Run `./realworld` to run the web application
+  1. Copy `libsunec.so` from your JRE lib folder to the `realworld` binary location
+  1. Run `./realworld` to run the web application
 
 Alternatively:
 
@@ -68,7 +69,8 @@ Please read [PROGRESS] for more details.
 
 # Issues
 
-  - ~~Native image generation, `javax.crypto.JceSecurity.getCodeBase(Class)` ([graal/#1152](https://github.com/oracle/graal/issues/1152))~~
+  - Native image generation with `jwt-scala` ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
+  - HTTP 401 response for failed login ([twilio/guardrail](https://github.com/twilio/guardrail/issues/179))
 
 # Contributing
 
