@@ -6,24 +6,27 @@ import cats.implicits._
 import io.circe.{Encoder, Json}
 import org.http4s.circe.jsonEncoderOf
 import org.http4s.dsl.Http4sDsl
-import org.http4s.{EntityEncoder, HttpRoutes}
+import org.http4s.{AuthedService, EntityEncoder, HttpRoutes}
 
+import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.core.Username
 
 object UserRoutes {
 
-  def apply[F[_]: Sync: ContextShift](userService: UserService[F]): HttpRoutes[F] = {
+  def apply[F[_]: Sync: ContextShift](authenticated: RequestAuthenticator[F], userService: UserService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
-    HttpRoutes.of[F] {
-      // TODO: Implement authentication check
-      case GET -> Root / "api" / "user" =>
-        for {
-          usrOpt <- userService.get(Username("me"))
-          res    <- usrOpt.fold(NotFound()) { usr =>
-            Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
-          }
-        } yield res
+    authenticated {
+      AuthedService {
+        // TODO: Implement authentication check
+        case GET -> Root / "api" / "user" as _ =>
+          for {
+            usrOpt <- userService.get(Username("me"))
+            res <- usrOpt.fold(NotFound()) { usr =>
+              Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
+            }
+          } yield res
+      }
     }
   }
 

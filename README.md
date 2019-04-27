@@ -59,7 +59,7 @@ Alternatively:
 
 Backend API implementation:
 
-  - [ ] Auth (0 of 5)
+  - [ ] Auth (1 of 5)
   - [ ] Articles (0 of 4)
   - [ ] Article, Favorite, Comments (0 of 17)
   - [ ] Profiles (1 of 4)
