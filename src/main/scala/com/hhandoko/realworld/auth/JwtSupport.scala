@@ -1,5 +1,7 @@
 package com.hhandoko.realworld.auth
 
+import scala.util.Try
+
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 
@@ -20,11 +22,13 @@ trait JwtSupport {
   def encodeToken(username: Username): JwtToken =
     JwtToken(generateToken(username))
 
-  def decodeToken(token: JwtToken): Username = {
-    // TODO: Use Either.catchNonFatal
+  def decodeToken(token: JwtToken): Option[Username] = {
+    // TODO: Log exception
     // Throws JWTVerificationException
-    val decoded = verifier.verify(token.value)
-    Username(decoded.getClaim(CLAIM_USERNAME).asString())
+    Try(verifier.verify(token.value))
+      .map(_.getClaim(CLAIM_USERNAME).asString())
+      .map(Username)
+      .toOption
   }
 
   private[this] def generateToken(username: Username): String =

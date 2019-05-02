@@ -9,7 +9,6 @@ import org.http4s.dsl.Http4sDsl
 import org.http4s.{AuthedService, EntityEncoder, HttpRoutes}
 
 import com.hhandoko.realworld.auth.RequestAuthenticator
-import com.hhandoko.realworld.core.Username
 
 object UserRoutes {
 
@@ -19,10 +18,12 @@ object UserRoutes {
     authenticated {
       AuthedService {
         // TODO: Implement authentication check
-        case GET -> Root / "api" / "user" as _ =>
+        case GET -> Root / "api" / "user" as username =>
           for {
-            usrOpt <- userService.get(Username("me"))
-            res <- usrOpt.fold(NotFound()) { usr =>
+            usrOpt <- userService.get(username)
+            // FIXME: Unauthorized fails to compile (requires a `WWW-Authenticate` header value), so we use 403 error code instead for now
+            // See: https://github.com/twilio/guardrail/issues/179
+            res    <- usrOpt.fold(NotFound()) { usr =>
               Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
             }
           } yield res

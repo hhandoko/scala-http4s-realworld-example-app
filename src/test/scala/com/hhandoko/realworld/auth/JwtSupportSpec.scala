@@ -20,6 +20,6 @@ class JwtSupportSpec extends Specification { def is = s2"""
   private[this] val tokenToTest: JwtToken =
     JwtTokenTester.encodeToken(Username(username))
 
-  private[this] def tokenHasValidUsername: MatchResult[String] =
-    JwtTokenTester.decodeToken(tokenToTest).value must beEqualTo(username)
+  private[this] def tokenHasValidUsername: MatchResult[Option[Username]] =
+    JwtTokenTester.decodeToken(tokenToTest) must beSome(Username(username))
 }
