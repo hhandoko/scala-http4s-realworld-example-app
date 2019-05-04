@@ -70,6 +70,7 @@ Please read [PROGRESS] for more details.
 # Issues
 
   - Native image generation with `jwt-scala` ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
+  - JWT token decoding failed in Graal native image
 
 # Contributing
 

@@ -22,6 +22,7 @@ trait JwtSupport {
   def encodeToken(username: Username): JwtToken =
     JwtToken(generateToken(username))
 
+  // FIXME: Token decoding failed on Graal native image distribution
   def decodeToken(token: JwtToken): Option[Username] = {
     // TODO: Log exception
     // Throws JWTVerificationException
