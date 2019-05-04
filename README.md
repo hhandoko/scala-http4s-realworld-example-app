@@ -70,7 +70,6 @@ Please read [PROGRESS] for more details.
 # Issues
 
   - Native image generation with `jwt-scala` ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
-  - HTTP 401 response for failed login ([twilio/guardrail](https://github.com/twilio/guardrail/issues/179))
 
 # Contributing
 
