@@ -13,9 +13,11 @@ import com.hhandoko.realworld.core.{Profile, Username}
 class ProfileRoutesSpec extends Specification { def is = s2"""
 
   Profile routes
-    should return 200 OK status if record exists      $foundReturns200
-    should return profile if record exists            $foundReturnsProfile
-    should return 404 Not Found if no record exists   $notFoundReturns404
+    when record exists
+      should return 200 OK status   $foundReturns200
+      should return profile         $foundReturnsProfile
+    when record does not exists
+      should return 404 Not Found   $notFoundReturns404
   """
 
   private[this] val retFoundProfile: Response[IO] = {

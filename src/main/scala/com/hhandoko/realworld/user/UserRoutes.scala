@@ -17,12 +17,9 @@ object UserRoutes {
 
     authenticated {
       AuthedService {
-        // TODO: Implement authentication check
         case GET -> Root / "api" / "user" as username =>
           for {
             usrOpt <- userService.get(username)
-            // FIXME: Unauthorized fails to compile (requires a `WWW-Authenticate` header value), so we use 403 error code instead for now
-            // See: https://github.com/twilio/guardrail/issues/179
             res    <- usrOpt.fold(NotFound()) { usr =>
               Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
             }
