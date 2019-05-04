@@ -16,10 +16,10 @@ class AuthRoutesSpec extends Specification { def is = s2"""
 
   Auth routes
     on successful login
-      should return 200 OK status          $uriReturns200
-      should return user info              $uriReturnsUserInfo
+      should return 200 OK status             $uriReturns200
+      should return user info                 $uriReturnsUserInfo
     on failed login
-      should return 403 Forbidden status   $uriReturns403
+      should return 401 Unauthorized status   $uriReturns401
   """
 
   private[this] val loginSuccessResponse: Response[IO] = {
@@ -52,8 +52,8 @@ class AuthRoutesSpec extends Specification { def is = s2"""
     loginSuccessResponse.as[String].unsafeRunSync() must beEqualTo(expected)
   }
 
-  private[this] def uriReturns403: MatchResult[Status] =
-    loginFailedResponse.status must beEqualTo(Status.Forbidden)
+  private[this] def uriReturns401: MatchResult[Status] =
+    loginFailedResponse.status must beEqualTo(Status.Unauthorized)
 
   object FakeAuthService extends AuthService[IO] {
     def verify(email: Email, password: Password): IO[Either[String, User]] = {

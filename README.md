@@ -59,7 +59,7 @@ Alternatively:
 
 Backend API implementation:
 
-  - [ ] Auth (0 of 5)
+  - [ ] Auth (3 of 5)
   - [ ] Articles (0 of 4)
   - [ ] Article, Favorite, Comments (0 of 17)
   - [ ] Profiles (1 of 4)
@@ -70,7 +70,7 @@ Please read [PROGRESS] for more details.
 # Issues
 
   - Native image generation with `jwt-scala` ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
-  - HTTP 401 response for failed login ([twilio/guardrail](https://github.com/twilio/guardrail/issues/179))
+  - JWT token decoding failed in Graal native image
 
 # Contributing
 

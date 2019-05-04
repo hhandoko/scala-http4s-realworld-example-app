@@ -9,7 +9,7 @@ import org.http4s.circe._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.{EntityEncoder, HttpRoutes}
 
-object AuthRoutes {
+object AuthRoutes extends UnauthorizedResponseSupport {
 
   final case class LoginPost(user: LoginPostPayload)
 
@@ -31,10 +31,7 @@ object AuthRoutes {
           data   <- req.as[LoginPost]
           authed <- authService.verify(data.user.email, data.user.password)
           res    <- authed.fold(
-            // FIXME: Unauthorized fails to compile (requires a `WWW-Authenticate` header value), so we use 403 error code instead for now
-            // See: https://github.com/twilio/guardrail/issues/179
-//            err  => Unauthorized(err),
-            err  => Forbidden(err),
+            err => Unauthorized(withChallenge(err)),
             usr  => Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
           )
         } yield res

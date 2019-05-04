@@ -6,9 +6,9 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
 
 **Auth:**
   - [ ] Register
-  - [x] Login (partial - no auth)
-  - [ ] Login and Remember Token
-  - [x] Current User (partial - no auth)
+  - [x] Login
+  - [x] Login and Remember Token
+  - [x] Current User
   - [ ] Update User
 
 **Articles:**
