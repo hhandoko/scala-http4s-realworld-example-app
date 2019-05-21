@@ -28,6 +28,7 @@ object Common {
       "com.auth0"             %  "java-jwt"               % oauthJwtVersion,
       "com.github.pureconfig" %% "pureconfig"             % pureConfigVersion,
       "com.github.pureconfig" %% "pureconfig-cats-effect" % pureConfigVersion,
+//      "com.oracle.substratevm" %  "svm"                    % "19.0.0",
       "io.circe"              %% "circe-generic"          % circeVersion,
       "org.http4s"            %% "http4s-blaze-server"    % http4sVersion,
       "org.http4s"            %% "http4s-circe"           % http4sVersion,

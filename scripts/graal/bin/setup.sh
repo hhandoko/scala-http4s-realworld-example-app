@@ -58,7 +58,23 @@ setup_graal() {
     fi
 }
 
+# Install native-image component
+setup_native_image() {
+    if [ ! -f "${GRAAL_HOME}/bin/native-image" ] ; then
+        if [ -f "${GRAAL_HOME}/bin/gu" ] ; then
+            echo "${C_YELLOW}Installing native-image component${C_RESET}"
+            ${GRAAL_HOME}/bin/gu install native-image
+        else
+            echo "${C_RED}Unable to detect Graal 'gu' command in '${GRAAL_HOME}/bin'${C_RESET}"
+            exit 1
+        fi
+    else
+        echo "${C_YELLOW}Skipping native-image setup: already installed${C_RESET}"
+    fi
+}
+
 # Run
 # ~~~~~~
 set_graal_dist
 setup_graal
+setup_native_image
