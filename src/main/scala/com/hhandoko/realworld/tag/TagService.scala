@@ -1,7 +1,6 @@
 package com.hhandoko.realworld.tag
 
 import cats.Applicative
-import cats.implicits._
 
 import com.hhandoko.realworld.core.Tag
 
@@ -15,6 +14,8 @@ object TagService {
 
   def impl[F[_]: Applicative]: TagService[F] =
     new TagService[F] {
+      import cats.implicits._
+
       def getAll: F[Vector[Tag]] =
         Vector("hello", "world")
           .map(Tag)

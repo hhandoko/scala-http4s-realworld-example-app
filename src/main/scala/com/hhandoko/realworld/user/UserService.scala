@@ -1,7 +1,6 @@
 package com.hhandoko.realworld.user
 
 import cats.Applicative
-import cats.implicits._
 
 import com.hhandoko.realworld.auth.JwtSupport
 import com.hhandoko.realworld.core.{User, Username}
@@ -16,6 +15,8 @@ object UserService extends JwtSupport {
 
   def impl[F[_]: Applicative]: UserService[F] =
     new UserService[F] {
+      import cats.implicits._
+
       def get(username: Username): F[Option[User]] = {
         Option(
           User(

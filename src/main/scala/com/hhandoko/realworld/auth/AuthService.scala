@@ -1,7 +1,6 @@
 package com.hhandoko.realworld.auth
 
 import cats.Applicative
-import cats.implicits._
 
 import com.hhandoko.realworld.core.{User, Username}
 
@@ -17,12 +16,14 @@ object AuthService extends JwtSupport {
 
   def impl[F[_]: Applicative]: AuthService[F] =
     new AuthService[F] {
+      import cats.implicits._
+
       def verify(email: Email, password: Password): F[Either[String, User]] = {
         // TODO: Consolidate with UserService
         email.split('@').toVector match {
           case localPart +: _ => {
             val username = Username(localPart)
-            Either.right(User(email, encodeToken(username), username, bio = None, image = None))
+            Either.right(User(username, bio = None, image = None, email, encodeToken(username)))
           }
 
           case _ =>

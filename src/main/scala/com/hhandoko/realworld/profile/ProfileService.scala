@@ -1,7 +1,6 @@
 package com.hhandoko.realworld.profile
 
 import cats.Applicative
-import cats.implicits._
 
 import com.hhandoko.realworld.core.{Profile, Username}
 
@@ -15,6 +14,8 @@ object ProfileService {
 
   def impl[F[_]: Applicative]: ProfileService[F] =
     new ProfileService[F] {
+      import cats.implicits._
+
       def get(username: Username): F[Option[Profile]] = {
         val result =
           if (username.value.startsWith("celeb_")) Some(Profile(username, None, None))
