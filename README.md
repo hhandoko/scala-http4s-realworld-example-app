@@ -1,3 +1,4 @@
+[![License](https://img.shields.io/badge/license-Apache--2.0-brightgreen.svg)](LICENSE)
 [![Master Build Status](https://api.travis-ci.org/hhandoko/scala-http4s-realworld-example-app.svg?branch=master)](https://travis-ci.org/hhandoko/scala-http4s-realworld-example-app)
 
 # ![RealWorld Example App using Scala and http4s](media/http4s-realworld-logo.png)
@@ -40,7 +41,7 @@ native-image \
   --no-server \
   --class-path target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar \
   -H:Class=com.hhandoko.realworld.Main \
-  -H:EnableURLProtocols=http \
+  -H:EnableURLProtocols=http,https \
   -H:IncludeResources='logback.xml|application.conf' \
   -H:Name=realworld \
   -H:+AllowVMInspection \
@@ -70,7 +71,8 @@ Please read [PROGRESS] for more details.
 # Issues
 
   - Native image generation with `jwt-scala` ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
-  - JWT token decoding failed in Graal native image
+  - JWT token decoding failed in Graal native image ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
+  - Breaking change for Graal native image compilation from RC to release (19) version
 
 # Contributing
 

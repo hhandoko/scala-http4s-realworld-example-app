@@ -12,7 +12,7 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
   - [ ] Update User
 
 **Articles:**
-  - [ ] All Articles
+  - [ ] All Articles (partial, no query params support yet)
   - [ ] Articles by Author
   - [ ] Articles Favorited by Username
   - [ ] Articles by Tag
@@ -20,7 +20,7 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
 **Articles, Favorite, Comments:**
   - [ ] Create Article
   - [ ] Feed
-  - [ ] All Articles
+  - [ ] All Articles (partial, no query params support yet)
   - [ ] All Articles with auth
   - [ ] Articles by Author
   - [ ] Articles by Author with auth
@@ -53,4 +53,4 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
   - [ ] Database migrations
   - [ ] Auto-JSON serialization
   - [ ] Rho support
-  - [x] GraalVM native-image support
+  - [ ] GraalVM native-image support (partial, breaking change in Graal 19)

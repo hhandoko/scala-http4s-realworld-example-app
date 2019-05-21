@@ -12,7 +12,7 @@ import com.hhandoko.realworld.core.Username
 
 object ProfileRoutes {
 
-  def apply[F[_]: Sync: ContextShift](profileService: ProfileService[F]): HttpRoutes[F] = {
+  def apply[F[_]: ContextShift: Sync](profileService: ProfileService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
     HttpRoutes.of[F] {

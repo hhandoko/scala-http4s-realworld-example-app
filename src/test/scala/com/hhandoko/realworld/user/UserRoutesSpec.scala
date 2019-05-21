@@ -62,7 +62,7 @@ class UserRoutesSpec extends Specification { def is = s2"""
 
   object FakeUserService extends UserService[IO] {
     def get(username: Username): IO[Option[User]] = IO.pure {
-      Some(User(s"${username.value}@test.com", nonExpiringToken, username, None, None))
+      Some(User(username, None, None, s"${username.value}@test.com", nonExpiringToken))
     }
   }
 

@@ -57,7 +57,7 @@ class AuthRoutesSpec extends Specification { def is = s2"""
 
   object FakeAuthService extends AuthService[IO] {
     def verify(email: Email, password: Password): IO[Either[String, User]] = {
-      val successResponse = User(s"me@test.com", JwtToken("this.jwt.token"), Username("me"), None, None)
+      val successResponse = User(Username("me"), None, None, s"me@test.com", JwtToken("this.jwt.token"))
       val failedResponse = "Invalid username and password combination"
 
       if (email == "me@test.com") IO.pure(Either.right(successResponse))
