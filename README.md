@@ -72,6 +72,7 @@ Please read [PROGRESS] for more details.
 
   - Native image generation with `jwt-scala` ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
   - JWT token decoding failed in Graal native image ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
+  - Logback `RollingFileAppender` does not compile in native image ([oracle/graal/#1323](https://github.com/oracle/graal/issues/1323))
 
 # Contributing
 

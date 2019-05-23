@@ -6,13 +6,16 @@ import sbt._
 
 object Common {
 
-  // Dependency versions
+  // App dependency versions
   private val circeVersion      = "0.11.1"
   private val http4sVersion     = "0.20.1"
-  private val logbackVersion    = "1.2.3"
   private val oauthJwtVersion   = "3.8.0"
   private val pureConfigVersion = "0.11.0"
   private val specs2Version     = "4.5.1"
+
+  // Logging dependency versions
+  private val logbackVersion = "1.2.3"
+  private val jansiVersion   = "1.18"
 
   // Compiler plugin dependency versions
   private val kindProjectorVersion    = "0.10.1"
@@ -29,6 +32,7 @@ object Common {
       "com.github.pureconfig" %% "pureconfig"             % pureConfigVersion,
       "com.github.pureconfig" %% "pureconfig-cats-effect" % pureConfigVersion,
       "io.circe"              %% "circe-generic"          % circeVersion,
+      "org.fusesource.jansi"  %  "jansi"                  % jansiVersion,
       "org.http4s"            %% "http4s-blaze-server"    % http4sVersion,
       "org.http4s"            %% "http4s-circe"           % http4sVersion,
       "org.http4s"            %% "http4s-dsl"             % http4sVersion,

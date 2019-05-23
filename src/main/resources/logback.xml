@@ -1,4 +1,18 @@
 <configuration>
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/realworld.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>log/realworld.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <maxHistory>14</maxHistory>
+            <totalSizeCap>1MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%date{yyyy-MM-dd'T'HH:mm:ss,SSSXXX, UTC} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
+        </encoder>
+    </appender>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- On Windows machines setting `withJansi` to true enables ANSI
              color code interpretation by the Jansi library. This requires
@@ -9,11 +23,12 @@
         <withJansi>true</withJansi>
 
         <encoder>
-            <pattern>[%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
+            <pattern>%date{"yyyy-MM-dd'T'HH:mm:ss,SSSXXX", UTC} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
         </encoder>
     </appender>
 
     <root level="INFO">
+        <appender-ref ref="ROLLING_FILE" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

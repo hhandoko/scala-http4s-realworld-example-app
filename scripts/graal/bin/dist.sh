@@ -27,6 +27,9 @@ GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
 GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_VERSION}
 GRAAL_BIN=''
 
+# Native image resources
+NATIVE_IMAGE_RESOURCES=${GRAAL_DIR}/resources
+
 # SunEC path
 SUNEC_PLATFORM=amd64
 SUNEC_PATH=${GRAAL_HOME}/jre/lib/${SUNEC_PLATFORM}
@@ -78,6 +81,12 @@ create_native() {
               -cp ${APP_JAR})
 }
 
+# Copy native-image supporting files
+copy_native_image_files() {
+    echo "${C_YELLOW}Copying native-image supporting files${C_RESET}"
+    cp -f ${NATIVE_IMAGE_RESOURCES}/*.* ${DIST_FOLDER}
+}
+
 # Copy SunEC native library
 copy_sunec() {
     echo "${C_YELLOW}Copying SunEC library${C_RESET}"
@@ -89,5 +98,6 @@ copy_sunec() {
 set_graal_dist
 clean_dist_folder
 create_assembly
+copy_native_image_files
 create_native
 copy_sunec
