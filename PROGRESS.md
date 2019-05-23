@@ -53,4 +53,4 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
   - [ ] Database migrations
   - [ ] Auto-JSON serialization
   - [ ] Rho support
-  - [ ] GraalVM native-image support (partial, breaking change in Graal 19)
+  - [x] GraalVM native-image support

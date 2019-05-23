@@ -1,4 +1,4 @@
-FROM        oracle/graalvm-ce:1.0.0-rc14 as assembler
+FROM        oracle/graalvm-ce:19.0.0 as assembler
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM assembler"
 
@@ -19,7 +19,7 @@ RUN         ./sbt/bin/sbt -mem 4096 clean assembly
 
 # ~~~~~~
 
-FROM        oracle/graalvm-ce:1.0.0-rc14 as packager
+FROM        oracle/graalvm-ce:19.0.0 as packager
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM native-image packager"
 
@@ -29,17 +29,11 @@ ARG         APP_VERSION
 ENV         APP_VERSION ${APP_VERSION:-1.0.0-SNAPSHOT}
 
 WORKDIR     packager
+RUN         gu install native-image
 COPY        --from=assembler /assembler/target/scala-2.12/${APP_NAME}-${APP_VERSION}.jar ./
 RUN         native-image \
-              --class-path ${APP_NAME}-${APP_VERSION}.jar \
-              --enable-all-security-services \
               --no-server \
-              -H:Class=com.hhandoko.realworld.Main \
-              -H:EnableURLProtocols=http \
-              -H:IncludeResources='logback.xml|application.conf' \
-              -H:Name=realworld \
-              -H:+AllowVMInspection \
-              -H:+ReportUnsupportedElementsAtRuntime
+              -cp ${APP_NAME}-${APP_VERSION}.jar
 
 # ~~~~~~
 
@@ -49,7 +43,7 @@ LABEL       description="http4s GraalVM native-image runtime container"
 
 WORKDIR     app
 COPY        --from=packager /packager/realworld ./
-COPY        --from=packager /opt/graalvm-ce-1.0.0-rc14/jre/lib/amd64/libsunec.so ./
+COPY        --from=packager /opt/graalvm-ce-19.0.0/jre/lib/amd64/libsunec.so ./
 
 EXPOSE      8080
 ENTRYPOINT  ["./realworld"]
