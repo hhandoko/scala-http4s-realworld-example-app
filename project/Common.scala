@@ -8,15 +8,15 @@ object Common {
 
   // Dependency versions
   private val circeVersion      = "0.11.1"
-  private val http4sVersion     = "0.20.0-RC1"
+  private val http4sVersion     = "0.20.1"
   private val logbackVersion    = "1.2.3"
   private val oauthJwtVersion   = "3.8.0"
-  private val pureConfigVersion = "0.10.2"
+  private val pureConfigVersion = "0.11.0"
   private val specs2Version     = "4.5.1"
 
   // Compiler plugin dependency versions
-  private val kindProjectorVersion    = "0.9.9"
-  private val betterMonadicForVersion = "0.2.4"
+  private val kindProjectorVersion    = "0.10.1"
+  private val betterMonadicForVersion = "0.3.0"
 
   val settings = Seq(
     organization := "com.hhandoko",
@@ -37,11 +37,11 @@ object Common {
 
     // Add syntax for type lambdas
     // See: https://github.com/non/kind-projector
-    addCompilerPlugin("org.spire-math" %% "kind-projector" % kindProjectorVersion),
+    addCompilerPlugin("org.typelevel" %% "kind-projector" % kindProjectorVersion),
 
     // Desugaring scala `for` without implicit `withFilter`s
     // See: https://github.com/oleg-py/better-monadic-for
-    addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % betterMonadicForVersion)
+    addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForVersion)
   )
 
   /**
