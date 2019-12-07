@@ -1,6 +1,3 @@
-// Use Coursier to download plugins
-addSbtCoursier
-
 // Load environment variables for local development
 // See: https://github.com/mefellows/sbt-dotenv
 addSbtPlugin("au.com.onegeek" %% "sbt-dotenv" % "2.1.146")
