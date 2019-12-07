@@ -7,12 +7,12 @@ import sbt._
 object Common {
 
   // Dependency versions
-  private val circeVersion      = "0.11.1"
-  private val http4sVersion     = "0.20.1"
+  private val circeVersion      = "0.12.3"
+  private val http4sVersion     = "0.21.0-M6"
   private val logbackVersion    = "1.2.3"
   private val oauthJwtVersion   = "3.8.0"
   private val pureConfigVersion = "0.11.0"
-  private val specs2Version     = "4.5.1"
+  private val specs2Version     = "4.8.1"
 
   // Compiler plugin dependency versions
   private val kindProjectorVersion    = "0.10.1"

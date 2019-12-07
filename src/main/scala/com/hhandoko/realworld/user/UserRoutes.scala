@@ -6,9 +6,10 @@ import cats.implicits._
 import io.circe.{Encoder, Json}
 import org.http4s.circe.jsonEncoderOf
 import org.http4s.dsl.Http4sDsl
-import org.http4s.{AuthedService, EntityEncoder, HttpRoutes}
+import org.http4s.{AuthedRoutes, EntityEncoder, HttpRoutes}
 
 import com.hhandoko.realworld.auth.RequestAuthenticator
+import com.hhandoko.realworld.core.Username
 
 object UserRoutes {
 
@@ -16,7 +17,7 @@ object UserRoutes {
     object dsl extends Http4sDsl[F]; import dsl._
 
     authenticated {
-      AuthedService {
+      AuthedRoutes.of[Username, F] {
         case GET -> Root / "api" / "user" as username =>
           for {
             usrOpt <- userService.get(username)
@@ -34,11 +35,11 @@ object UserRoutes {
   object UserResponse {
     implicit val encoder: Encoder[UserResponse] = (r: UserResponse) => Json.obj(
       "user" -> Json.obj(
-        "email" -> Json.fromString(r.email),
-        "token" -> Json.fromString(r.token),
-        "username"  -> Json.fromString(r.username),
-        "bio"       -> r.bio.fold(Json.Null)(Json.fromString),
-        "image"     -> r.image.fold(Json.Null)(Json.fromString)
+        "email"    -> Json.fromString(r.email),
+        "token"    -> Json.fromString(r.token),
+        "username" -> Json.fromString(r.username),
+        "bio"      -> r.bio.fold(Json.Null)(Json.fromString),
+        "image"    -> r.image.fold(Json.Null)(Json.fromString)
       )
     )
 
