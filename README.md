@@ -15,8 +15,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 Ensure the following dependencies are installed and configured:
 
-  - [Java SDK] 8 or [GraalVM] 1.0.x
-  - [sbt] 1.2.x
+  - [Java SDK] 8 or [GraalVM] 19.0.x
+  - [sbt] 1.3.x
 
 ### Setup Steps
 
@@ -39,13 +39,7 @@ Ensure Graal is downloaded and its binaries folder added to `PATH`. To package a
 ```shell
 native-image \
   --no-server \
-  --class-path target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar \
-  -H:Class=com.hhandoko.realworld.Main \
-  -H:EnableURLProtocols=http,https \
-  -H:IncludeResources='logback.xml|application.conf' \
-  -H:Name=realworld \
-  -H:+AllowVMInspection \
-  -H:+ReportUnsupportedElementsAtRuntime
+  -cp target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar
 ```
 
   1. Copy `libsunec.so` from your JRE lib folder to the `realworld` binary location
