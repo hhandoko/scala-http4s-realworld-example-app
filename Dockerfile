@@ -1,11 +1,10 @@
-FROM        oracle/graalvm-ce:19.0.0 as assembler
+FROM        oracle/graalvm-ce:19.3.0-java11 as assembler
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM assembler"
 
 WORKDIR     assembler
 # Copy only the required files to setup sbt
 COPY        project/*.properties project/*.sbt project/
-COPY        project/project/*.sbt project/project/
 RUN         (SBT_VERSION=$(cat project/build.properties | cut -d '=' -f 2 | tr -d '[:space:]') \
               && curl -L -O https://piccolo.link/sbt-${SBT_VERSION}.tgz \
               && tar -xzf sbt-${SBT_VERSION}.tgz \
@@ -19,7 +18,7 @@ RUN         ./sbt/bin/sbt -mem 4096 clean assembly
 
 # ~~~~~~
 
-FROM        oracle/graalvm-ce:19.0.0 as packager
+FROM        oracle/graalvm-ce:19.3.0-java11 as packager
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM native-image packager"
 
@@ -37,13 +36,12 @@ RUN         native-image \
 
 # ~~~~~~
 
-FROM        frolvlad/alpine-glibc
+FROM        ubuntu:18.04
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM native-image runtime container"
 
 WORKDIR     app
 COPY        --from=packager /packager/realworld ./
-COPY        --from=packager /opt/graalvm-ce-19.0.0/jre/lib/amd64/libsunec.so ./
 
 EXPOSE      8080
 ENTRYPOINT  ["./realworld"]
