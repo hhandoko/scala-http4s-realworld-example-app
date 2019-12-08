@@ -12,7 +12,7 @@ C_YELLOW='\033[1;33m'
 TEMP_DIR=tmp
 
 # Graal version and path
-GRAAL_JAVA_VERSION=java8
+GRAAL_JAVA_VERSION=java11
 GRAAL_DIR=scripts/graal
 GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
 GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_JAVA_VERSION}-${GRAAL_VERSION}

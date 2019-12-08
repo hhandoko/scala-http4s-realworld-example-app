@@ -22,7 +22,7 @@ APP_NAME=realworld-assembly-${APP_VERSION}
 APP_JAR=${APP_NAME}.jar
 
 # Graal version and path
-GRAAL_JAVA_VERSION=java8
+GRAAL_JAVA_VERSION=java11
 GRAAL_DIR=scripts/graal
 GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
 GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_JAVA_VERSION}-${GRAAL_VERSION}
