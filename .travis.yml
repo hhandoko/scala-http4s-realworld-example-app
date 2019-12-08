@@ -1,6 +1,8 @@
 language: scala
-scala: 2.12.8
+scala: 2.12.10
 matrix:
   include:
-  - jdk: oraclejdk8
-  - jdk: openjdk8
+  - dist: xenial
+    jdk: openjdk8
+  - dist: bionic
+    jdk: openjdk11
