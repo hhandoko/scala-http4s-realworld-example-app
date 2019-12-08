@@ -15,7 +15,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 Ensure the following dependencies are installed and configured:
 
-  - [Java SDK] 8 or [GraalVM] 19.0.x
+  - [Java SDK] 8 or 11 or [GraalVM] 19.3.x (both Java 8 and 11 variants)
   - [sbt] 1.3.x
 
 ### Setup Steps
@@ -34,7 +34,9 @@ To package and run it as an uber-jar:
 
 ### Production Packaging (Graal Native Image)
 
-Ensure Graal is downloaded and its binaries folder added to `PATH`. To package and run it as a Graal native image:
+Ensure Graal is downloaded and its binaries folder added to `PATH`. The most convenient way is to use [sdkman] to switch between different Java SDK versions (Graal included).
+
+To package and run it as a Graal native image:
 
 ```shell
 native-image \
@@ -42,10 +44,9 @@ native-image \
   -cp target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar
 ```
 
-  1. Copy `libsunec.so` from your JRE lib folder to the `realworld` binary location
   1. Run `./realworld` to run the web application
 
-Alternatively:
+Alternatively, some scripts are included in the repo to make it easy to download and create native image distribution (limited to Linux and macOS for now):
 
   1. Run `./scripts/graal/bin/setup.sh` to download and setup Graal.
   1. Run `./scripts/graal/bin/dist.sh` to create a native image distribution under the `/dist` directory.
@@ -64,8 +65,9 @@ Please read [PROGRESS] for more details.
 
 # Issues
 
-  - Native image generation with `jwt-scala` ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
-  - JWT token decoding failed in Graal native image ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
+  - Native image generation with `jwt-scala` fails ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
+  - Native image generation with Scala 2.13 fails ([oracle/graal/#1863](https://github.com/oracle/graal/issues/1863))
+  - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
 
 # Contributing
 
@@ -109,3 +111,4 @@ Please read [CONTRIBUTING] for more details.
 [LICENSE]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/LICENSE
 [PROGRESS]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/PROGRESS.md
 [sbt]: https://www.scala-sbt.org/
+[sdkman]: https://sdkman.io/

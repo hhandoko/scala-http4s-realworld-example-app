@@ -12,13 +12,14 @@ C_YELLOW='\033[1;33m'
 TEMP_DIR=tmp
 
 # Graal version and path
+GRAAL_JAVA_VERSION=java11
 GRAAL_DIR=scripts/graal
 GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
-GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_VERSION}
+GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_JAVA_VERSION}-${GRAAL_VERSION}
 
 # Graal download and tarball name
 GRAAL_FILE=''
-GRAAL_SITE=https://github.com/oracle/graal/releases/download
+GRAAL_SITE=https://github.com/graalvm/graalvm-ce-builds/releases/download
 
 # Choose Graal SDK distribution for supported OSes
 OS_NAME="`uname`"
@@ -26,11 +27,11 @@ set_graal_dist() {
     case "${OS_NAME}" in
         'Linux')
             echo "${C_YELLOW}Using Graal linux distribution${C_RESET}"
-            GRAAL_FILE=graalvm-ce-${GRAAL_VERSION}-linux-amd64.tar.gz
+            GRAAL_FILE=graalvm-ce-${GRAAL_JAVA_VERSION}-linux-amd64-${GRAAL_VERSION}.tar.gz
             ;;
         'Darwin')
             echo "${C_YELLOW}Using Graal OS X distribution${C_RESET}"
-            GRAAL_FILE=graalvm-ce-${GRAAL_VERSION}-macos-amd64.tar.gz
+            GRAAL_FILE=graalvm-ce-${GRAAL_JAVA_VERSION}-darwin-amd64-${GRAAL_VERSION}.tar.gz
             ;;
         *)
             echo "${C_RED}No Graal distribution for your operating system yet (${OS_NAME})${C_RESET}"
