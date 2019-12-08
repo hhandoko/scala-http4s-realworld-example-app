@@ -7,22 +7,22 @@ import sbt._
 object Common {
 
   // Dependency versions
-  private val circeVersion      = "0.11.1"
-  private val http4sVersion     = "0.20.1"
+  private val circeVersion      = "0.12.3"
+  private val http4sVersion     = "0.21.0-M6"
   private val logbackVersion    = "1.2.3"
-  private val oauthJwtVersion   = "3.8.0"
-  private val pureConfigVersion = "0.11.0"
-  private val specs2Version     = "4.5.1"
+  private val oauthJwtVersion   = "3.8.2"
+  private val pureConfigVersion = "0.12.1"
+  private val specs2Version     = "4.8.1"
 
   // Compiler plugin dependency versions
-  private val kindProjectorVersion    = "0.10.1"
-  private val betterMonadicForVersion = "0.3.0"
+  private val kindProjectorVersion    = "0.11.0"
+  private val betterMonadicForVersion = "0.3.1"
 
   val settings = Seq(
     organization := "com.hhandoko",
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
-    scalaVersion := "2.12.8",
+    scalaVersion := "2.12.10",
     libraryDependencies ++= Seq(
       "ch.qos.logback"        %  "logback-classic"        % logbackVersion,
       "com.auth0"             %  "java-jwt"               % oauthJwtVersion,
@@ -37,7 +37,7 @@ object Common {
 
     // Add syntax for type lambdas
     // See: https://github.com/non/kind-projector
-    addCompilerPlugin("org.typelevel" %% "kind-projector" % kindProjectorVersion),
+    addCompilerPlugin("org.typelevel" %% "kind-projector" % kindProjectorVersion cross CrossVersion.full),
 
     // Desugaring scala `for` without implicit `withFilter`s
     // See: https://github.com/oleg-py/better-monadic-for

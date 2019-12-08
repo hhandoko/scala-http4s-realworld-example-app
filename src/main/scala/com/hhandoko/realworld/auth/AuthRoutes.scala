@@ -32,7 +32,7 @@ object AuthRoutes extends UnauthorizedResponseSupport {
           authed <- authService.verify(data.user.email, data.user.password)
           res    <- authed.fold(
             err => Unauthorized(withChallenge(err)),
-            usr  => Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
+            usr => Ok(UserResponse(usr.email, usr.token.value, usr.username.value, usr.bio, usr.image))
           )
         } yield res
     }
@@ -44,11 +44,11 @@ object AuthRoutes extends UnauthorizedResponseSupport {
   object UserResponse {
     implicit val encoder: Encoder[UserResponse] = (r: UserResponse) => Json.obj(
       "user" -> Json.obj(
-        "email" -> Json.fromString(r.email),
-        "token" -> Json.fromString(r.token),
-        "username"  -> Json.fromString(r.username),
-        "bio"       -> r.bio.fold(Json.Null)(Json.fromString),
-        "image"     -> r.image.fold(Json.Null)(Json.fromString)
+        "email"    -> Json.fromString(r.email),
+        "token"    -> Json.fromString(r.token),
+        "username" -> Json.fromString(r.username),
+        "bio"      -> r.bio.fold(Json.Null)(Json.fromString),
+        "image"    -> r.image.fold(Json.Null)(Json.fromString)
       )
     )
 
