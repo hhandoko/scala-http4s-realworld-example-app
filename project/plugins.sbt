@@ -14,6 +14,10 @@ addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.5.0")
 // See: https://github.com/DavidGregory084/sbt-tpolecat
 addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.9")
 
+// Flyway migrations support in SBT
+// See: https://github.com/flyway/flyway-sbt
+addSbtPlugin("io.github.davidmweber" % "flyway-sbt" % "5.2.0")
+
 // Enable app restarts for better development experience
 // See: https://github.com/spray/sbt-revolver
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.9.1")
