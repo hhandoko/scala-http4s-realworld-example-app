@@ -9,6 +9,7 @@ object Common {
 
   // Dependency versions
   private val circeVersion      = "0.12.3"
+  private val doobieVersion     = "0.8.6"
   private val http4sVersion     = "0.21.0-M6"
   private val logbackVersion    = "1.2.3"
   private val oauthJwtVersion   = "3.8.2"
@@ -35,6 +36,10 @@ object Common {
       "org.http4s"            %% "http4s-circe"           % http4sVersion,
       "org.http4s"            %% "http4s-dsl"             % http4sVersion,
       "org.postgresql"        %  "postgresql"             % postgresVersion,
+      "org.tpolecat"          %% "doobie-core"            % doobieVersion,
+      "org.tpolecat"          %% "doobie-hikari"          % doobieVersion,
+      "org.tpolecat"          %% "doobie-postgres"        % doobieVersion,
+      "org.tpolecat"          %% "doobie-specs2"          % doobieVersion % Test,
       "org.specs2"            %% "specs2-core"            % specs2Version % Test
     ),
 
