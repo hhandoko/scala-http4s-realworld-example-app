@@ -1,0 +1,14 @@
+version: "3"
+services:
+  db:
+    environment:
+      - POSTGRES_PASSWORD=S3cret!
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
+    driver: local

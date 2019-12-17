@@ -1,6 +1,7 @@
 import java.io.Closeable
 import scala.io.Source
 
+import io.github.davidmweber.FlywayPlugin.autoImport._
 import sbt.Keys._
 import sbt._
 
@@ -8,9 +9,11 @@ object Common {
 
   // Dependency versions
   private val circeVersion      = "0.12.3"
+  private val doobieVersion     = "0.8.6"
   private val http4sVersion     = "0.21.0-M6"
   private val logbackVersion    = "1.2.3"
   private val oauthJwtVersion   = "3.8.2"
+  private val postgresVersion   = "42.2.9"
   private val pureConfigVersion = "0.12.1"
   private val specs2Version     = "4.8.1"
 
@@ -32,8 +35,19 @@ object Common {
       "org.http4s"            %% "http4s-blaze-server"    % http4sVersion,
       "org.http4s"            %% "http4s-circe"           % http4sVersion,
       "org.http4s"            %% "http4s-dsl"             % http4sVersion,
+      "org.postgresql"        %  "postgresql"             % postgresVersion,
+      "org.tpolecat"          %% "doobie-core"            % doobieVersion,
+      "org.tpolecat"          %% "doobie-hikari"          % doobieVersion,
+      "org.tpolecat"          %% "doobie-postgres"        % doobieVersion,
+      "org.tpolecat"          %% "doobie-specs2"          % doobieVersion % Test,
       "org.specs2"            %% "specs2-core"            % specs2Version % Test
     ),
+
+    // Flyway database schema migrations
+    flywayUrl := "jdbc:postgresql://0.0.0.0:5432/postgres",
+    flywayUser := "postgres",
+    flywayPassword := "S3cret!",
+    flywayLocations += "filesystem:db/migration",
 
     // Add syntax for type lambdas
     // See: https://github.com/non/kind-projector

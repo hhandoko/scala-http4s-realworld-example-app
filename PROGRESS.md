@@ -48,9 +48,8 @@ Latest API spec and resources can be found on: [https://github.com/gothinkster/r
 ### Technical Tasks
 
   - [x] Continuous test pipeline
-  - [ ] PostgreSQL storage support
-  - [ ] H2 storage support
-  - [ ] Database migrations
+  - [x] PostgreSQL storage support
+  - [x] Database migrations
   - [ ] Auto-JSON serialization
   - [ ] Rho support
   - [x] GraalVM native-image support
