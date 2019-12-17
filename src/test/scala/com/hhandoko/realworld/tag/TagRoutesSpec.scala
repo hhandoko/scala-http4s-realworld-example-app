@@ -20,7 +20,7 @@ class TagRoutesSpec extends Specification { def is = s2"""
   private[this] val retAllTags: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
-    val getAllTags = Request[IO](Method.GET, Uri.uri("/api/tags"))
+    val getAllTags = Request[IO](Method.GET, uri"/api/tags")
 
     TagRoutes[IO](FakeTagService)
       .orNotFound(getAllTags)

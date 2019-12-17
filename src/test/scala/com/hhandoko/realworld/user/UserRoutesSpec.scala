@@ -28,7 +28,7 @@ class UserRoutesSpec extends Specification { def is = s2"""
 
     val getCurrentUser = Request[IO](
       Method.GET,
-      Uri.uri("/api/user"),
+      uri"/api/user",
       headers = Headers.of(Header("Authorization", s"Token ${nonExpiringToken.value}"))
     )
 
@@ -42,7 +42,7 @@ class UserRoutesSpec extends Specification { def is = s2"""
 
     val getCurrentUser = Request[IO](
       Method.GET,
-      Uri.uri("/api/user"),
+      uri"/api/user",
       headers = Headers.of(Header("Authorization", s"Token ${invalidToken}"))
     )
 
