@@ -4,7 +4,7 @@ import scala.concurrent.ExecutionContext
 
 import cats.effect.{ContextShift, IO}
 import cats.implicits._
-import org.http4s.{Method, Request, Response, Status, Uri}
+import org.http4s.{Method, Request, Response, Status}
 import org.http4s.implicits._
 import org.specs2.Specification
 import org.specs2.matcher.MatchResult
@@ -26,7 +26,7 @@ class AuthRoutesSpec extends Specification { def is = s2"""
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
     val payload = LoginPost(LoginPostPayload("me@test.com", "ABC123"))
-    val postLogin = Request[IO](Method.POST, Uri.uri("/api/users/login")).withEntity(payload)
+    val postLogin = Request[IO](Method.POST, uri"/api/users/login").withEntity(payload)
 
     AuthRoutes[IO](FakeAuthService)
       .orNotFound(postLogin)
@@ -37,7 +37,7 @@ class AuthRoutesSpec extends Specification { def is = s2"""
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
     val payload = LoginPost(LoginPostPayload("invalid@test.com", "ABC123"))
-    val postLogin = Request[IO](Method.POST, Uri.uri("/api/users/login")).withEntity(payload)
+    val postLogin = Request[IO](Method.POST, uri"/api/users/login").withEntity(payload)
 
     AuthRoutes[IO](FakeAuthService)
       .orNotFound(postLogin)
