@@ -14,16 +14,16 @@ trait UserRepo[F[_]] {
 
 object UserRepo {
 
+  private[user] final val select =
+    fr"""SELECT username
+        |     , email
+        |     , bio
+        |     , image
+        |  FROM profile
+        |""".stripMargin
+
   def apply[F[_]: Monad: Sync](xa: Transactor[F]): UserRepo[F] =
     new UserRepo[F] {
-      final val select =
-        fr"""SELECT username
-            |     , email
-            |     , bio
-            |     , image
-            |  FROM profile
-            |""".stripMargin
-
       def find(username: Username): F[Option[User]] =
         (select ++ sql"WHERE lower(username) = lower(${username.value}) LIMIT 1")
           .query[User]
