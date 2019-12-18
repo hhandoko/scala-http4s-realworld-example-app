@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS profile(
 
 CREATE INDEX IF NOT EXISTS ix_profile_username
     ON profile
-    USING btree (username);
+    USING btree (lower(username));
 
 CREATE INDEX IF NOT EXISTS ix_profile_email
     ON profile
-    USING btree (email);
+    USING btree (lower(email));
