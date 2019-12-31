@@ -16,7 +16,6 @@ object UserRepo {
 
   private[user] final val select =
     fr"""SELECT username
-        |     , email
         |     , bio
         |     , image
         |  FROM profile
@@ -25,7 +24,7 @@ object UserRepo {
   def apply[F[_]: Monad: Sync](xa: Transactor[F]): UserRepo[F] =
     new UserRepo[F] {
       def find(username: Username): F[Option[User]] =
-        (select ++ sql"WHERE lower(username) = lower(${username.value}) LIMIT 1")
+        (select ++ fr"WHERE lower(username) = lower(${username.value}) LIMIT 1")
           .query[User]
           .option
           .transact(xa)
