@@ -6,10 +6,10 @@ import doobie._
 import doobie.implicits._
 import doobie.util.transactor.Transactor
 
-import com.hhandoko.realworld.core.{User, Username}
+import com.hhandoko.realworld.core.{Profile, Username}
 
 trait UserRepo[F[_]] {
-  def find(username: Username): F[Option[User]]
+  def find(username: Username): F[Option[Profile]]
 }
 
 object UserRepo {
@@ -23,9 +23,9 @@ object UserRepo {
 
   def apply[F[_]: Monad: Sync](xa: Transactor[F]): UserRepo[F] =
     new UserRepo[F] {
-      def find(username: Username): F[Option[User]] =
+      def find(username: Username): F[Option[Profile]] =
         (select ++ fr"WHERE lower(username) = lower(${username.value}) LIMIT 1")
-          .query[User]
+          .query[Profile]
           .option
           .transact(xa)
     }
