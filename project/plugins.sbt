@@ -8,11 +8,11 @@ addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
 
 // Check Maven and Ivy repositories for dependency updates
 // See: https://github.com/rtimush/sbt-updates
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.5.0")
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.5.1")
 
 // Pass recommended Scala compiler flags
 // See: https://github.com/DavidGregory084/sbt-tpolecat
-addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.9")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.11")
 
 // Flyway migrations support in SBT
 // See: https://github.com/flyway/flyway-sbt
