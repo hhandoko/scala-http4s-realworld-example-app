@@ -8,16 +8,16 @@ import sbt._
 object Common {
 
   // Dependency versions
-  private val circeVersion      = "0.12.3"
-  private val doobieVersion     = "0.8.7"
-  private val flywayVersion     = "6.1.2"
+  private val circeVersion      = "0.13.0"
+  private val doobieVersion     = "0.9.0"
+  private val flywayVersion     = "6.4.2"
   private val h2Version         = "1.4.200"
-  private val http4sVersion     = "0.21.0-M6"
+  private val http4sVersion     = "0.21.4"
   private val logbackVersion    = "1.2.3"
-  private val oauthJwtVersion   = "3.8.2"
-  private val postgresVersion   = "42.2.9"
-  private val pureConfigVersion = "0.12.1"
-  private val specs2Version     = "4.8.1"
+  private val oauthJwtVersion   = "3.10.3"
+  private val postgresVersion   = "42.2.12"
+  private val pureConfigVersion = "0.12.3"
+  private val specs2Version     = "4.9.4"
 
   // Compiler plugin dependency versions
   private val kindProjectorVersion    = "0.11.0"

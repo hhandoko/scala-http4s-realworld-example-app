@@ -41,10 +41,13 @@ object Server {
     } yield svr
   }
 
-  private[this] def config[F[_]: Sync]: Resource[F, Config] = {
+  private[this] def config[F[_]: ContextShift: Sync]: Resource[F, Config] = {
     import pureconfig.generic.auto._
 
-    Resource.liftF(loadConfigF[F, Config])
+    for {
+      be <- Blocker[F]
+      re <- Resource.liftF(loadConfigF[F, Config](be))
+    } yield re
   }
 
   private[this] def loggedRoutes[F[_]: ConcurrentEffect](conf: Config, routes: HttpRoutes[F]): HttpRoutes[F] =
@@ -56,7 +59,7 @@ object Server {
   ): Resource[F, BlazeServer[F]] = {
     import org.http4s.implicits._
 
-    BlazeServerBuilder[F]
+    BlazeServerBuilder[F](scala.concurrent.ExecutionContext.global)
       .bindHttp(config.server.port, config.server.host)
       .withHttpApp(routes.orNotFound)
       .resource
