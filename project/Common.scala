@@ -4,6 +4,8 @@ import scala.io.Source
 import io.github.davidmweber.FlywayPlugin.autoImport._
 import sbt.Keys._
 import sbt._
+import sbtassembly.AssemblyKeys._
+import sbtassembly.MergeStrategy
 
 object Common {
 
@@ -24,13 +26,13 @@ object Common {
   private val betterMonadicForVersion = "0.3.1"
 
   final val settings: Seq[Setting[_]] =
-    projectSettings ++ dependencySettings ++ flywaySettings ++ compilerPlugins
+    projectSettings ++ dependencySettings ++ flywaySettings ++ compilerPlugins ++ assemblySettings
 
   private[this] def projectSettings = Seq(
     organization := "com.hhandoko",
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
-    scalaVersion := "2.12.10",
+    scalaVersion := "2.13.2"
   )
 
   private[this] def dependencySettings = Seq(
@@ -73,6 +75,16 @@ object Common {
 
     // Separate the schema and seed, as unit tests does not require seed test data
     flywayLocations := Seq("filesystem:db/migration/postgresql", "filesystem:db/seed")
+  )
+
+  private[this] def assemblySettings = Seq(
+    assemblyMergeStrategy in assembly := {
+      case "module-info.class" =>
+        MergeStrategy.concat
+      case f =>
+        val oldStrategy = (assemblyMergeStrategy in assembly).value
+        oldStrategy(f)
+    }
   )
 
   /**
