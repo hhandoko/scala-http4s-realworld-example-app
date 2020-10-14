@@ -5,7 +5,7 @@ USERNAME=${USERNAME:-john.doe}
 EMAIL=${EMAIL:-$USERNAME@test.com}
 PASSWORD=${PASSWORD:-S3cret!}
 
-newman run scripts/newman/Conduit.postman_collection.json \
+npx newman run scripts/newman/Conduit.postman_collection.json \
   --delay-request 100 \
   --global-var "APIURL=$APIURL" \
   --global-var "USERNAME=$USERNAME" \

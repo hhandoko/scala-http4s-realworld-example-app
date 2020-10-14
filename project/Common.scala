@@ -10,16 +10,20 @@ import sbtassembly.MergeStrategy
 object Common {
 
   // Dependency versions
-  private val circeVersion      = "0.13.0"
-  private val doobieVersion     = "0.9.0"
-  private val flywayVersion     = "6.4.2"
-  private val h2Version         = "1.4.200"
-  private val http4sVersion     = "0.21.4"
-  private val logbackVersion    = "1.2.3"
-  private val oauthJwtVersion   = "3.10.3"
-  private val postgresVersion   = "42.2.12"
-  private val pureConfigVersion = "0.12.3"
-  private val specs2Version     = "4.9.4"
+  private val doobieVersion     = "0.9.2"
+  private val flywayVersion     = "7.0.2"
+  private val http4sVersion     = "0.21.7"
+  private val oauthJwtVersion   = "3.11.0"
+  private val pureConfigVersion = "0.14.0"
+
+  // Transient dependency versions
+  // ~ doobie
+  private val h2Version       = "1.4.200"
+  private val postgresVersion = "42.2.14"
+  // ~ http4s
+  private val circeVersion   = "0.13.0"
+  private val logbackVersion = "1.2.3"
+  private val specs2Version  = "4.10.2"
 
   // Compiler plugin dependency versions
   private val kindProjectorVersion    = "0.11.0"
@@ -89,6 +93,8 @@ object Common {
 
   /**
    * Basic auto-closing implementation for closeable resource.
+   *
+   * Required as sbt 1.4.x is still on Scala 2.12.
    * 
    * @param res Closeable resource.
    * @param fn Lambda function performing resource operations.
@@ -98,5 +104,4 @@ object Common {
    */
   private[this] def using[T <: Closeable, U](res: T)(fn: T => U): U =
     try { fn(res) } finally { res.close() }
-
 }
