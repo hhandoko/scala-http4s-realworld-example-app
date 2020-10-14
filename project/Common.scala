@@ -32,7 +32,7 @@ object Common {
     organization := "com.hhandoko",
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
-    scalaVersion := "2.13.2"
+    scalaVersion := "2.13.3"
   )
 
   private[this] def dependencySettings = Seq(

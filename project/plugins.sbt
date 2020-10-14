@@ -12,7 +12,7 @@ addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.5.1")
 
 // Pass recommended Scala compiler flags
 // See: https://github.com/DavidGregory084/sbt-tpolecat
-addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.11")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.14")
 
 // Flyway migrations support in SBT
 // See: https://github.com/flyway/flyway-sbt
