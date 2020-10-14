@@ -6,7 +6,7 @@ WORKDIR     assembler
 # Copy only the required files to setup sbt
 COPY        project/*.properties project/*.sbt project/
 RUN         (SBT_VERSION=$(cat project/build.properties | cut -d '=' -f 2 | tr -d '[:space:]') \
-              && curl -L -O https://piccolo.link/sbt-${SBT_VERSION}.tgz \
+              && curl -L -O https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz \
               && tar -xzf sbt-${SBT_VERSION}.tgz \
               && ./sbt/bin/sbt -mem 4096 sbtVersion)
 
@@ -29,7 +29,7 @@ ENV         APP_VERSION ${APP_VERSION:-1.0.0-SNAPSHOT}
 
 WORKDIR     packager
 RUN         gu install native-image
-COPY        --from=assembler /assembler/target/scala-2.12/${APP_NAME}-${APP_VERSION}.jar ./
+COPY        --from=assembler /assembler/target/scala-2.13/${APP_NAME}-${APP_VERSION}.jar ./
 RUN         native-image \
               --no-server \
               -cp ${APP_NAME}-${APP_VERSION}.jar
