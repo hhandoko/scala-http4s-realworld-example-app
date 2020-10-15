@@ -11,6 +11,7 @@ object Common {
   private val doobieVersion     = "0.9.2"
   private val flywayVersion     = "7.0.2"
   private val http4sVersion     = "0.21.7"
+  private val jansiVersion      = "1.18"
   private val oauthJwtVersion   = "3.11.0"
   private val pureConfigVersion = "0.14.0"
 
@@ -47,6 +48,7 @@ object Common {
       "com.github.pureconfig"   %% "pureconfig-cats-effect" % pureConfigVersion,
       "com.h2database"          %  "h2"                     % h2Version % Test,
       "io.circe"                %% "circe-generic"          % circeVersion,
+      "org.fusesource.jansi"    %  "jansi"                  % jansiVersion,
       "org.flywaydb"            %  "flyway-core"            % flywayVersion % Test,
       "org.graalvm.nativeimage" % "svm"                     % graalVmVersion % Provided,
       "org.http4s"              %% "http4s-blaze-server"    % http4sVersion,
