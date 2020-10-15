@@ -1,7 +1,15 @@
 [
 {
-  "name":"ch.qos.logback.classic.encoder.PatternLayoutEncoder",
+  "name":"ch.qos.logback.classic.PatternLayout",
   "allPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.classic.pattern.ClassOfCallerConverter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.classic.pattern.DateConverter",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -13,15 +21,15 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"ch.qos.logback.classic.pattern.LoggerConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
   "name":"ch.qos.logback.classic.pattern.MessageConverter",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"ch.qos.logback.classic.pattern.ThreadConverter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.classic.pattern.ThrowableProxyConverter",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -38,6 +46,18 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"ch.qos.logback.core.pattern.color.MagentaCompositeConverter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.core.pattern.color.YellowCompositeConverter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.core.status.NopStatusListener",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"com.fasterxml.jackson.databind.deser.Deserializers[]"
 },
 {
@@ -46,6 +66,14 @@
 },
 {
   "name":"com.fasterxml.jackson.databind.ser.Serializers[]"
+},
+{
+  "name":"com.sun.crypto.provider.HmacCore$HmacSHA256",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"doobie.util.meta.MetaInstances$$typecreator1$1",
@@ -70,6 +98,9 @@
 {
   "name":"doobie.util.meta.SqlMetaInstances$$typecreator1$3",
   "allDeclaredFields":true
+},
+{
+  "name":"java.io.FilePermission"
 },
 {
   "name":"java.io.IOException"
@@ -195,6 +226,9 @@
   "allPublicConstructors":true
 },
 {
+  "name":"java.lang.RuntimePermission"
+},
+{
   "name":"java.lang.Short"
 },
 {
@@ -255,10 +289,32 @@
   "name":"java.math.BigDecimal"
 },
 {
+  "name":"java.net.NetPermission"
+},
+{
+  "name":"java.net.SocketPermission"
+},
+{
+  "name":"java.net.URLPermission",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String","java.lang.String"] }]
+},
+{
   "name":"java.nio.ByteBuffer[]"
 },
 {
   "name":"java.nio.charset.Charset"
+},
+{
+  "name":"java.security.AllPermission"
+},
+{
+  "name":"java.security.MessageDigestSpi"
+},
+{
+  "name":"java.security.SecureRandomParameters"
+},
+{
+  "name":"java.security.SecurityPermission"
 },
 {
   "name":"java.sql.Date"
@@ -283,6 +339,9 @@
 },
 {
   "name":"java.util.Map"
+},
+{
+  "name":"java.util.PropertyPermission"
 },
 {
   "name":"java.util.Set"
@@ -792,6 +851,15 @@
   "name":"scala.collection.package"
 },
 {
+  "name":"scala.concurrent.Future"
+},
+{
+  "name":"scala.concurrent.Promise"
+},
+{
+  "name":"scala.concurrent.package"
+},
+{
   "name":"scala.deprecated"
 },
 {
@@ -1120,6 +1188,33 @@
   "name":"scala.util.Either[]"
 },
 {
+  "name":"scala.util.Failure"
+},
+{
+  "name":"scala.util.Success"
+},
+{
+  "name":"scala.util.Try"
+},
+{
+  "name":"scala.util.control.NonFatal$"
+},
+{
+  "name":"scala.util.package"
+},
+{
   "name":"scala.volatile"
+},
+{
+  "name":"sun.security.provider.MD5",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.NativePRNG",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.SHA2$SHA256",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 }
 ]
