@@ -50,7 +50,7 @@ To generate assisted configuration for native image:
 
 ```shell
 java \
-  -agentlib:native-image-agent=config-output-dir=tmp/ \
+  -agentlib:native-image-agent=config-output-dir=src/main/resources/graal/ \
   -cp "target/universal/stage/lib/*" \
   com.hhandoko.realworld.Main
 ```
