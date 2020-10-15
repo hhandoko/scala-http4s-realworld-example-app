@@ -38,13 +38,22 @@ _Note: Node.js 8+ and globally installed [newman] package are required_
 To package and run it as an uber-jar:
 
   1. Run `sbt stage` to package the application into a universal distribution format (at `target/universal/stage/`)
-  1. Run `./target/universal/stage/bin/realworld` to run the web application
+  2. Run `./target/universal/stage/bin/realworld` to run the web application
 
 ### Production Packaging (Graal Native Image)
 
 Ensure Graal is downloaded and its binaries folder added to `PATH`. The most convenient way is to use [sdkman] to switch between different Java SDK versions (Graal included).
 
   - Run `sdk env` to initialise the shell session using [sdkman]
+
+To generate assisted configuration for native image:
+
+```shell
+java \
+  -agentlib:native-image-agent=config-output-dir=tmp/ \
+  -cp "target/universal/stage/lib/*" \
+  com.hhandoko.realworld.Main
+```
 
 To package and run it as a Graal native image:
 
@@ -60,7 +69,7 @@ native-image \
 Alternatively, some scripts are included in the repo to make it easy to download and create native image distribution (limited to Linux and macOS for now):
 
   1. Run `./scripts/graal/bin/setup.sh` to download and setup Graal.
-  1. Run `./scripts/graal/bin/dist.sh` to create a native image distribution under the `/dist` directory.
+  2. Run `./scripts/graal/bin/dist.sh` to create a native image distribution under the `/dist` directory. 
 
 # Progress
 
