@@ -4,8 +4,6 @@ import scala.io.Source
 import io.github.davidmweber.FlywayPlugin.autoImport._
 import sbt.Keys._
 import sbt._
-import sbtassembly.AssemblyKeys._
-import sbtassembly.MergeStrategy
 
 object Common {
 
@@ -25,18 +23,20 @@ object Common {
   private val logbackVersion = "1.2.3"
   private val specs2Version  = "4.10.2"
 
-  // Compiler plugin dependency versions
-  private val kindProjectorVersion    = "0.11.0"
+  // Compiler plugin (incl. Graal) dependency versions
   private val betterMonadicForVersion = "0.3.1"
+  private val kindProjectorVersion    = "0.11.0"
+  private val graalVmVersion          = "20.2.0"
 
   final val settings: Seq[Setting[_]] =
-    projectSettings ++ dependencySettings ++ flywaySettings ++ compilerPlugins ++ assemblySettings
+    projectSettings ++ dependencySettings ++ flywaySettings ++ compilerPlugins
 
   private[this] def projectSettings = Seq(
     organization := "com.hhandoko",
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
-    scalaVersion := "2.13.3"
+    scalaVersion := "2.13.3",
+    mainClass in Compile := Some("com.hhandoko.realworld.Main")
   )
 
   private[this] def dependencySettings = Seq(
@@ -52,12 +52,13 @@ object Common {
       "org.http4s"            %% "http4s-circe"           % http4sVersion,
       "org.http4s"            %% "http4s-dsl"             % http4sVersion,
       "org.postgresql"        %  "postgresql"             % postgresVersion,
+      "org.scalameta"         %% "svm-subs"               % graalVmVersion % "compile-internal",
+      "org.specs2"            %% "specs2-core"            % specs2Version % Test,
       "org.tpolecat"          %% "doobie-core"            % doobieVersion,
       "org.tpolecat"          %% "doobie-h2"              % doobieVersion % Test,
       "org.tpolecat"          %% "doobie-hikari"          % doobieVersion,
       "org.tpolecat"          %% "doobie-postgres"        % doobieVersion,
-      "org.tpolecat"          %% "doobie-specs2"          % doobieVersion % Test,
-      "org.specs2"            %% "specs2-core"            % specs2Version % Test
+      "org.tpolecat"          %% "doobie-specs2"          % doobieVersion % Test
     )
   )
 
@@ -79,16 +80,6 @@ object Common {
 
     // Separate the schema and seed, as unit tests does not require seed test data
     flywayLocations := Seq("filesystem:db/migration/postgresql", "filesystem:db/seed")
-  )
-
-  private[this] def assemblySettings = Seq(
-    assemblyMergeStrategy in assembly := {
-      case "module-info.class" =>
-        MergeStrategy.concat
-      case f =>
-        val oldStrategy = (assemblyMergeStrategy in assembly).value
-        oldStrategy(f)
-    }
   )
 
   /**

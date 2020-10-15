@@ -33,12 +33,12 @@ To run the API spec tests with [newman]:
 
 _Note: Node.js 8+ and globally installed [newman] package are required_
 
-### Production Packaging (uber-jar)
+### Production Packaging (universal format)
 
 To package and run it as an uber-jar:
 
-  1. Run `sbt assembly` to package the application into an uber-jar (`realworld-assembly-1.0.0-SNAPSHOT.jar`)
-  1. Run `java -jar target/scala-2.13/realworld-assembly-1.0.0-SNAPSHOT.jar` to run the web application
+  1. Run `sbt stage` to package the application into a universal distribution format (at `target/universal/stage/`)
+  1. Run `./target/universal/stage/bin/realworld` to run the web application
 
 ### Production Packaging (Graal Native Image)
 
@@ -51,7 +51,8 @@ To package and run it as a Graal native image:
 ```shell
 native-image \
   --no-server \
-  -cp target/scala-2.13/realworld-assembly-1.0.0-SNAPSHOT.jar
+  --class-path "target/universal/stage/lib/*" \
+  com.hhandoko.realworld.Main
 ```
 
   1. Run `./realworld` to run the web application
@@ -75,8 +76,8 @@ Please read [PROGRESS] for more details.
 
 # Issues
 
+  - Native image generation sometimes fail with non-initialized charset issue error message (simply retry until succeeds)
   - Native image generation with `jwt-scala` fails ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
-  - Native image generation with Scala 2.13 fails ([oracle/graal/#1863](https://github.com/oracle/graal/issues/1863))
   - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
 
 # Contributing
