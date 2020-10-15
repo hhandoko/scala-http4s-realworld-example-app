@@ -41,24 +41,25 @@ object Common {
 
   private[this] def dependencySettings = Seq(
     libraryDependencies ++= Seq(
-      "ch.qos.logback"        %  "logback-classic"        % logbackVersion,
-      "com.auth0"             %  "java-jwt"               % oauthJwtVersion,
-      "com.github.pureconfig" %% "pureconfig"             % pureConfigVersion,
-      "com.github.pureconfig" %% "pureconfig-cats-effect" % pureConfigVersion,
-      "com.h2database"        %  "h2"                     % h2Version % Test,
-      "io.circe"              %% "circe-generic"          % circeVersion,
-      "org.flywaydb"          %  "flyway-core"            % flywayVersion % Test,
-      "org.http4s"            %% "http4s-blaze-server"    % http4sVersion,
-      "org.http4s"            %% "http4s-circe"           % http4sVersion,
-      "org.http4s"            %% "http4s-dsl"             % http4sVersion,
-      "org.postgresql"        %  "postgresql"             % postgresVersion,
-      "org.scalameta"         %% "svm-subs"               % graalVmVersion % "compile-internal",
-      "org.specs2"            %% "specs2-core"            % specs2Version % Test,
-      "org.tpolecat"          %% "doobie-core"            % doobieVersion,
-      "org.tpolecat"          %% "doobie-h2"              % doobieVersion % Test,
-      "org.tpolecat"          %% "doobie-hikari"          % doobieVersion,
-      "org.tpolecat"          %% "doobie-postgres"        % doobieVersion,
-      "org.tpolecat"          %% "doobie-specs2"          % doobieVersion % Test
+      "ch.qos.logback"          %  "logback-classic"        % logbackVersion,
+      "com.auth0"               %  "java-jwt"               % oauthJwtVersion,
+      "com.github.pureconfig"   %% "pureconfig"             % pureConfigVersion,
+      "com.github.pureconfig"   %% "pureconfig-cats-effect" % pureConfigVersion,
+      "com.h2database"          %  "h2"                     % h2Version % Test,
+      "io.circe"                %% "circe-generic"          % circeVersion,
+      "org.flywaydb"            %  "flyway-core"            % flywayVersion % Test,
+      "org.graalvm.nativeimage" % "svm"                     % graalVmVersion % Provided,
+      "org.http4s"              %% "http4s-blaze-server"    % http4sVersion,
+      "org.http4s"              %% "http4s-circe"           % http4sVersion,
+      "org.http4s"              %% "http4s-dsl"             % http4sVersion,
+      "org.postgresql"          %  "postgresql"             % postgresVersion,
+      "org.scalameta"           %% "svm-subs"               % graalVmVersion,
+      "org.specs2"              %% "specs2-core"            % specs2Version % Test,
+      "org.tpolecat"            %% "doobie-core"            % doobieVersion,
+      "org.tpolecat"            %% "doobie-h2"              % doobieVersion % Test,
+      "org.tpolecat"            %% "doobie-hikari"          % doobieVersion,
+      "org.tpolecat"            %% "doobie-postgres"        % doobieVersion,
+      "org.tpolecat"            %% "doobie-specs2"          % doobieVersion % Test
     )
   )
 
