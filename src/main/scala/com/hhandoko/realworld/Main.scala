@@ -1,7 +1,6 @@
 package com.hhandoko.realworld
 
 import cats.effect.{ExitCode, IO, IOApp}
-import cats.implicits._
 
 object Main extends IOApp {
 

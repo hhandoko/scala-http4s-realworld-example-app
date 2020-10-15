@@ -1,4 +1,8 @@
-# Created by https://www.gitignore.io/api/sbt,scala
+# Created by https://www.toptal.com/developers/gitignore/api/sbt,scala,bloop
+# Edit at https://www.toptal.com/developers/gitignore?templates=sbt,scala,bloop
+
+### Bloop ###
+.bloop/
 
 ### SBT ###
 # Simple Build Tool
@@ -14,14 +18,15 @@ project/plugins/project/
 .cache
 .lib/
 
-
 ### Scala ###
 *.class
 *.log
 
-# End of https://www.gitignore.io/api/sbt,scala
+# End of https://www.toptal.com/developers/gitignore/api/sbt,scala,bloop
+
 
 
 ### Others ###
+.bsp/
 tmp/
 scripts/graal/sdk/

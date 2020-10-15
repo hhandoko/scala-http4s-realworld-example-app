@@ -14,23 +14,12 @@ if [ $# -gt 0 ] ; then
     DIST_FOLDER=$1
 fi
 
-# Set application version
-APP_VERSION="`cat VERSION.txt`"
-
-# Set artifact name
-APP_NAME=realworld-assembly-${APP_VERSION}
-APP_JAR=${APP_NAME}.jar
-
 # Graal version and path
 GRAAL_JAVA_VERSION=java11
 GRAAL_DIR=scripts/graal
 GRAAL_VERSION=`cat ${GRAAL_DIR}/VERSION.txt`
 GRAAL_HOME=${GRAAL_DIR}/sdk/graalvm-ce-${GRAAL_JAVA_VERSION}-${GRAAL_VERSION}
 GRAAL_BIN=''
-
-# SunEC path
-SUNEC_PLATFORM=amd64
-SUNEC_PATH=${GRAAL_HOME}/jre/lib/${SUNEC_PLATFORM}
 
 # Choose Graal SDK distribution for supported OSes
 OS_NAME="`uname`"
@@ -59,9 +48,9 @@ clean_dist_folder() {
 
 # Create an uber-jar and copy the artifact to the distribution folder
 create_assembly() {
-    echo "${C_YELLOW}Packaging into uber-jar${C_RESET}"
-    sbt -mem 4096 assembly
-    cp target/scala-2.12/${APP_JAR} ${DIST_FOLDER}
+    echo "${C_YELLOW}Packaging into universal distribution format${C_RESET}"
+    sbt -mem 4096 stage
+    cp target/universal/stage/lib/*.jar ${DIST_FOLDER}
 }
 
 # Create native image in the distribution folder
@@ -76,7 +65,8 @@ create_native() {
     (cd ${DIST_FOLDER} \
         && ../${GRAAL_HOME}/${GRAAL_BIN}/native-image \
               --no-server \
-              -cp ${APP_JAR})
+              --class-path "*" \
+              com.hhandoko.realworld.Main)
 }
 
 # Run

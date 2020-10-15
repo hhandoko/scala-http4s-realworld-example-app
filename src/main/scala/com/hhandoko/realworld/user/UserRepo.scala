@@ -2,7 +2,6 @@ package com.hhandoko.realworld.user
 
 import cats._
 import cats.effect.Sync
-import doobie._
 import doobie.implicits._
 import doobie.util.transactor.Transactor
 

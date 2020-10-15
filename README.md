@@ -15,8 +15,8 @@ For more information on how to this works with other frontends/backends, head ov
 
 Ensure the following dependencies are installed and configured:
 
-  - [Java SDK] 8 or 11 or [GraalVM] 19.3.x (both Java 8 and 11 variants)
-  - [sbt] 1.3.x
+  - [Java SDK] 8 or 11 or [GraalVM] 20.2.x (both Java 8 and 11 variants)
+  - [sbt] 1.4.x
 
 ### Setup Steps
 
@@ -25,23 +25,34 @@ Ensure the following dependencies are installed and configured:
 
 The app is now accessible from [`localhost:8080`](http://localhost:8080).
 
-### Production Packaging (uber-jar)
+### newman Testing
+
+To run the API spec tests with [newman]:
+
+  - Run `./scripts/newman/run.sh` to run the API spec test
+
+_Note: Node.js 8+ and globally installed [newman] package are required_
+
+### Production Packaging (universal format)
 
 To package and run it as an uber-jar:
 
-  1. Run `sbt assembly` to package the application into an uber-jar (`realworld-assembly-1.0.0-SNAPSHOT.jar`)
-  1. Run `java -jar target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar` to run the web application
+  1. Run `sbt stage` to package the application into a universal distribution format (at `target/universal/stage/`)
+  1. Run `./target/universal/stage/bin/realworld` to run the web application
 
 ### Production Packaging (Graal Native Image)
 
 Ensure Graal is downloaded and its binaries folder added to `PATH`. The most convenient way is to use [sdkman] to switch between different Java SDK versions (Graal included).
+
+  - Run `sdk env` to initialise the shell session using [sdkman]
 
 To package and run it as a Graal native image:
 
 ```shell
 native-image \
   --no-server \
-  -cp target/scala-2.12/realworld-assembly-1.0.0-SNAPSHOT.jar
+  --class-path "target/universal/stage/lib/*" \
+  com.hhandoko.realworld.Main
 ```
 
   1. Run `./realworld` to run the web application
@@ -65,8 +76,8 @@ Please read [PROGRESS] for more details.
 
 # Issues
 
+  - Native image generation sometimes fail with non-initialized charset issue error message (simply retry until succeeds)
   - Native image generation with `jwt-scala` fails ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
-  - Native image generation with Scala 2.13 fails ([oracle/graal/#1863](https://github.com/oracle/graal/issues/1863))
   - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
 
 # Contributing
@@ -86,7 +97,7 @@ Please read [CONTRIBUTING] for more details.
 ## License
 
 ```
-    Copyright (c) 2019 Herdy Handoko
+    Copyright (c) 2019-2020 Herdy Handoko
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -109,6 +120,7 @@ Please read [CONTRIBUTING] for more details.
 [GraalVM]: https://www.graalvm.org/
 [Java SDK]: https://adoptopenjdk.net/
 [LICENSE]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/LICENSE
+[newman]: https://github.com/postmanlabs/newman
 [PROGRESS]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/PROGRESS.md
 [sbt]: https://www.scala-sbt.org/
 [sdkman]: https://sdkman.io/

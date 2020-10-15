@@ -1,4 +1,5 @@
 enablePlugins(FlywayPlugin)
+enablePlugins(JavaAppPackaging)
 
 lazy val realworld =
   (project in file("."))
