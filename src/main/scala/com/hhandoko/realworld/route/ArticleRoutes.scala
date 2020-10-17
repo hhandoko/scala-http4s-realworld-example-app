@@ -10,8 +10,8 @@ import org.http4s.circe.jsonEncoderOf
 import org.http4s.dsl.Http4sDsl
 import org.http4s.{EntityEncoder, HttpRoutes}
 
-import com.hhandoko.realworld.article.ArticleService
 import com.hhandoko.realworld.core.Article
+import com.hhandoko.realworld.service.ArticleService
 
 object ArticleRoutes {
 
