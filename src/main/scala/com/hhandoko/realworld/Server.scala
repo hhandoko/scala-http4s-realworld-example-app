@@ -10,10 +10,11 @@ import org.http4s.server.middleware.Logger
 import org.http4s.server.{Server => BlazeServer}
 import pureconfig.module.catseffect.loadConfigF
 
-import com.hhandoko.realworld.article.{ArticleRoutes, ArticleService}
+import com.hhandoko.realworld.article.ArticleService
 import com.hhandoko.realworld.auth.{AuthRoutes, AuthService, RequestAuthenticator}
 import com.hhandoko.realworld.config.{Config, DbConfig}
 import com.hhandoko.realworld.profile.{ProfileRoutes, ProfileService}
+import com.hhandoko.realworld.route.ArticleRoutes
 import com.hhandoko.realworld.tag.{TagRoutes, TagService}
 import com.hhandoko.realworld.user.{UserRoutes, UserService}
 

@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.article
+package com.hhandoko.realworld.route
 
 import java.time.format.DateTimeFormatter
 
@@ -6,10 +6,11 @@ import cats.Applicative
 import cats.effect.{ContextShift, Sync}
 import cats.implicits._
 import io.circe.{Encoder, Json}
-import org.http4s.circe.jsonEncoderOf
+import org.http4s.circe._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.{EntityEncoder, HttpRoutes}
 
+import com.hhandoko.realworld.article.ArticleService
 import com.hhandoko.realworld.core.Article
 
 object ArticleRoutes {
