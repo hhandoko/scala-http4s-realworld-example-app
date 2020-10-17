@@ -14,9 +14,9 @@ import com.hhandoko.realworld.article.ArticleService
 import com.hhandoko.realworld.auth.{AuthService, RequestAuthenticator}
 import com.hhandoko.realworld.config.{Config, DbConfig}
 import com.hhandoko.realworld.profile.ProfileService
-import com.hhandoko.realworld.route.{ArticleRoutes, AuthRoutes, ProfileRoutes, TagRoutes}
+import com.hhandoko.realworld.route.{ArticleRoutes, AuthRoutes, ProfileRoutes, TagRoutes, UserRoutes}
 import com.hhandoko.realworld.tag.TagService
-import com.hhandoko.realworld.user.{UserRoutes, UserService}
+import com.hhandoko.realworld.user.UserService
 
 object Server {
 

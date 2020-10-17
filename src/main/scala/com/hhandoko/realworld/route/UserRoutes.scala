@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.user
+package com.hhandoko.realworld.route
 
 import cats.Applicative
 import cats.effect.{ContextShift, Sync}
@@ -10,10 +10,11 @@ import org.http4s.{AuthedRoutes, EntityEncoder, HttpRoutes}
 
 import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.core.Username
+import com.hhandoko.realworld.user.UserService
 
 object UserRoutes {
 
-  def apply[F[_]: Sync: ContextShift](authenticated: RequestAuthenticator[F], userService: UserService[F]): HttpRoutes[F] = {
+  def apply[F[_] : Sync : ContextShift](authenticated: RequestAuthenticator[F], userService: UserService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
     authenticated {
@@ -43,8 +44,7 @@ object UserRoutes {
       )
     )
 
-    implicit def entityEncoder[F[_]: Applicative]: EntityEncoder[F, UserResponse] =
+    implicit def entityEncoder[F[_] : Applicative]: EntityEncoder[F, UserResponse] =
       jsonEncoderOf[F, UserResponse]
   }
-
 }
