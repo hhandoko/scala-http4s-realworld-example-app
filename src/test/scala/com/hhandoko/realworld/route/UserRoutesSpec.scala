@@ -11,7 +11,7 @@ import org.specs2.matcher.MatchResult
 import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.core.{JwtToken, User, Username}
 import com.hhandoko.realworld.route
-import com.hhandoko.realworld.user.UserService
+import com.hhandoko.realworld.service.UserService
 
 class UserRoutesSpec extends Specification { def is = s2"""
 

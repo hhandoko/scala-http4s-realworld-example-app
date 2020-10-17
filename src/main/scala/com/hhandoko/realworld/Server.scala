@@ -15,8 +15,7 @@ import pureconfig.module.catseffect.loadConfigF
 import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.config.{Config, DbConfig, LogConfig, ServerConfig}
 import com.hhandoko.realworld.route.{ArticleRoutes, AuthRoutes, ProfileRoutes, TagRoutes, UserRoutes}
-import com.hhandoko.realworld.service.{ArticleService, AuthService, ProfileService, TagService}
-import com.hhandoko.realworld.user.UserService
+import com.hhandoko.realworld.service.{ArticleService, AuthService, ProfileService, TagService, UserService}
 
 object Server {
 
@@ -25,7 +24,7 @@ object Server {
     val authService    = AuthService[F]
     val profileService = ProfileService[F]
     val tagService     = TagService[F]
-    val userService    = UserService.impl[F]
+    val userService    = UserService[F]
 
     val authenticator = new RequestAuthenticator[F]()
 
