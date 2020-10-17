@@ -5,6 +5,11 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"ch.qos.logback.classic.encoder.PatternLayoutEncoder",
+  "allPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"ch.qos.logback.classic.pattern.ClassOfCallerConverter",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -54,8 +59,35 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"ch.qos.logback.core.rolling.RollingFileAppender",
+  "allPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP",
+  "allPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.core.rolling.TimeBasedRollingPolicy",
+  "allPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.core.rolling.helper.DateTokenConverter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.core.rolling.helper.IntegerTokenConverter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"ch.qos.logback.core.status.NopStatusListener",
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.core.util.FileSize",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
 },
 {
   "name":"com.fasterxml.jackson.databind.deser.Deserializers[]"

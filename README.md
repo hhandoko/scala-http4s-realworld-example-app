@@ -88,6 +88,7 @@ Please read [PROGRESS] for more details.
   - Native image generation sometimes fail with non-initialized charset issue error message (simply retry until succeeds)
   - Native image generation with `jwt-scala` fails ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
   - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
+  - Logback `RollingFileAppender` does not compile in native image ([oracle/graal/#1323](https://github.com/oracle/graal/issues/1323))
 
 # Contributing
 
@@ -97,8 +98,8 @@ We follow the "[feature-branch]" Git workflow.
      - For technical chores, use `chore/` prefix followed by the short description, e.g. `chore/do_this_chore`
      - For new features, use `feature/` prefix followed by the feature name, e.g. `feature/feature_name`
      - For bug fixes, use `bug/` prefix followed by the short description, e.g. `bug/fix_this_bug`
-  1. Rebase or merge from "upstream"
-  1. Submit a PR "upstream" to `develop` branch with your changes
+  2. Rebase or merge from "upstream"
+  3. Submit a PR "upstream" to `develop` branch with your changes
 
 Please read [CONTRIBUTING] for more details.
 
