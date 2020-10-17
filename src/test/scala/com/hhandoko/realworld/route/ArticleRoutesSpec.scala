@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.article
+package com.hhandoko.realworld.route
 
 import java.time.ZonedDateTime
 import scala.concurrent.ExecutionContext
@@ -9,7 +9,9 @@ import org.http4s.implicits._
 import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
+import com.hhandoko.realworld.article.ArticleService
 import com.hhandoko.realworld.core.{Article, Author, Username}
+import com.hhandoko.realworld.route
 
 class ArticleRoutesSpec extends Specification { def is = s2"""
 
@@ -26,7 +28,7 @@ class ArticleRoutesSpec extends Specification { def is = s2"""
   private[this] val retHasArticles: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
-    val articles = Vector(mockArticle("Hello"), mockArticle("World"))
+    val articles    = Vector(mockArticle("Hello"), mockArticle("World"))
     val getArticles = Request[IO](Method.GET, uri"/api/articles")
 
     ArticleRoutes[IO](new FakeArticleService(articles))
@@ -39,7 +41,7 @@ class ArticleRoutesSpec extends Specification { def is = s2"""
 
     val getArticles = Request[IO](Method.GET, uri"/api/articles")
 
-    ArticleRoutes[IO](new FakeArticleService(Vector.empty))
+    route.ArticleRoutes[IO](new FakeArticleService(Vector.empty))
       .orNotFound(getArticles)
       .unsafeRunSync()
   }
@@ -78,5 +80,4 @@ class ArticleRoutesSpec extends Specification { def is = s2"""
   class FakeArticleService(records: Vector[Article]) extends ArticleService[IO] {
     override def getAll: IO[Vector[Article]] = IO.pure(records)
   }
-
 }

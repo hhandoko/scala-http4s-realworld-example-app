@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.profile
+package com.hhandoko.realworld.route
 
 import cats.Applicative
 import cats.effect.{ContextShift, Sync}
@@ -9,6 +9,7 @@ import org.http4s.dsl.Http4sDsl
 import org.http4s.{EntityEncoder, HttpRoutes}
 
 import com.hhandoko.realworld.core.Username
+import com.hhandoko.realworld.profile.ProfileService
 
 object ProfileRoutes {
 
@@ -38,8 +39,7 @@ object ProfileRoutes {
       )
     )
 
-    implicit def entityEncoder[F[_]: Applicative]: EntityEncoder[F, ProfileResponse] =
+    implicit def entityEncoder[F[_] : Applicative]: EntityEncoder[F, ProfileResponse] =
       jsonEncoderOf[F, ProfileResponse]
   }
-
 }

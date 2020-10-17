@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.tag
+package com.hhandoko.realworld.route
 
 import scala.concurrent.ExecutionContext
 
@@ -9,6 +9,7 @@ import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
 import com.hhandoko.realworld.core.Tag
+import com.hhandoko.realworld.tag.TagService
 
 class TagRoutesSpec extends Specification { def is = s2"""
 
@@ -20,9 +21,10 @@ class TagRoutesSpec extends Specification { def is = s2"""
   private[this] val retAllTags: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
+    val tags       = Vector(Tag("hello"), Tag("world"))
     val getAllTags = Request[IO](Method.GET, uri"/api/tags")
 
-    TagRoutes[IO](FakeTagService)
+    TagRoutes[IO](new FakeTagService(tags))
       .orNotFound(getAllTags)
       .unsafeRunSync()
   }
@@ -33,10 +35,7 @@ class TagRoutesSpec extends Specification { def is = s2"""
   private[this] def uriReturnsTagArray: MatchResult[String] =
     retAllTags.as[String].unsafeRunSync() must beEqualTo("""{"tags":["hello","world"]}""")
 
-  object FakeTagService extends TagService[IO] {
-    private val tags = Vector(Tag("hello"), Tag("world"))
-
-    def getAll: IO[Vector[Tag]] = IO.pure(tags)
+  class FakeTagService(tags: Vector[Tag]) extends TagService[IO] {
+    override def getAll: IO[Vector[Tag]] = IO.pure(tags)
   }
-
 }
