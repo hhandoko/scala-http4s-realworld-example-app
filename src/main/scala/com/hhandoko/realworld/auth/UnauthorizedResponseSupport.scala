@@ -19,5 +19,4 @@ trait UnauthorizedResponseSupport {
     )
     `WWW-Authenticate`(Challenge(SCHEME, REALM, params))
   }
-
 }

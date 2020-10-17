@@ -52,7 +52,7 @@ To generate assisted configuration for native image:
 java \
   -agentlib:native-image-agent=config-output-dir=src/main/resources/graal/ \
   -cp "target/universal/stage/lib/*" \
-  com.hhandoko.realworld.Main
+  com.hhandoko.realworld.Application
 ```
 
 To package and run it as a Graal native image:
@@ -61,7 +61,7 @@ To package and run it as a Graal native image:
 native-image \
   --no-server \
   --class-path "target/universal/stage/lib/*" \
-  com.hhandoko.realworld.Main
+  com.hhandoko.realworld.Application
 ```
 
   1. Run `./realworld` to run the web application

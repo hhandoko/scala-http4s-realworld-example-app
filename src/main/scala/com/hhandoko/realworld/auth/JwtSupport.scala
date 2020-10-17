@@ -41,5 +41,4 @@ trait JwtSupport {
       // Private claims
       .withClaim(CLAIM_USERNAME, username.value)
       .sign(ALGO)
-
 }
