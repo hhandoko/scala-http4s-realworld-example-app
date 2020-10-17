@@ -9,10 +9,10 @@ import org.http4s.{Method, Request, Response, Status}
 import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
-import com.hhandoko.realworld.auth.AuthService
 import com.hhandoko.realworld.core.{JwtToken, User, Username}
 import com.hhandoko.realworld.route
 import com.hhandoko.realworld.route.AuthRoutes.{LoginPost, LoginPostPayload}
+import com.hhandoko.realworld.service.AuthService
 
 class AuthRoutesSpec extends Specification { def is = s2"""
 

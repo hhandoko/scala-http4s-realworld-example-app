@@ -8,8 +8,9 @@ import org.http4s.circe.{jsonEncoderOf, jsonOf}
 import org.http4s.dsl.Http4sDsl
 import org.http4s.{EntityEncoder, HttpRoutes}
 
-import com.hhandoko.realworld.auth.{AuthService, UnauthorizedResponseSupport}
+import com.hhandoko.realworld.auth.UnauthorizedResponseSupport
 import com.hhandoko.realworld.route.common.UserResponse
+import com.hhandoko.realworld.service.AuthService
 
 object AuthRoutes extends UnauthorizedResponseSupport {
 

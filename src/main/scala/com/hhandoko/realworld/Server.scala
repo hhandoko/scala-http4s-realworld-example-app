@@ -11,10 +11,11 @@ import org.http4s.server.{Server => BlazeServer}
 import pureconfig.module.catseffect.loadConfigF
 
 import com.hhandoko.realworld.article.ArticleService
-import com.hhandoko.realworld.auth.{AuthService, RequestAuthenticator}
+import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.config.{Config, DbConfig}
 import com.hhandoko.realworld.profile.ProfileService
 import com.hhandoko.realworld.route.{ArticleRoutes, AuthRoutes, ProfileRoutes, TagRoutes, UserRoutes}
+import com.hhandoko.realworld.service.AuthService
 import com.hhandoko.realworld.tag.TagService
 import com.hhandoko.realworld.user.UserService
 
@@ -23,13 +24,12 @@ object Server {
   def run[F[_]: ConcurrentEffect: ContextShift: Timer]: Resource[F, BlazeServer[F]] = {
     val authenticator = new RequestAuthenticator[F]()
     val articleService = ArticleService.impl[F]
-    val authService = AuthService.impl[F]
     val profileService = ProfileService.impl[F]
     val tagService = TagService.impl[F]
     val userService = UserService.impl[F]
     val routes =
       ArticleRoutes[F](articleService) <+>
-      AuthRoutes[F](authService) <+>
+      AuthRoutes[F](AuthService[F]) <+>
       ProfileRoutes[F](profileService) <+>
       TagRoutes[F](tagService) <+>
       UserRoutes[F](authenticator, userService)
