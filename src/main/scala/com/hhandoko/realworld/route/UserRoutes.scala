@@ -1,20 +1,18 @@
 package com.hhandoko.realworld.route
 
-import cats.Applicative
 import cats.effect.{ContextShift, Sync}
 import cats.implicits._
-import io.circe.{Encoder, Json}
-import org.http4s.circe.jsonEncoderOf
 import org.http4s.dsl.Http4sDsl
-import org.http4s.{AuthedRoutes, EntityEncoder, HttpRoutes}
+import org.http4s.{AuthedRoutes, HttpRoutes}
 
 import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.core.Username
+import com.hhandoko.realworld.route.common.UserResponse
 import com.hhandoko.realworld.user.UserService
 
 object UserRoutes {
 
-  def apply[F[_] : Sync : ContextShift](authenticated: RequestAuthenticator[F], userService: UserService[F]): HttpRoutes[F] = {
+  def apply[F[_]: ContextShift: Sync](authenticated: RequestAuthenticator[F], userService: UserService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
     authenticated {
@@ -28,23 +26,5 @@ object UserRoutes {
           } yield res
       }
     }
-  }
-
-  // TODO: Duplicated in UserRoutes, consolidate
-  final case class UserResponse(email: String, token: String, username: String, bio: Option[String], image: Option[String])
-
-  object UserResponse {
-    implicit val encoder: Encoder[UserResponse] = (r: UserResponse) => Json.obj(
-      "user" -> Json.obj(
-        "email"    -> Json.fromString(r.email),
-        "token"    -> Json.fromString(r.token),
-        "username" -> Json.fromString(r.username),
-        "bio"      -> r.bio.fold(Json.Null)(Json.fromString),
-        "image"    -> r.image.fold(Json.Null)(Json.fromString)
-      )
-    )
-
-    implicit def entityEncoder[F[_] : Applicative]: EntityEncoder[F, UserResponse] =
-      jsonEncoderOf[F, UserResponse]
   }
 }
