@@ -66,7 +66,7 @@ create_native() {
         && ../${GRAAL_HOME}/${GRAAL_BIN}/native-image \
               --no-server \
               --class-path "*" \
-              com.hhandoko.realworld.Main)
+              com.hhandoko.realworld.Application)
 }
 
 # Run

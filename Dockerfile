@@ -28,7 +28,7 @@ COPY        --from=assembler /assembler/target/universal/stage/lib/*.jar ./
 RUN         native-image \
               --no-server \
               --class-path "*" \
-              com.hhandoko.realworld.Main
+              com.hhandoko.realworld.Application
 
 # ~~~~~~
 

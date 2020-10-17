@@ -14,8 +14,8 @@ import com.hhandoko.realworld.service.TagService
 class TagRoutesSpec extends Specification { def is = s2"""
 
   Tag routes
-    should return 200 OK status        $uriReturns200
-    should return an array of 'tags'   $uriReturnsTagArray
+    should return 200 OK status        $returns200
+    should return an array of 'tags'   $returnsTagArray
   """
 
   private[this] val retAllTags: Response[IO] = {
@@ -29,10 +29,10 @@ class TagRoutesSpec extends Specification { def is = s2"""
       .unsafeRunSync()
   }
 
-  private[this] def uriReturns200: MatchResult[Status] =
+  private[this] def returns200: MatchResult[Status] =
     retAllTags.status must beEqualTo(Status.Ok)
 
-  private[this] def uriReturnsTagArray: MatchResult[String] =
+  private[this] def returnsTagArray: MatchResult[String] =
     retAllTags.as[String].unsafeRunSync() must beEqualTo("""{"tags":["hello","world"]}""")
 
   class FakeTagService(tags: Vector[Tag]) extends TagService[IO] {

@@ -35,5 +35,4 @@ class RequestAuthenticator[F[_]: Monad] extends JwtSupport {
 
   private[this] def getTokenValue(header: Header): JwtToken =
     JwtToken(header.value.substring(HEADER_VALUE_START_INDEX))
-
 }

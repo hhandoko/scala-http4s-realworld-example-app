@@ -37,7 +37,7 @@ object Common {
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
     scalaVersion := "2.13.3",
-    mainClass in Compile := Some("com.hhandoko.realworld.Main")
+    mainClass in Compile := Some("com.hhandoko.realworld.Application")
   )
 
   private[this] def dependencySettings = Seq(
