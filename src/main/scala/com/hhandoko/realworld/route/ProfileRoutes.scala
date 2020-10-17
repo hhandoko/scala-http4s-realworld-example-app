@@ -9,7 +9,7 @@ import org.http4s.dsl.Http4sDsl
 import org.http4s.{EntityEncoder, HttpRoutes}
 
 import com.hhandoko.realworld.core.Username
-import com.hhandoko.realworld.profile.ProfileService
+import com.hhandoko.realworld.service.ProfileService
 
 object ProfileRoutes {
 

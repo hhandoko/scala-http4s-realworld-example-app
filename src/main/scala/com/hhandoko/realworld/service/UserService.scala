@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.user
+package com.hhandoko.realworld.service
 
 import cats.Applicative
 
@@ -11,9 +11,7 @@ trait UserService[F[_]] {
 
 object UserService extends JwtSupport {
 
-  implicit def apply[F[_]](implicit ev: UserService[F]): UserService[F] = ev
-
-  def impl[F[_]: Applicative]: UserService[F] =
+  def apply[F[_]: Applicative]: UserService[F] =
     new UserService[F] {
       import cats.implicits._
 

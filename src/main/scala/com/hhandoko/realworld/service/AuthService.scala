@@ -1,7 +1,8 @@
-package com.hhandoko.realworld.auth
+package com.hhandoko.realworld.service
 
 import cats.Applicative
 
+import com.hhandoko.realworld.auth.JwtSupport
 import com.hhandoko.realworld.core.{User, Username}
 
 trait AuthService[F[_]] {
@@ -12,13 +13,11 @@ trait AuthService[F[_]] {
 
 object AuthService extends JwtSupport {
 
-  implicit def apply[F[_]](implicit ev: AuthService[F]): AuthService[F] = ev
-
-  def impl[F[_]: Applicative]: AuthService[F] =
+  def apply[F[_]: Applicative]: AuthService[F] =
     new AuthService[F] {
       import cats.implicits._
 
-      def verify(email: Email, password: Password): F[Either[String, User]] = {
+      override def verify(email: Email, password: Password): F[Either[String, User]] = {
         // TODO: Consolidate with UserService
         email.split('@').toVector match {
           case localPart +: _ => {
@@ -32,5 +31,4 @@ object AuthService extends JwtSupport {
         }
       }.pure[F]
     }
-
 }

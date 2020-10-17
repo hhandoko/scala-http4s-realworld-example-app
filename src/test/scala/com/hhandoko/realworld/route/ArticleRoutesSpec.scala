@@ -9,9 +9,9 @@ import org.http4s.implicits._
 import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
-import com.hhandoko.realworld.article.ArticleService
 import com.hhandoko.realworld.core.{Article, Author, Username}
 import com.hhandoko.realworld.route
+import com.hhandoko.realworld.service.ArticleService
 
 class ArticleRoutesSpec extends Specification { def is = s2"""
 

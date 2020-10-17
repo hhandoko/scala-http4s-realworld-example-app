@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.article
+package com.hhandoko.realworld.service
 
 import java.time.ZonedDateTime
 
@@ -12,13 +12,11 @@ trait ArticleService[F[_]] {
 
 object ArticleService {
 
-  implicit def apply[F[_]](implicit ev: ArticleService[F]): ArticleService[F] = ev
-
-  def impl[F[_]: Applicative]: ArticleService[F] =
+  def apply[F[_]: Applicative]: ArticleService[F] =
     new ArticleService[F] {
       import cats.implicits._
 
-      def getAll: F[Vector[Article]] =
+      override def getAll: F[Vector[Article]] =
         Vector("world", "you")
           .map(mockArticles)
           .pure[F]

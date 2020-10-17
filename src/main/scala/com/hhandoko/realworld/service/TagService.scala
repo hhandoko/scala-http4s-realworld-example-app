@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.tag
+package com.hhandoko.realworld.service
 
 import cats.Applicative
 
@@ -10,9 +10,7 @@ trait TagService[F[_]] {
 
 object TagService {
 
-  implicit def apply[F[_]](implicit ev: TagService[F]): TagService[F] = ev
-
-  def impl[F[_]: Applicative]: TagService[F] =
+  def apply[F[_]: Applicative]: TagService[F] =
     new TagService[F] {
       import cats.implicits._
 
@@ -21,5 +19,4 @@ object TagService {
           .map(Tag)
           .pure[F]
     }
-
 }

@@ -8,7 +8,7 @@ import org.http4s.{AuthedRoutes, HttpRoutes}
 import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.core.Username
 import com.hhandoko.realworld.route.common.UserResponse
-import com.hhandoko.realworld.user.UserService
+import com.hhandoko.realworld.service.UserService
 
 object UserRoutes {
 

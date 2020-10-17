@@ -1,5 +1,7 @@
 package com.hhandoko.realworld
 
+import scala.concurrent.ExecutionContext
+
 import cats.effect.{Async, Blocker, ConcurrentEffect, ContextShift, Resource, Sync, Timer}
 import cats.implicits._
 import doobie.hikari.HikariTransactor
@@ -10,23 +12,22 @@ import org.http4s.server.middleware.Logger
 import org.http4s.server.{Server => BlazeServer}
 import pureconfig.module.catseffect.loadConfigF
 
-import com.hhandoko.realworld.article.ArticleService
-import com.hhandoko.realworld.auth.{AuthService, RequestAuthenticator}
-import com.hhandoko.realworld.config.{Config, DbConfig}
-import com.hhandoko.realworld.profile.ProfileService
+import com.hhandoko.realworld.auth.RequestAuthenticator
+import com.hhandoko.realworld.config.{Config, DbConfig, LogConfig, ServerConfig}
 import com.hhandoko.realworld.route.{ArticleRoutes, AuthRoutes, ProfileRoutes, TagRoutes, UserRoutes}
-import com.hhandoko.realworld.tag.TagService
-import com.hhandoko.realworld.user.UserService
+import com.hhandoko.realworld.service.{ArticleService, AuthService, ProfileService, TagService, UserService}
 
 object Server {
 
   def run[F[_]: ConcurrentEffect: ContextShift: Timer]: Resource[F, BlazeServer[F]] = {
+    val articleService = ArticleService[F]
+    val authService    = AuthService[F]
+    val profileService = ProfileService[F]
+    val tagService     = TagService[F]
+    val userService    = UserService[F]
+
     val authenticator = new RequestAuthenticator[F]()
-    val articleService = ArticleService.impl[F]
-    val authService = AuthService.impl[F]
-    val profileService = ProfileService.impl[F]
-    val tagService = TagService.impl[F]
-    val userService = UserService.impl[F]
+
     val routes =
       ArticleRoutes[F](articleService) <+>
       AuthRoutes[F](authService) <+>
@@ -37,8 +38,8 @@ object Server {
     for {
       conf <- config[F]
       _    <- transactor[F](conf.db)
-      rts   = loggedRoutes(conf, routes)
-      svr  <- server[F](conf, rts)
+      rts   = loggedRoutes(conf.log, routes)
+      svr  <- server[F](conf.server, rts)
     } yield svr
   }
 
@@ -46,22 +47,22 @@ object Server {
     import pureconfig.generic.auto._
 
     for {
-      be <- Blocker[F]
-      re <- Resource.liftF(loadConfigF[F, Config](be))
-    } yield re
+      blocker <- Blocker[F]
+      config  <- Resource.liftF(loadConfigF[F, Config](blocker))
+    } yield config
   }
 
-  private[this] def loggedRoutes[F[_]: ConcurrentEffect](conf: Config, routes: HttpRoutes[F]): HttpRoutes[F] =
-    Logger.httpRoutes(conf.log.httpHeader, conf.log.httpBody) { routes }
+  private[this] def loggedRoutes[F[_]: ConcurrentEffect](config: LogConfig, routes: HttpRoutes[F]): HttpRoutes[F] =
+    Logger.httpRoutes(config.httpHeader, config.httpBody) { routes }
 
   private[this] def server[F[_]: ConcurrentEffect: ContextShift: Timer](
-    config: Config,
+    config: ServerConfig,
     routes: HttpRoutes[F]
   ): Resource[F, BlazeServer[F]] = {
     import org.http4s.implicits._
 
-    BlazeServerBuilder[F](scala.concurrent.ExecutionContext.global)
-      .bindHttp(config.server.port, config.server.host)
+    BlazeServerBuilder[F](ExecutionContext.global)
+      .bindHttp(config.port, config.host)
       .withHttpApp(routes.orNotFound)
       .resource
   }
