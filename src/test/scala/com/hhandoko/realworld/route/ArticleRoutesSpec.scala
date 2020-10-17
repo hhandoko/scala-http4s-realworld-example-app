@@ -28,7 +28,7 @@ class ArticleRoutesSpec extends Specification { def is = s2"""
   private[this] val retHasArticles: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
-    val articles = Vector(mockArticle("Hello"), mockArticle("World"))
+    val articles    = Vector(mockArticle("Hello"), mockArticle("World"))
     val getArticles = Request[IO](Method.GET, uri"/api/articles")
 
     ArticleRoutes[IO](new FakeArticleService(articles))
