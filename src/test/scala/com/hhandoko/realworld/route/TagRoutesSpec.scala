@@ -9,7 +9,7 @@ import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
 import com.hhandoko.realworld.core.Tag
-import com.hhandoko.realworld.tag.TagService
+import com.hhandoko.realworld.service.TagService
 
 class TagRoutesSpec extends Specification { def is = s2"""
 
