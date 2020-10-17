@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.user
+package com.hhandoko.realworld.repository
 
 import cats.effect.IO
 import doobie.implicits._
@@ -14,11 +14,11 @@ class UserRepoSpec extends Specification
 
   User repository
     select query should
-      return empty when there is no record $emptyResult
-      return a record if exists            $singleResult
+      return empty when there is no record   $selectEmptyResult
+      return a record if exists              $selectSingleResult
     find query should
-      return empty when no matching username is found $noUsername
-      return User info if found                       $foundUsername
+      return empty when no matching username is found   $foundNoUsername
+      return User info if found                         $foundUsername
   """
 
   val instance = "user"
@@ -29,16 +29,16 @@ class UserRepoSpec extends Specification
   private[this] val retSingleByUsername: IO[Option[Profile]] =
     UserRepo(transactor).find(Username("test2"))
 
-  private[this] def emptyResult =
+  private[this] def selectEmptyResult =
     retSingleNoClause.unsafeRunSync() must beNone
 
-  private[this] def singleResult = {
+  private[this] def selectSingleResult = {
     execute(sql"""INSERT INTO profile (username, email) VALUES ('test', 'test@test.com')""")
 
     retSingleNoClause.unsafeRunSync() must not beNone
   }
 
-  private[this] def noUsername =
+  private[this] def foundNoUsername =
     retSingleByUsername.unsafeRunSync() must beNone
 
   private[this] def foundUsername = {
@@ -48,5 +48,4 @@ class UserRepoSpec extends Specification
     result.username must_== Username("test2")
     //result.email must_== "test@test.com"
   }
-
 }

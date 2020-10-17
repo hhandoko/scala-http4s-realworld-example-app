@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.user
+package com.hhandoko.realworld.repository
 
 import cats._
 import cats.effect.Sync
@@ -13,7 +13,7 @@ trait UserRepo[F[_]] {
 
 object UserRepo {
 
-  private[user] final val select =
+  private[repository] final val select =
     fr"""SELECT username
         |     , bio
         |     , image
