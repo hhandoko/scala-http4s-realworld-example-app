@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.profile
+package com.hhandoko.realworld.service
 
 import cats.Applicative
 
@@ -10,9 +10,7 @@ trait ProfileService[F[_]] {
 
 object ProfileService {
 
-  implicit def apply[F[_]](implicit ev: ProfileService[F]): ProfileService[F] = ev
-
-  def impl[F[_]: Applicative]: ProfileService[F] =
+  def apply[F[_]: Applicative]: ProfileService[F] =
     new ProfileService[F] {
       import cats.implicits._
 

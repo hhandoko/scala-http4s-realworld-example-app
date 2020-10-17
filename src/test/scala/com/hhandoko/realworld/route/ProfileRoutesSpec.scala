@@ -9,8 +9,8 @@ import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
 import com.hhandoko.realworld.core.{Profile, Username}
-import com.hhandoko.realworld.profile.ProfileService
 import com.hhandoko.realworld.route
+import com.hhandoko.realworld.service.ProfileService
 
 class ProfileRoutesSpec extends Specification { def is = s2"""
 

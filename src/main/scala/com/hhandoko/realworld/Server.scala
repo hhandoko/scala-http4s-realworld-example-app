@@ -14,9 +14,8 @@ import pureconfig.module.catseffect.loadConfigF
 
 import com.hhandoko.realworld.auth.RequestAuthenticator
 import com.hhandoko.realworld.config.{Config, DbConfig, LogConfig, ServerConfig}
-import com.hhandoko.realworld.profile.ProfileService
 import com.hhandoko.realworld.route.{ArticleRoutes, AuthRoutes, ProfileRoutes, TagRoutes, UserRoutes}
-import com.hhandoko.realworld.service.{ArticleService, AuthService, TagService}
+import com.hhandoko.realworld.service.{ArticleService, AuthService, ProfileService, TagService}
 import com.hhandoko.realworld.user.UserService
 
 object Server {
@@ -24,7 +23,7 @@ object Server {
   def run[F[_]: ConcurrentEffect: ContextShift: Timer]: Resource[F, BlazeServer[F]] = {
     val articleService = ArticleService[F]
     val authService    = AuthService[F]
-    val profileService = ProfileService.impl[F]
+    val profileService = ProfileService[F]
     val tagService     = TagService[F]
     val userService    = UserService.impl[F]
 
