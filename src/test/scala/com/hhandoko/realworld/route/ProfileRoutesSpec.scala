@@ -1,4 +1,4 @@
-package com.hhandoko.realworld.profile
+package com.hhandoko.realworld.route
 
 import scala.concurrent.ExecutionContext
 
@@ -9,6 +9,8 @@ import org.specs2.Specification
 import org.specs2.matcher.MatchResult
 
 import com.hhandoko.realworld.core.{Profile, Username}
+import com.hhandoko.realworld.profile.ProfileService
+import com.hhandoko.realworld.route
 
 class ProfileRoutesSpec extends Specification { def is = s2"""
 
@@ -35,7 +37,7 @@ class ProfileRoutesSpec extends Specification { def is = s2"""
 
     val getProfile = Request[IO](Method.GET, uri"/api/profile/abc")
 
-    ProfileRoutes[IO](FakeProfileService)
+    route.ProfileRoutes[IO](FakeProfileService)
       .orNotFound(getProfile)
       .unsafeRunSync()
   }
@@ -50,10 +52,9 @@ class ProfileRoutesSpec extends Specification { def is = s2"""
     retNotFoundProfile.status must beEqualTo(Status.NotFound)
 
   object FakeProfileService extends ProfileService[IO] {
-    def get(username: Username): IO[Option[Profile]] = IO.pure {
+    override def get(username: Username): IO[Option[Profile]] = IO.pure {
       if (username.value.startsWith("celeb_")) Some(Profile(username, None, None))
       else None
     }
   }
-
 }
