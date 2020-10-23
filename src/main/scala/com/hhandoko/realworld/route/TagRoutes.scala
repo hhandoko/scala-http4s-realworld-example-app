@@ -17,7 +17,7 @@ object TagRoutes {
     object dsl extends Http4sDsl[F]; import dsl._
 
     HttpRoutes.of[F] {
-      case GET -> Root / "api" / "tags" =>
+      case GET -> Root / "tags" =>
         for {
           tags <- tagService.getAll
           res  <- Ok(AllTagsResponse(tags))

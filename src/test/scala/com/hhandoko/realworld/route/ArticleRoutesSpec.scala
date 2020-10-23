@@ -29,7 +29,7 @@ class ArticleRoutesSpec extends Specification { def is = s2"""
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
     val articles    = Vector(mockArticle("Hello"), mockArticle("World"))
-    val getArticles = Request[IO](Method.GET, uri"/api/articles")
+    val getArticles = Request[IO](Method.GET, uri"/articles")
 
     ArticleRoutes[IO](new FakeArticleService(articles))
       .orNotFound(getArticles)
@@ -39,7 +39,7 @@ class ArticleRoutesSpec extends Specification { def is = s2"""
   private[this] val retNoArticles: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
-    val getArticles = Request[IO](Method.GET, uri"/api/articles")
+    val getArticles = Request[IO](Method.GET, uri"/articles")
 
     route.ArticleRoutes[IO](new FakeArticleService(Vector.empty))
       .orNotFound(getArticles)

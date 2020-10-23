@@ -19,7 +19,7 @@ object ArticleRoutes {
     object dsl extends Http4sDsl[F]; import dsl._
 
     HttpRoutes.of[F] {
-      case GET -> Root / "api" / "articles" =>
+      case GET -> Root / "articles" =>
         for {
           arts <- articleService.getAll
           res  <- Ok(ArticlesResponse(arts))

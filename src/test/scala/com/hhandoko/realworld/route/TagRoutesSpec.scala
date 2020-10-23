@@ -22,7 +22,7 @@ class TagRoutesSpec extends Specification { def is = s2"""
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
     val tags       = Vector(Tag("hello"), Tag("world"))
-    val getAllTags = Request[IO](Method.GET, uri"/api/tags")
+    val getAllTags = Request[IO](Method.GET, uri"/tags")
 
     TagRoutes[IO](new FakeTagService(tags))
       .orNotFound(getAllTags)

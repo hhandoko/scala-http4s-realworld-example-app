@@ -9,7 +9,7 @@ import doobie.util.ExecutionContexts
 import org.http4s.HttpRoutes
 import org.http4s.server.blaze.BlazeServerBuilder
 import org.http4s.server.middleware.Logger
-import org.http4s.server.{Server => BlazeServer}
+import org.http4s.server.{Router, Server => BlazeServer}
 import pureconfig.module.catseffect.loadConfigF
 
 import com.hhandoko.realworld.auth.RequestAuthenticator
@@ -38,7 +38,7 @@ object Server {
     for {
       conf <- config[F]
       _    <- transactor[F](conf.db)
-      rts   = loggedRoutes(conf.log, routes)
+      rts   = Router("api" -> loggedRoutes(conf.log, routes))
       svr  <- server[F](conf.server, rts)
     } yield svr
   }
