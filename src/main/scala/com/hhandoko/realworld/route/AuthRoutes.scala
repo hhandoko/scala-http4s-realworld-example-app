@@ -21,7 +21,7 @@ object AuthRoutes extends UnauthorizedResponseSupport {
 
     HttpRoutes.of[F] {
       // TODO: Implement login form data validation
-      case req @ POST -> Root / "api" / "users" / "login" =>
+      case req @ POST -> Root / "users" / "login" =>
         for {
           data   <- req.as[LoginPost]
           authed <- authService.verify(data.user.email, data.user.password)

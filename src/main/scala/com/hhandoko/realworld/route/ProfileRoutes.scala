@@ -17,7 +17,7 @@ object ProfileRoutes {
     object dsl extends Http4sDsl[F]; import dsl._
 
     HttpRoutes.of[F] {
-      case GET -> Root / "api" / "profiles" / username =>
+      case GET -> Root / "profiles" / username =>
         for {
           prfOpt <- profileService.get(Username(username))
           res    <- prfOpt.fold(NotFound()) { prf =>

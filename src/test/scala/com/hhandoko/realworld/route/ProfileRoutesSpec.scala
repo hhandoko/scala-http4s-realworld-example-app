@@ -25,7 +25,7 @@ class ProfileRoutesSpec extends Specification { def is = s2"""
   private[this] val retFoundProfile: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
-    val getProfile = Request[IO](Method.GET, uri"/api/profiles/celeb_1")
+    val getProfile = Request[IO](Method.GET, uri"/profiles/celeb_1")
 
     ProfileRoutes[IO](FakeProfileService)
       .orNotFound(getProfile)
@@ -35,7 +35,7 @@ class ProfileRoutesSpec extends Specification { def is = s2"""
   private[this] val retNotFoundProfile: Response[IO] = {
     implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
-    val getProfile = Request[IO](Method.GET, uri"/api/profile/abc")
+    val getProfile = Request[IO](Method.GET, uri"/profile/abc")
 
     route.ProfileRoutes[IO](FakeProfileService)
       .orNotFound(getProfile)

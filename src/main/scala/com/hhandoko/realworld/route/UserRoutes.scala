@@ -17,7 +17,7 @@ object UserRoutes {
 
     authenticated {
       AuthedRoutes.of[Username, F] {
-        case GET -> Root / "api" / "user" as username =>
+        case GET -> Root / "user" as username =>
           for {
             usrOpt <- userService.get(username)
             res    <- usrOpt.fold(NotFound()) { usr =>

@@ -29,7 +29,7 @@ class AuthRoutesSpec extends Specification { def is = s2"""
 
     val email     = "me@test.com"
     val payload   = LoginPost(LoginPostPayload(email, "ABC123"))
-    val postLogin = Request[IO](Method.POST, uri"/api/users/login").withEntity(payload)
+    val postLogin = Request[IO](Method.POST, uri"/users/login").withEntity(payload)
 
     AuthRoutes[IO](new FakeAuthService(email))
       .orNotFound(postLogin)
@@ -41,7 +41,7 @@ class AuthRoutesSpec extends Specification { def is = s2"""
 
     val email     = "me@test.com"
     val payload   = LoginPost(LoginPostPayload("invalid@test.com", "ABC123"))
-    val postLogin = Request[IO](Method.POST, uri"/api/users/login").withEntity(payload)
+    val postLogin = Request[IO](Method.POST, uri"/users/login").withEntity(payload)
 
     route.AuthRoutes[IO](new FakeAuthService(email))
       .orNotFound(postLogin)
