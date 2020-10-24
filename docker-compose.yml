@@ -3,7 +3,7 @@ services:
   db:
     environment:
       - POSTGRES_PASSWORD=S3cret!
-    image: postgres:12-alpine
+    image: postgres:13-alpine
     ports:
       - "5432:5432"
     volumes:

@@ -1,6 +1,6 @@
 -- Table: Profile (User + Author)
 -- ~~~~~~
-CREATE TABLE IF NOT EXISTS profile(
+CREATE TABLE IF NOT EXISTS profile (
     id         BIGSERIAL NOT NULL,
     username   VARCHAR   NOT NULL,
     email      VARCHAR   NOT NULL,
