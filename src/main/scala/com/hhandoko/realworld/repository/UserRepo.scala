@@ -16,7 +16,7 @@ object UserRepo {
 
   def apply[F[_]: Monad: Sync](xa: Transactor[F]): UserRepo[F] =
     new UserRepo[F] {
-      def find(username: Username): F[Option[Profile]] =
+      override def find(username: Username): F[Option[Profile]] =
         (select ++ withUsername(username) ++ withLimit)
           .query[Profile]
           .option
