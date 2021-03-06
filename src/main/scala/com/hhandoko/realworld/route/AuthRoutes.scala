@@ -34,7 +34,6 @@ object AuthRoutes extends UnauthorizedResponseSupport {
   }
 
   final case class LoginPost(user: LoginPostPayload)
-
   object LoginPost {
     implicit def entityEncoder[F[_]: Applicative]: EntityEncoder[F, LoginPost] =
       jsonEncoderOf[F, LoginPost]

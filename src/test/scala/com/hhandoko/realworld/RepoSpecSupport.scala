@@ -17,7 +17,7 @@ trait RepoSpecSupport extends BeforeAll
 
   def instance: String
 
-  private[this] final val TABLES = Seq("profile", "auth")
+  private[this] final val TABLES = Seq("profile", "auth", "article")
 
   private[this] final val SCHEMA_LOCATION = "filesystem:db/migration/h2"
   private[this] final val DRIVER_CLASS_NAME = "org.h2.Driver"

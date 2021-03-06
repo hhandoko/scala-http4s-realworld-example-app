@@ -28,7 +28,6 @@ object ProfileRoutes {
   }
 
   final case class ProfileResponse(username: String, bio: Option[String], image: Option[String], following: Boolean)
-
   object ProfileResponse {
     implicit val encoder: Encoder[ProfileResponse] = (r: ProfileResponse) => Json.obj(
       "profile" -> Json.obj(

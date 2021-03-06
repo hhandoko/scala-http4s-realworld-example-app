@@ -1,0 +1,29 @@
+<configuration>
+    <property name="APP" value="realworld-test" />
+    <property name="LOGS" value="./log" />
+
+    <!-- Turn-off Logback init messages -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX"} %highlight(%-5p) %magenta(${PID:- }) --- [%yellow(%16.16t)] %cyan(%-48.48C{48}): %msg%n%throwable
+            </Pattern>
+        </layout>
+
+        <!-- On Windows machines setting `withJansi` to true enables ANSI
+             color code interpretation by the Jansi library. This requires
+             org.fusesource.jansi:jansi:1.8 on the class path. Note that
+             Unix-based operating systems such as Linux and Mac OS X
+             support ANSI color codes by default.
+         -->
+        <withJansi>true</withJansi>
+    </appender>
+
+    <logger name="org.flywaydb" level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

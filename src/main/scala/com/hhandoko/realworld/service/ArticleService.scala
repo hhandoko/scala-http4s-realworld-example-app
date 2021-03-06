@@ -5,21 +5,37 @@ import java.time.ZonedDateTime
 import cats.Applicative
 
 import com.hhandoko.realworld.core.{Article, Author, Username}
+import com.hhandoko.realworld.service.query.Pagination
 
 trait ArticleService[F[_]] {
-  def getAll: F[Vector[Article]]
+  import ArticleService.ArticleCount
+  def getAll(pg: Pagination): F[(Vector[Article], ArticleCount)]
 }
 
 object ArticleService {
+  type ArticleCount = Int
 
   def apply[F[_]: Applicative]: ArticleService[F] =
     new ArticleService[F] {
       import cats.implicits._
 
-      override def getAll: F[Vector[Article]] =
-        Vector("world", "you")
-          .map(mockArticles)
-          .pure[F]
+      override def getAll(pg: Pagination): F[(Vector[Article], ArticleCount)] = {
+        for {
+          arts  <- {
+            Vector("world", "you")
+              .map(mockArticles)
+              .pure[F]
+          }
+          count = arts.size
+        } yield {
+          val result =
+            if (count < pg.offset) Vector.empty[Article]
+            else if (count < pg.offset + pg.limit) arts.slice(pg.offset, pg.limit)
+            else arts.slice(pg.offset, pg.offset + pg.limit)
+
+          (result, count)
+        }
+      }
     }
 
   private[this] def mockArticles(title: String): Article =

@@ -8,10 +8,13 @@ import cats.implicits._
 import io.circe.{Encoder, Json}
 import org.http4s.circe.jsonEncoderOf
 import org.http4s.dsl.Http4sDsl
+import org.http4s.dsl.impl.OptionalQueryParamDecoderMatcher
 import org.http4s.{EntityEncoder, HttpRoutes}
 
 import com.hhandoko.realworld.core.Article
 import com.hhandoko.realworld.service.ArticleService
+import com.hhandoko.realworld.service.ArticleService.ArticleCount
+import com.hhandoko.realworld.service.query.Pagination
 
 object ArticleRoutes {
 
@@ -19,16 +22,20 @@ object ArticleRoutes {
     object dsl extends Http4sDsl[F]; import dsl._
 
     HttpRoutes.of[F] {
-      case GET -> Root / "articles" =>
+      case GET -> Root / "articles"
+        :? LimitQuery(limitOpt)
+        +& OffsetQuery(offsetOpt) =>
         for {
-          arts <- articleService.getAll
-          res  <- Ok(ArticlesResponse(arts))
+          artsWithCount <- articleService.getAll(Pagination(limitOpt, offsetOpt))
+          res           <- Ok(ArticlesResponse(artsWithCount._1, artsWithCount._2))
         } yield res
     }
   }
 
-  final case class ArticlesResponse(articles: Vector[Article])
+  object LimitQuery extends OptionalQueryParamDecoderMatcher[Int]("limit")
+  object OffsetQuery extends OptionalQueryParamDecoderMatcher[Int]("offset")
 
+  final case class ArticlesResponse(articles: Vector[Article], count: ArticleCount)
   object ArticlesResponse {
     implicit val encoder: Encoder[ArticlesResponse] = (r: ArticlesResponse) => Json.obj(
       "articles" -> Json.fromValues(
@@ -51,7 +58,8 @@ object ArticleRoutes {
             )
           )
         }
-      )
+      ),
+      "articlesCount" -> Json.fromInt(r.count)
     )
 
     implicit def entityEncoder[F[_]: Applicative]: EntityEncoder[F, ArticlesResponse] =

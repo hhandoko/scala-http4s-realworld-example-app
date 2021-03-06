@@ -26,7 +26,6 @@ object TagRoutes {
   }
 
   final case class AllTagsResponse(tags: Vector[Tag])
-
   object AllTagsResponse {
     implicit val encoder: Encoder[AllTagsResponse] = (r: AllTagsResponse) => Json.obj(
       "tags" -> Json.fromValues(r.tags.map(_.value).map(Json.fromString))

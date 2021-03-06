@@ -107,7 +107,7 @@ Please read [CONTRIBUTING] for more details.
 ## License
 
 ```
-    Copyright (c) 2019-2020 Herdy Handoko
+    Copyright (c) 2019-2021 Herdy Handoko
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
