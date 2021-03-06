@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-20.04
+    services:
+      postgres:
+        image: postgres:13-alpine
+        env:
+          POSTGRES_PASSWORD: S3cret!
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure Scala
+      uses: olafurpg/setup-scala@v10
+      with:
+        java-version: "graalvm-ce-java11@20.2.0"
+
+    - name: Coursier cache
+      uses: coursier/cache-action@v5
+
+    - name: Build and Test
+      run: |
+        sbt -v -Dfile.encoding=UTF-8 test
+        rm -rf "$HOME/.ivy2/local" || true
+        find $HOME/Library/Caches/Coursier/v1 -name "ivydata-*.properties" -delete || true
+        find $HOME/.ivy2/cache                -name "ivydata-*.properties" -delete || true
+        find $HOME/.cache/coursier/v1         -name "ivydata-*.properties" -delete || true
+        find $HOME/.sbt                       -name "*.lock"               -delete || true
+      shell: bash

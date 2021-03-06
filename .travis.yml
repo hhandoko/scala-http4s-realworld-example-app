@@ -1,8 +1,0 @@
-language: scala
-scala: 2.13.3
-matrix:
-  include:
-  - dist: xenial
-    jdk: openjdk8
-  - dist: bionic
-    jdk: openjdk11

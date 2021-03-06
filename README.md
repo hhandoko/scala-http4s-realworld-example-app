@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-brightgreen.svg)](LICENSE)
-[![Master Build Status](https://api.travis-ci.org/hhandoko/scala-http4s-realworld-example-app.svg?branch=master)](https://travis-ci.org/hhandoko/scala-http4s-realworld-example-app)
+[![CI](https://github.com/hhandoko/scala-http4s-realworld-example-app/actions/workflows/ci.yml/badge.svg)](https://github.com/hhandoko/scala-http4s-realworld-example-app/actions/workflows/ci.yml)
 
 # ![RealWorld Example App using Scala and http4s](media/http4s-realworld-logo.png)
 
