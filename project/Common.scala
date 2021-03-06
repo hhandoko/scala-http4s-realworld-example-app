@@ -10,7 +10,7 @@ object Common {
   // Dependency versions
   private val doobieVersion     = "0.9.2"
   private val flywayVersion     = "7.0.2"
-  private val http4sVersion     = "0.21.7"
+  private val http4sVersion     = "0.21.20"
   private val jansiVersion      = "1.18"
   private val oauthJwtVersion   = "3.11.0"
   private val pureConfigVersion = "0.14.0"
@@ -22,7 +22,7 @@ object Common {
   // ~ http4s
   private val circeVersion   = "0.13.0"
   private val logbackVersion = "1.2.3"
-  private val specs2Version  = "4.10.2"
+  private val specs2Version  = "4.10.6"
 
   // Compiler plugin (incl. Graal) dependency versions
   private val betterMonadicForVersion = "0.3.1"
