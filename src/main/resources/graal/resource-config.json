@@ -1,7 +1,6 @@
 {
   "resources":[
     {"pattern":"\\Qapplication.conf\\E"}, 
-    {"pattern":"\\Qlibrary.properties\\E"}, 
     {"pattern":"\\Qlogback.xml\\E"}, 
     {"pattern":"\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"}, 
     {"pattern":"\\Qreference.conf\\E"}

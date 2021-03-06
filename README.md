@@ -90,6 +90,13 @@ Please read [PROGRESS] for more details.
   - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
   - Logback `RollingFileAppender` does not compile in native image ([oracle/graal/#1323](https://github.com/oracle/graal/issues/1323))
 
+# Pending Updates
+
+  - GraalVM `21.0.0.2`:
+    - Pending `org.scalameta %% svm-subs` support
+  - Scala `2.13.5`:
+    - Pending `sbt-tpolecat` support
+
 # Contributing
 
 We follow the "[feature-branch]" Git workflow.
