@@ -30,7 +30,7 @@ object ArticleService {
         } yield {
           val result =
             if (count < pg.offset) Vector.empty[Article]
-            else if (count< pg.offset + pg.limit) arts.slice(pg.offset, pg.limit)
+            else if (count < pg.offset + pg.limit) arts.slice(pg.offset, pg.limit)
             else arts.slice(pg.offset, pg.offset + pg.limit)
 
           (result, count)
