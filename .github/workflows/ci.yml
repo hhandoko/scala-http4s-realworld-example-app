@@ -10,7 +10,7 @@ jobs:
     container: ubuntu:20.04
     services:
       postgres:
-        image: postgres
+        image: postgres:13-alpine
         env:
           POSTGRES_PASSWORD: S3cret!
         options: >-
