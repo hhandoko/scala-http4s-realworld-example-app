@@ -7,16 +7,19 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-20.04
+    container: ubuntu:20.04
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: S3cret!
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-    - name: Configure PostgreSQL
-      uses: harmon758/postgresql-action@v1
-      with:
-        postgresql version: '13'
-        postgresql db: 'postgres'
-        postgresql user: 'postgres'
-        postgresql password: 'S3cret!'
-
     - name: Checkout
       uses: actions/checkout@v1
 
