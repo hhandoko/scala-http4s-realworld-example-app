@@ -11,9 +11,9 @@ object Common {
   private val doobieVersion     = "0.9.2"
   private val flywayVersion     = "7.0.2"
   private val http4sVersion     = "0.21.20"
-  private val jansiVersion      = "1.18"
-  private val oauthJwtVersion   = "3.11.0"
-  private val pureConfigVersion = "0.14.0"
+  private val jansiVersion      = "2.3.1"
+  private val oauthJwtVersion   = "3.14.0"
+  private val pureConfigVersion = "0.14.1"
 
   // Transient dependency versions
   // ~ doobie
