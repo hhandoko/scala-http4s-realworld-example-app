@@ -8,26 +8,32 @@ import com.hhandoko.realworld.core.{Article, Author, Username}
 import com.hhandoko.realworld.service.query.Pagination
 
 trait ArticleService[F[_]] {
-  def getAll(pg: Pagination): F[Vector[Article]]
+  import ArticleService.ArticleCount
+  def getAll(pg: Pagination): F[(Vector[Article], ArticleCount)]
 }
 
 object ArticleService {
+  type ArticleCount = Int
 
   def apply[F[_]: Applicative]: ArticleService[F] =
     new ArticleService[F] {
       import cats.implicits._
 
-      override def getAll(pg: Pagination): F[Vector[Article]] = {
+      override def getAll(pg: Pagination): F[(Vector[Article], ArticleCount)] = {
         for {
-          arts <- {
+          arts  <- {
             Vector("world", "you")
               .map(mockArticles)
               .pure[F]
           }
+          count = arts.size
         } yield {
-          if (arts.size < pg.offset) Vector.empty[Article]
-          else if (arts.size < pg.offset + pg.limit) arts.slice(pg.offset, pg.limit)
-          else arts.slice(pg.offset, pg.offset + pg.limit)
+          val result =
+            if (count < pg.offset) Vector.empty[Article]
+            else if (count< pg.offset + pg.limit) arts.slice(pg.offset, pg.limit)
+            else arts.slice(pg.offset, pg.offset + pg.limit)
+
+          (result, count)
         }
       }
     }

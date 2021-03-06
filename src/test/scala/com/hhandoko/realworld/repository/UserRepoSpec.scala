@@ -14,8 +14,8 @@ class UserRepoSpec extends Specification
 
   User repository
     select query should
-      return empty when there is no record   $selectEmptyResult
-      return a record if exists              $selectSingleResult
+      return empty when there is no record              $selectEmptyResult
+      return a record if exists                         $selectSingleResult
     find query should
       return empty when no matching username is found   $foundNoUsername
       return User info if found                         $foundUsername

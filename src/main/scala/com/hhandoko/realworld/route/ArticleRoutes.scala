@@ -13,6 +13,7 @@ import org.http4s.{EntityEncoder, HttpRoutes}
 
 import com.hhandoko.realworld.core.Article
 import com.hhandoko.realworld.service.ArticleService
+import com.hhandoko.realworld.service.ArticleService.ArticleCount
 import com.hhandoko.realworld.service.query.Pagination
 
 object ArticleRoutes {
@@ -25,8 +26,8 @@ object ArticleRoutes {
         :? LimitQuery(limitOpt)
         +& OffsetQuery(offsetOpt) =>
         for {
-          arts <- articleService.getAll(Pagination(limitOpt, offsetOpt))
-          res  <- Ok(ArticlesResponse(arts))
+          artsWithCount <- articleService.getAll(Pagination(limitOpt, offsetOpt))
+          res           <- Ok(ArticlesResponse(artsWithCount._1, artsWithCount._2))
         } yield res
     }
   }
@@ -34,7 +35,7 @@ object ArticleRoutes {
   object LimitQuery extends OptionalQueryParamDecoderMatcher[Int]("limit")
   object OffsetQuery extends OptionalQueryParamDecoderMatcher[Int]("offset")
 
-  final case class ArticlesResponse(articles: Vector[Article])
+  final case class ArticlesResponse(articles: Vector[Article], count: ArticleCount)
   object ArticlesResponse {
     implicit val encoder: Encoder[ArticlesResponse] = (r: ArticlesResponse) => Json.obj(
       "articles" -> Json.fromValues(
@@ -58,7 +59,7 @@ object ArticleRoutes {
           )
         }
       ),
-      "articlesCount" -> Json.fromInt(r.articles.size)
+      "articlesCount" -> Json.fromInt(r.count)
     )
 
     implicit def entityEncoder[F[_]: Applicative]: EntityEncoder[F, ArticlesResponse] =
