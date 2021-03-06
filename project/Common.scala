@@ -26,7 +26,7 @@ object Common {
 
   // Compiler plugin (incl. Graal) dependency versions
   private val betterMonadicForVersion = "0.3.1"
-  private val kindProjectorVersion    = "0.11.0"
+  private val kindProjectorVersion    = "0.11.3"
   private val graalVmVersion          = "20.2.0"
 
   final val settings: Seq[Setting[_]] =
@@ -36,7 +36,7 @@ object Common {
     organization := "com.hhandoko",
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
-    scalaVersion := "2.13.3",
+    scalaVersion := "2.13.4",
     mainClass in Compile := Some("com.hhandoko.realworld.Application")
   )
 
