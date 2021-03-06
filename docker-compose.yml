@@ -1,13 +1,18 @@
 version: "3"
 services:
+  app:
+    build:
+      context: .
+    ports:
+    - "8080:8080"
   db:
     environment:
-      - POSTGRES_PASSWORD=S3cret!
+    - POSTGRES_PASSWORD=S3cret!
     image: postgres:13-alpine
     ports:
-      - "5432:5432"
+    - "5432:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+    - db-data:/var/lib/postgresql/data
 volumes:
   db-data:
     driver: local
