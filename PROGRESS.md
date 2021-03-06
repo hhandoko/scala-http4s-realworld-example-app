@@ -1,6 +1,6 @@
 # Progress
 
-Latest API spec and resources can be found on: [https://github.com/gothinkster/realworld/tree/master/api](https://github.com/gothinkster/realworld/tree/master/api)
+Latest API spec and resources can be found on: <https://github.com/gothinkster/realworld/tree/master/api>
 
 ### RealWorld Backend API Implementation
 

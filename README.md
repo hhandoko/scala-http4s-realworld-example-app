@@ -88,7 +88,6 @@ Please read [PROGRESS] for more details.
   - Native image generation sometimes fail with non-initialized charset issue error message (simply retry until succeeds)
   - Native image generation with `jwt-scala` fails ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
   - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
-  - Logback `RollingFileAppender` does not compile in native image ([oracle/graal/#1323](https://github.com/oracle/graal/issues/1323))
 
 # Pending Updates
 
