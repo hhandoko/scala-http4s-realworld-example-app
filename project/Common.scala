@@ -24,10 +24,13 @@ object Common {
   private val logbackVersion = "1.2.3"
   private val specs2Version  = "4.10.6"
 
-  // Compiler plugin (incl. Graal) dependency versions
+  // Compiler plugin dependency versions
   private val betterMonadicForVersion = "0.3.1"
   private val kindProjectorVersion    = "0.11.3"
-  private val graalVmVersion          = "20.2.0"
+
+  // Graal native-image compiler dependency versions
+  private val graalVmVersion = "20.2.0"
+  private val jnaVersion     = "5.7.0"
 
   final val settings: Seq[Setting[_]] =
     projectSettings ++ dependencySettings ++ flywaySettings ++ compilerPlugins
@@ -48,9 +51,10 @@ object Common {
       "com.github.pureconfig"   %% "pureconfig-cats-effect" % pureConfigVersion,
       "com.h2database"          %  "h2"                     % h2Version % Test,
       "io.circe"                %% "circe-generic"          % circeVersion,
+      "net.java.dev.jna"        %  "jna-platform"           % jnaVersion,
       "org.fusesource.jansi"    %  "jansi"                  % jansiVersion,
       "org.flywaydb"            %  "flyway-core"            % flywayVersion % Test,
-      "org.graalvm.nativeimage" % "svm"                     % graalVmVersion % Provided,
+      "org.graalvm.nativeimage" %  "svm"                    % graalVmVersion % Provided,
       "org.http4s"              %% "http4s-blaze-server"    % http4sVersion,
       "org.http4s"              %% "http4s-circe"           % http4sVersion,
       "org.http4s"              %% "http4s-dsl"             % http4sVersion,
