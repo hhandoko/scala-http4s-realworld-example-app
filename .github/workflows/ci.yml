@@ -22,8 +22,8 @@ jobs:
     steps:
     - name: Configure
       run: |
-        sudo apt update
-        sudo apt install curl
+        apt update
+        apt install curl
 
     - name: Checkout
       uses: actions/checkout@v1
