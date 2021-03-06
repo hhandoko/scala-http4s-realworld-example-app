@@ -10,6 +10,16 @@ object Pagination {
   final val DEFAULT_LIMIT = 20
   final val DEFAULT_OFFSET = 0
 
-  def apply(limit: Option[Int], offset: Option[Int]): Pagination =
-    new Pagination(limit.getOrElse(DEFAULT_LIMIT), offset.getOrElse(DEFAULT_OFFSET))
+  def apply(limit: Option[Int], offset: Option[Int]): Pagination = {
+
+    def sanitise(valueOpt: Option[Int], default: Int): Int = valueOpt match {
+      case Some(value) if value >= 0 => value
+      case _                         => default
+    }
+
+    val sanitisedLimit  = sanitise(limit, DEFAULT_LIMIT)
+    val sanitisedOffset = sanitise(offset, DEFAULT_OFFSET)
+
+    new Pagination(sanitisedLimit, sanitisedOffset)
+  }
 }

@@ -17,6 +17,12 @@ class PaginationSpec extends Specification { def is = s2"""
     when both limit and offset is defined
       should use provided limit    $paginationUseLimitFromLimitAndOffset
       should use provided offset   $paginationUseOffsetFromLimitAndOffset
+    when either invalid limit or offset is defined
+      should use default limit     $paginationInvalidLimitUseDefault
+      should use default offset    $paginationInvalidOffsetUseDefault
+    when both invalid limit or offset is defined
+      should use default limit     $paginationInvalidLimitAndOffsetUseDefaultLimit
+      should use default offset    $paginationInvalidLimitAndOffsetUseDefaultOffset
   """
 
   val limit  = 100
@@ -27,6 +33,9 @@ class PaginationSpec extends Specification { def is = s2"""
 
   private[this] val paginationUseProvided: Pagination =
     Pagination(limit = Some(limit), offset = Some(offset))
+
+  private[this] val paginationUseProvidedInvalid: Pagination =
+    Pagination(limit = Some(-100), offset = Some(-100))
 
   private[this] def paginationUseDefaultLimit: MatchResult[Int] =
     paginationUseDefault.limit must beEqualTo(Pagination.DEFAULT_LIMIT)
@@ -45,4 +54,16 @@ class PaginationSpec extends Specification { def is = s2"""
 
   private[this] def paginationUseOffsetFromLimitAndOffset: MatchResult[Int] =
     paginationUseProvided.offset must beEqualTo(offset)
+
+  private[this] def paginationInvalidLimitUseDefault: MatchResult[Int] =
+    Pagination(limit = Some(-100), offset = None).limit must beEqualTo(Pagination.DEFAULT_LIMIT)
+
+  private[this] def paginationInvalidOffsetUseDefault: MatchResult[Int] =
+    Pagination(limit = None, offset = Some(-100)).offset must beEqualTo(Pagination.DEFAULT_OFFSET)
+
+  private[this] def paginationInvalidLimitAndOffsetUseDefaultLimit: MatchResult[Int] =
+    paginationUseProvidedInvalid.limit must beEqualTo(Pagination.DEFAULT_LIMIT)
+
+  private[this] def paginationInvalidLimitAndOffsetUseDefaultOffset: MatchResult[Int] =
+    paginationUseProvidedInvalid.offset must beEqualTo(Pagination.DEFAULT_OFFSET)
 }
