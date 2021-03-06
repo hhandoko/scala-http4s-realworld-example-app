@@ -5,9 +5,10 @@ import java.time.ZonedDateTime
 import cats.Applicative
 
 import com.hhandoko.realworld.core.{Article, Author, Username}
+import com.hhandoko.realworld.service.query.Pagination
 
 trait ArticleService[F[_]] {
-  def getAll: F[Vector[Article]]
+  def getAll(pg: Pagination): F[Vector[Article]]
 }
 
 object ArticleService {
@@ -16,10 +17,19 @@ object ArticleService {
     new ArticleService[F] {
       import cats.implicits._
 
-      override def getAll: F[Vector[Article]] =
-        Vector("world", "you")
-          .map(mockArticles)
-          .pure[F]
+      override def getAll(pg: Pagination): F[Vector[Article]] = {
+        for {
+          arts <- {
+            Vector("world", "you")
+              .map(mockArticles)
+              .pure[F]
+          }
+        } yield {
+          if (arts.size < pg.offset) Vector.empty[Article]
+          else if (arts.size < pg.offset + pg.limit) arts.slice(pg.offset, pg.limit)
+          else arts.slice(pg.offset, pg.offset + pg.limit)
+        }
+      }
     }
 
   private[this] def mockArticles(title: String): Article =
