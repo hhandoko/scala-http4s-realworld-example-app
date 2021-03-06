@@ -23,7 +23,7 @@ jobs:
     - name: Configure
       run: |
         apt update
-        apt install curl
+        apt install -y curl
 
     - name: Checkout
       uses: actions/checkout@v1
