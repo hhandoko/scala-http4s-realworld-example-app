@@ -23,7 +23,7 @@ jobs:
     - name: Configure Scala
       uses: olafurpg/setup-scala@v10
       with:
-        java-version: "graalvm-ce-java11@20.0.2"
+        java-version: "graalvm-ce-java11@20.2.0"
 
     - name: Build and Test
       run: sbt -v -Dfile.encoding=UTF-8 +test
