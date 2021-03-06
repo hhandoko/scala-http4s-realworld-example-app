@@ -8,8 +8,8 @@ import sbt._
 object Common {
 
   // Dependency versions
-  private val doobieVersion     = "0.9.2"
-  private val flywayVersion     = "7.0.2"
+  private val doobieVersion     = "0.10.0"
+  private val flywayVersion     = "7.6.0"
   private val http4sVersion     = "0.21.20"
   private val jansiVersion      = "2.3.1"
   private val oauthJwtVersion   = "3.14.0"
@@ -18,7 +18,7 @@ object Common {
   // Transient dependency versions
   // ~ doobie
   private val h2Version       = "1.4.200"
-  private val postgresVersion = "42.2.14"
+  private val postgresVersion = "42.2.18"
   // ~ http4s
   private val circeVersion   = "0.13.0"
   private val logbackVersion = "1.2.3"
