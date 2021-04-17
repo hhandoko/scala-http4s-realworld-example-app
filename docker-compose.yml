@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: scripts/docker/Native.Dockerfile
     ports:
-    - "8080:8080"
+      - "8080:8080"
   app_graal:
     build:
       context: .
@@ -14,12 +14,12 @@ services:
       - "8081:8080"
   db:
     environment:
-    - POSTGRES_PASSWORD=S3cret!
+      - POSTGRES_PASSWORD=S3cret!
     image: postgres:13-alpine
     ports:
-    - "5432:5432"
+      - "5432:5432"
     volumes:
-    - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
 
 volumes:
   db-data:
