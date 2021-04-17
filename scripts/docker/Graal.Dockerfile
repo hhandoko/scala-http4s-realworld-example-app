@@ -18,26 +18,29 @@ RUN         ./sbt/bin/sbt -mem 4096 clean stage
 
 # ~~~~~~
 
-FROM        oracle/graalvm-ce:20.2.0-java11 as packager
+FROM        oracle/graalvm-ce:20.2.0-java11 as packager_graal
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
-LABEL       description="http4s GraalVM native-image packager"
+LABEL       description="http4s GraalVM packager"
 
 WORKDIR     packager
 RUN         gu install native-image
-COPY        --from=assembler /assembler/target/universal/stage/lib/*.jar ./
-RUN         native-image \
-              --no-server \
-              --class-path "*" \
-              com.hhandoko.realworld.Application
+COPY        --from=assembler /assembler/target/universal/stage/lib/ ./lib/
+COPY        --from=assembler /assembler/target/universal/stage/bin/ ./bin/
+# Split app artifact from third-party dependencies so layering is a bit more
+# optimal.
+RUN         mkdir -p app \
+              && mv lib/com.hhandoko.realworld-*.jar app
 
 # ~~~~~~
 
-FROM        ubuntu:20.04
+FROM        oracle/graalvm-ce:20.2.0-java11
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
-LABEL       description="http4s GraalVM native-image runtime container"
+LABEL       description="http4s GraalVM (JIT) runtime container"
 
 WORKDIR     app
-COPY        --from=packager /packager/realworld ./
+COPY        --from=packager_graal /packager/lib/ ./lib/
+COPY        --from=packager_graal /packager/bin/ ./bin/
+COPY        --from=packager_graal /packager/app/ ./lib/
 
 EXPOSE      8080
-ENTRYPOINT  ["./realworld"]
+ENTRYPOINT  ["./bin/realworld"]
