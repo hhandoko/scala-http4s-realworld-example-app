@@ -1,8 +1,12 @@
-# Created by https://www.toptal.com/developers/gitignore/api/sbt,scala,bloop
-# Edit at https://www.toptal.com/developers/gitignore?templates=sbt,scala,bloop
+# Created by https://www.toptal.com/developers/gitignore/api/sbt,scala,bloop,metals
+# Edit at https://www.toptal.com/developers/gitignore?templates=sbt,scala,bloop,metals
 
 ### Bloop ###
 .bloop/
+
+### Metals ###
+.metals/
+project/**/metals.sbt
 
 ### SBT ###
 # Simple Build Tool
@@ -17,16 +21,16 @@ project/plugins/project/
 .history
 .cache
 .lib/
+.bsp
 
 ### Scala ###
 *.class
 *.log
 
-# End of https://www.toptal.com/developers/gitignore/api/sbt,scala,bloop
+# End of https://www.toptal.com/developers/gitignore/api/sbt,scala,bloop,metals
 
 
 
 ### Others ###
-.bsp/
 tmp/
 scripts/graal/sdk/

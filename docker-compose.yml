@@ -1,8 +1,9 @@
 version: "3"
 services:
-  app:
+  app_native:
     build:
       context: .
+      dockerfile: scripts/docker/Native.Dockerfile
     ports:
     - "8080:8080"
   db:
