@@ -1,6 +1,6 @@
 package com.hhandoko.realworld.route
 
-import cats.effect.{ContextShift, Sync}
+import cats.effect.Sync
 import cats.implicits._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.{AuthedRoutes, HttpRoutes}
@@ -12,7 +12,7 @@ import com.hhandoko.realworld.service.UserService
 
 object UserRoutes {
 
-  def apply[F[_]: ContextShift: Sync](authenticated: RequestAuthenticator[F], userService: UserService[F]): HttpRoutes[F] = {
+  def apply[F[_]: Sync](authenticated: RequestAuthenticator[F], userService: UserService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
     authenticated {

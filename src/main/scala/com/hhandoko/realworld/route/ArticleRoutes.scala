@@ -2,8 +2,7 @@ package com.hhandoko.realworld.route
 
 import java.time.format.DateTimeFormatter
 
-import cats.Applicative
-import cats.effect.{ContextShift, Sync}
+import cats.effect.Sync
 import cats.implicits._
 import io.circe.{Encoder, Json}
 import org.http4s.circe.jsonEncoderOf
@@ -18,7 +17,7 @@ import com.hhandoko.realworld.service.query.Pagination
 
 object ArticleRoutes {
 
-  def apply[F[_]: ContextShift: Sync](articleService: ArticleService[F]): HttpRoutes[F] = {
+  def apply[F[_]: Sync](articleService: ArticleService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
     HttpRoutes.of[F] {
@@ -62,7 +61,7 @@ object ArticleRoutes {
       "articlesCount" -> Json.fromInt(r.count)
     )
 
-    implicit def entityEncoder[F[_]: Applicative]: EntityEncoder[F, ArticlesResponse] =
+    implicit def entityEncoder[F[_]]: EntityEncoder[F, ArticlesResponse] =
       jsonEncoderOf[F, ArticlesResponse]
   }
 }

@@ -7,18 +7,21 @@ import sbt._
 
 object Common {
 
+  // Scala version
+  private val scalaLibVersion = "2.13.5"
+
   // Dependency versions
-  private val doobieVersion     = "0.10.0"
-  private val flywayVersion     = "7.6.0"
-  private val http4sVersion     = "0.21.20"
-  private val jansiVersion      = "2.3.1"
-  private val oauthJwtVersion   = "3.14.0"
+  private val doobieVersion     = "0.12.1"
+  private val flywayVersion     = "7.8.1"
+  private val http4sVersion     = "0.21.22"
+  private val jansiVersion      = "2.3.2"
+  private val oauthJwtVersion   = "3.15.0"
   private val pureConfigVersion = "0.14.1"
 
   // Transient dependency versions
   // ~ doobie
   private val h2Version       = "1.4.200"
-  private val postgresVersion = "42.2.18"
+  private val postgresVersion = "42.2.19"
   // ~ http4s
   private val circeVersion   = "0.13.0"
   private val logbackVersion = "1.2.3"
@@ -39,7 +42,7 @@ object Common {
     organization := "com.hhandoko",
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
-    scalaVersion := "2.13.4",
+    scalaVersion := scalaLibVersion,
     mainClass in Compile := Some("com.hhandoko.realworld.Application")
   )
 

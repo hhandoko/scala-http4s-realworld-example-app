@@ -4,15 +4,15 @@ addSbtPlugin("au.com.onegeek" %% "sbt-dotenv" % "2.1.204")
 
 // Check Maven and Ivy repositories for dependency updates
 // See: https://github.com/rtimush/sbt-updates
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.5.1")
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.5.3")
 
 // Build application distribution packages in native formats
 // See: https://github.com/sbt/sbt-native-packager
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.8.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.8.1")
 
 // Pass recommended Scala compiler flags
 // See: https://github.com/DavidGregory084/sbt-tpolecat
-addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.16")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.17")
 
 // Flyway migrations support in SBT
 // See: https://github.com/flyway/flyway-sbt
