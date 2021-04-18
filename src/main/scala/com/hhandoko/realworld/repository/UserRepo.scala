@@ -1,6 +1,5 @@
 package com.hhandoko.realworld.repository
 
-import cats._
 import cats.effect.Sync
 import doobie.implicits._
 import doobie.util.fragment.Fragment
@@ -14,7 +13,7 @@ trait UserRepo[F[_]] {
 
 object UserRepo {
 
-  def apply[F[_]: Monad: Sync](xa: Transactor[F]): UserRepo[F] =
+  def apply[F[_]: Sync](xa: Transactor[F]): UserRepo[F] =
     new UserRepo[F] {
       override def find(username: Username): F[Option[Profile]] =
         (select ++ withUsername(username) ++ withLimit)

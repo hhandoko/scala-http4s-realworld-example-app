@@ -1,7 +1,6 @@
 package com.hhandoko.realworld.route
 
-import cats.Applicative
-import cats.effect.{ContextShift, Sync}
+import cats.effect.Sync
 import cats.implicits._
 import io.circe.generic.auto._
 import org.http4s.circe.{jsonEncoderOf, jsonOf}
@@ -14,7 +13,7 @@ import com.hhandoko.realworld.service.AuthService
 
 object AuthRoutes extends UnauthorizedResponseSupport {
 
-  def apply[F[_]: ContextShift: Sync](authService: AuthService[F]): HttpRoutes[F] = {
+  def apply[F[_]: Sync](authService: AuthService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
     implicit val loginPostDecoder = jsonOf[F, LoginPost]
@@ -35,7 +34,7 @@ object AuthRoutes extends UnauthorizedResponseSupport {
 
   final case class LoginPost(user: LoginPostPayload)
   object LoginPost {
-    implicit def entityEncoder[F[_]: Applicative]: EntityEncoder[F, LoginPost] =
+    implicit def entityEncoder[F[_]]: EntityEncoder[F, LoginPost] =
       jsonEncoderOf[F, LoginPost]
   }
 

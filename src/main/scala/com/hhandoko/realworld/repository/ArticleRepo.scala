@@ -2,7 +2,6 @@ package com.hhandoko.realworld.repository
 
 import java.time.ZonedDateTime
 
-import cats._
 import cats.syntax.functor._
 import doobie.Read
 
@@ -21,7 +20,7 @@ trait ArticleRepo[F[_]] {
 
 object ArticleRepo {
 
-  def apply[F[_]: Effect: Monad](xa: Transactor[F]): ArticleRepo[F] =
+  def apply[F[_]: Effect](xa: Transactor[F]): ArticleRepo[F] =
     new ArticleRepo[F] {
       import Reader._
 

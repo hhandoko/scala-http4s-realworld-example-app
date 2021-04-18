@@ -1,7 +1,6 @@
 package com.hhandoko.realworld.route
 
-import cats.Applicative
-import cats.effect.{ContextShift, Sync}
+import cats.effect.Sync
 import cats.implicits._
 import io.circe.{Encoder, Json}
 import org.http4s.circe.jsonEncoderOf
@@ -13,7 +12,7 @@ import com.hhandoko.realworld.service.TagService
 
 object TagRoutes {
 
-  def apply[F[_]: ContextShift: Sync](tagService: TagService[F]): HttpRoutes[F] = {
+  def apply[F[_]: Sync](tagService: TagService[F]): HttpRoutes[F] = {
     object dsl extends Http4sDsl[F]; import dsl._
 
     HttpRoutes.of[F] {
@@ -31,7 +30,7 @@ object TagRoutes {
       "tags" -> Json.fromValues(r.tags.map(_.value).map(Json.fromString))
     )
 
-    implicit def entityEncoder[F[_] : Applicative]: EntityEncoder[F, AllTagsResponse] =
+    implicit def entityEncoder[F[_]]: EntityEncoder[F, AllTagsResponse] =
       jsonEncoderOf[F, AllTagsResponse]
   }
 }

@@ -55,7 +55,7 @@ object Server {
   private[this] def loggedRoutes[F[_]: ConcurrentEffect](config: LogConfig, routes: HttpRoutes[F]): HttpRoutes[F] =
     Logger.httpRoutes(config.httpHeader, config.httpBody) { routes }
 
-  private[this] def server[F[_]: ConcurrentEffect: ContextShift: Timer](
+  private[this] def server[F[_]: ConcurrentEffect: Timer](
     config: ServerConfig,
     routes: HttpRoutes[F]
   ): Resource[F, BlazeServer[F]] = {

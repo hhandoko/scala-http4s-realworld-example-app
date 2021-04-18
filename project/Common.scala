@@ -7,6 +7,9 @@ import sbt._
 
 object Common {
 
+  // Scala version
+  private val scalaLibVersion = "2.13.5"
+
   // Dependency versions
   private val doobieVersion     = "0.12.1"
   private val flywayVersion     = "7.8.1"
@@ -39,7 +42,7 @@ object Common {
     organization := "com.hhandoko",
     name := "realworld",
     version := using(Source.fromFile("VERSION.txt")) { _.mkString },
-    scalaVersion := "2.13.4",
+    scalaVersion := scalaLibVersion,
     mainClass in Compile := Some("com.hhandoko.realworld.Application")
   )
 

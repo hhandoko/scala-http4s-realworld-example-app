@@ -1,6 +1,5 @@
 package com.hhandoko.realworld.route.common
 
-import cats.Applicative
 import io.circe.{Encoder, Json}
 import org.http4s.circe.jsonEncoderOf
 import org.http4s.EntityEncoder
@@ -24,6 +23,6 @@ object UserResponse {
     )
   )
 
-  implicit def entityEncoder[F[_] : Applicative]: EntityEncoder[F, UserResponse] =
+  implicit def entityEncoder[F[_]]: EntityEncoder[F, UserResponse] =
     jsonEncoderOf[F, UserResponse]
 }
