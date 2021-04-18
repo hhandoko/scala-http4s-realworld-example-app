@@ -55,7 +55,7 @@ object ArticleRepo {
     fr"     LIMIT ${pg.limit} OFFSET ${pg.offset}"
 
   object Reader {
-    import doobie.implicits.javatime._
+    import doobie.implicits.javatimedrivernative._
 
     implicit val readArticle: Read[Article] =
       Read[(String, String, String, String, ZonedDateTime, ZonedDateTime, String)]

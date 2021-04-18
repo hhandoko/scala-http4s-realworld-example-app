@@ -48,7 +48,7 @@ object Server {
 
     for {
       blocker <- Blocker[F]
-      config  <- Resource.liftF(loadConfigF[F, Config](blocker))
+      config  <- Resource.eval(loadConfigF[F, Config](blocker))
     } yield config
   }
 
