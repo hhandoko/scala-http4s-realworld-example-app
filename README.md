@@ -16,7 +16,7 @@ For more information on how to this works with other frontends/backends, head ov
 Ensure the following dependencies are installed and configured:
 
   - [Java SDK] 8 or 11 or [GraalVM] 20.2.x (both Java 8 and 11 variants)
-  - [sbt] 1.4.x
+  - [sbt] 1.5.x
 
 ### Setup Steps
 
@@ -93,8 +93,6 @@ Please read [PROGRESS] for more details.
 
   - GraalVM `21.0.0.2`:
     - Pending `org.scalameta %% svm-subs` support
-  - Scala `2.13.5`:
-    - Pending `sbt-tpolecat` support
 
 # Contributing
 
