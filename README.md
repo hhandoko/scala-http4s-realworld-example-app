@@ -83,6 +83,10 @@ Backend API implementation:
 
 Please read [PROGRESS] for more details.
 
+# Notes
+
+Scalameta substitutions ([svm-subs]) are copied over into the repository as the library has not had any updates for a while.
+
 # Issues
 
   - Native image generation sometimes fail with non-initialized charset issue error message (simply retry until succeeds)
@@ -137,4 +141,5 @@ Please read [CONTRIBUTING] for more details.
 [newman]: https://github.com/postmanlabs/newman
 [PROGRESS]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/PROGRESS.md
 [sbt]: https://www.scala-sbt.org/
+[svm-subs]: https://github.com/scalameta/svm-subs
 [sdkman]: https://sdkman.io/

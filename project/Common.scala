@@ -62,7 +62,6 @@ object Common {
       "org.http4s"              %% "http4s-circe"           % http4sVersion,
       "org.http4s"              %% "http4s-dsl"             % http4sVersion,
       "org.postgresql"          %  "postgresql"             % postgresVersion,
-      "org.scalameta"           %% "svm-subs"               % graalVmVersion,
       "org.specs2"              %% "specs2-core"            % specs2Version % Test,
       "org.tpolecat"            %% "doobie-core"            % doobieVersion,
       "org.tpolecat"            %% "doobie-h2"              % doobieVersion % Test,
