@@ -15,7 +15,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 Ensure the following dependencies are installed and configured:
 
-  - [Java SDK] 8 or 11 or [GraalVM] 20.2.x (both Java 8 and 11 variants)
+  - [Java SDK] 8 or 11 or [GraalVM] 21.0.x (both Java 8 and 11 variants)
   - [sbt] 1.5.x
 
 ### Setup Steps
