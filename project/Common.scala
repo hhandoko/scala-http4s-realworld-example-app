@@ -32,8 +32,8 @@ object Common {
   private val kindProjectorVersion    = "0.11.3"
 
   // Graal native-image compiler dependency versions
-  private val graalVmVersion = "20.2.0"
-  private val jnaVersion     = "5.7.0"
+  private val graalVmVersion = "21.0.0.2"
+  private val jnaVersion     = "5.8.0"
 
   final val settings: Seq[Setting[_]] =
     projectSettings ++ dependencySettings ++ flywaySettings ++ compilerPlugins

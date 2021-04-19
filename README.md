@@ -45,6 +45,7 @@ To package and run it as an uber-jar:
 Ensure Graal is downloaded and its binaries folder added to `PATH`. The most convenient way is to use [sdkman] to switch between different Java SDK versions (Graal included).
 
   - Run `sdk env` to initialise the shell session using [sdkman]
+  - Run `gu install native-image` to configure the native-image binary (incl. agent)
 
 To generate assisted configuration for native image:
 
@@ -92,11 +93,6 @@ Scalameta substitutions ([svm-subs]) are copied over into the repository as the 
   - Native image generation sometimes fail with non-initialized charset issue error message (simply retry until succeeds)
   - Native image generation with `jwt-scala` fails ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
   - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
-
-# Pending Updates
-
-  - GraalVM `21.0.0.2`:
-    - Pending `org.scalameta %% svm-subs` support
 
 # Contributing
 

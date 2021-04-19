@@ -117,7 +117,8 @@
   "name":"java.lang.String[]"
 },
 {
-  "name":"java.lang.invoke.VarHandle"
+  "name":"java.lang.invoke.VarHandle",
+  "methods":[{"name":"releaseFence","parameterTypes":[] }]
 },
 {
   "name":"java.net.NetPermission"
@@ -160,7 +161,8 @@
   "name":"org.postgresql.Driver"
 },
 {
-  "name":"scala.Symbol"
+  "name":"scala.Symbol",
+  "methods":[{"name":"apply","parameterTypes":["java.lang.String"] }]
 },
 {
   "name":"scala.util.Either[]"
