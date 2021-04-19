@@ -15,7 +15,7 @@ For more information on how to this works with other frontends/backends, head ov
 
 Ensure the following dependencies are installed and configured:
 
-  - [Java SDK] 8 or 11 or [GraalVM] 20.2.x (both Java 8 and 11 variants)
+  - [Java SDK] 8 or 11 or [GraalVM] 21.0.x (both Java 8 and 11 variants)
   - [sbt] 1.5.x
 
 ### Setup Steps
@@ -45,6 +45,7 @@ To package and run it as an uber-jar:
 Ensure Graal is downloaded and its binaries folder added to `PATH`. The most convenient way is to use [sdkman] to switch between different Java SDK versions (Graal included).
 
   - Run `sdk env` to initialise the shell session using [sdkman]
+  - Run `gu install native-image` to configure the native-image binary (incl. agent)
 
 To generate assisted configuration for native image:
 
@@ -83,16 +84,15 @@ Backend API implementation:
 
 Please read [PROGRESS] for more details.
 
+# Notes
+
+Scalameta substitutions ([svm-subs]) are copied over into the repository as the library has not had any updates for a while.
+
 # Issues
 
   - Native image generation sometimes fail with non-initialized charset issue error message (simply retry until succeeds)
   - Native image generation with `jwt-scala` fails ([oracle/graal/#1152](https://github.com/oracle/graal/issues/1152))
   - JWT token decoding in native image fails ([oracle/graal/#1240](https://github.com/oracle/graal/issues/1240))
-
-# Pending Updates
-
-  - GraalVM `21.0.0.2`:
-    - Pending `org.scalameta %% svm-subs` support
 
 # Contributing
 
@@ -137,4 +137,5 @@ Please read [CONTRIBUTING] for more details.
 [newman]: https://github.com/postmanlabs/newman
 [PROGRESS]: https://github.com/hhandoko/scala-http4s-realworld-example-app/blob/master/PROGRESS.md
 [sbt]: https://www.scala-sbt.org/
+[svm-subs]: https://github.com/scalameta/svm-subs
 [sdkman]: https://sdkman.io/

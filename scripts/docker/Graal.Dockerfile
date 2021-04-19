@@ -1,4 +1,4 @@
-FROM        oracle/graalvm-ce:20.2.0-java11 as assembler
+FROM        ghcr.io/graalvm/graalvm-ce:java11-21.0.0.2 as assembler
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM assembler"
 
@@ -18,7 +18,7 @@ RUN         ./sbt/bin/sbt -mem 4096 clean stage
 
 # ~~~~~~
 
-FROM        oracle/graalvm-ce:20.2.0-java11 as packager_graal
+FROM        ghcr.io/graalvm/graalvm-ce:java11-21.0.0.2 as packager_graal
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM packager"
 
@@ -33,7 +33,7 @@ RUN         mkdir -p app \
 
 # ~~~~~~
 
-FROM        oracle/graalvm-ce:20.2.0-java11
+FROM        ghcr.io/graalvm/graalvm-ce:java11-21.0.0.2
 LABEL       maintainer="Herdy Handoko <herdy.handoko@gmail.com>"
 LABEL       description="http4s GraalVM (JIT) runtime container"
 

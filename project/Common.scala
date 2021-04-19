@@ -32,8 +32,8 @@ object Common {
   private val kindProjectorVersion    = "0.11.3"
 
   // Graal native-image compiler dependency versions
-  private val graalVmVersion = "20.2.0"
-  private val jnaVersion     = "5.7.0"
+  private val graalVmVersion = "21.0.0.2"
+  private val jnaVersion     = "5.8.0"
 
   final val settings: Seq[Setting[_]] =
     projectSettings ++ dependencySettings ++ flywaySettings ++ compilerPlugins
@@ -62,7 +62,6 @@ object Common {
       "org.http4s"              %% "http4s-circe"           % http4sVersion,
       "org.http4s"              %% "http4s-dsl"             % http4sVersion,
       "org.postgresql"          %  "postgresql"             % postgresVersion,
-      "org.scalameta"           %% "svm-subs"               % graalVmVersion,
       "org.specs2"              %% "specs2-core"            % specs2Version % Test,
       "org.tpolecat"            %% "doobie-core"            % doobieVersion,
       "org.tpolecat"            %% "doobie-h2"              % doobieVersion % Test,
